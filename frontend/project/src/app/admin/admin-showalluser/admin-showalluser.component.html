@@ -1,0 +1,35 @@
+<body>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Sl. No.</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Category</th>
+               
+                <th>Is Blocked</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ user.firstName }}</td>
+                <td>{{ user.lastName }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.category }}</td>
+              
+                <td>
+                    <button *ngIf="!user.is_blocked" class="btn btn-success" (click)="block(user)">Block</button>
+                    <button *ngIf="user.is_blocked" class="btn btn-danger" (click)="block(user)">Unblock</button>
+                </td>
+                
+                
+            </tr>
+            
+            <!-- Add more rows as needed -->
+        </tbody>
+    </table>
+    
+    </body>

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AdminService } from 'src/app/Services/admin.service';
+import { ToasterService } from 'src/app/Services/toaster.service';
 
 @Component({
   selector: 'app-admin-login',
@@ -13,6 +15,8 @@ export class AdminLoginComponent {
   constructor(
     private formbuilder: FormBuilder,
     private service: AdminService,
+    private toastr:ToasterService,
+    private router:Router
    
   
   ) {
@@ -31,7 +35,13 @@ export class AdminLoginComponent {
       }
 this.loginform.reset()
   this.service.adminlogin(userCredentails).subscribe((result)=>{
-    
+    if(result){
+      this.toastr.success("login success")
+      this.router.navigate(["/admin/admin-home"])
+
+    }else{
+      this.toastr.error("error login")
+    }
   },(error)=>{
 
   })
