@@ -1,0 +1,9 @@
+.parent{
+    background-color: #09203F;
+}
+.btn,.signinbtn{
+    border: 2px solid black;
+    color: white;
+
+    border-radius: 25px;
+}

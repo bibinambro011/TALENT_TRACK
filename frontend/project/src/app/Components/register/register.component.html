@@ -1,0 +1,117 @@
+<app-navbar></app-navbar>
+<div class="container">
+  <div class="login">
+    <div class="container">
+      <form
+        [formGroup]="profileForm"
+        (ngSubmit)="onSubmit()"
+        #myform="ngForm"
+        class="max-w-md mx-auto flex flex-col space-y-4"
+      >
+        <h1>User Register</h1>
+        <input
+          id="first-name"
+          type="text"
+          formControlName="firstName"
+          placeholder="firstName"
+        />
+        <div
+          *ngIf="profileForm.get('firstName')?.errors?.['required'] && myform?.submitted"
+          class="text-red-500"
+        >
+          First name is required.
+        </div>
+        <input
+          id="last-name"
+          type="text"
+          formControlName="lastName"
+          placeholder="lastName"
+        />
+        <div
+          *ngIf="profileForm.get('lastName')?.errors?.['required'] && myform?.submitted"
+          class="text-red-500"
+        >
+          Last name is required.
+        </div>
+
+        <input type="email" placeholder="Email" formControlName="email" />
+        <div *ngIf="profileForm.get('email')?.errors?.['required'] && myform?.submitted" class="text-red-500">Email is required.</div>
+        <div *ngIf="profileForm.get('email')?.errors?.['email'] && myform?.submitted" class="text-red-500">Please enter a valid email.</div>
+
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          placeholder="password"
+        />
+        <div
+          *ngIf="profileForm.get('password')?.errors?.['required'] && myform?.submitted"
+          class="text-red-500"
+        >
+          Password is required.
+        </div>
+        <div
+          *ngIf="profileForm.get('password')?.errors?.['minlength'] && myform?.submitted"
+          class="text-red-500"
+        >
+          Password should be at least 6 characters long.
+        </div>
+        <input
+          id="confirm_password"
+          type="password"
+          formControlName="confirmPassword"
+          placeholder="confirm password"
+        />
+        <div
+          *ngIf="profileForm.get('confirmPassword')?.errors?.['required'] && myform?.submitted"
+          class="text-red-500"
+        >
+          Confirm Password is required.
+        </div>
+     
+      
+
+        <input
+          id="image"
+          type="file"
+          formControlName="image"
+          accept="image/*"
+        />
+        <label for="category">select a category</label>
+        <select id="category" formControlName="category">
+          <option value="football">FOOTBALL</option>
+          <option value="cricket">CRICKET</option>
+          <option value="badminton">BADMINTON</option>
+          <option value="basketball">BASKETBALL</option>
+          <option value="hockey">HOCKEY</option>
+          <option value="volleyball">VOLLEYBALL</option>
+        </select>
+        <div
+          *ngIf="profileForm.get('category')?.errors?.['required'] && myform?.submitted"
+          class="text-red-500"
+        >
+          Category is required.
+        </div>
+
+        <button type="submit">Register new account</button>
+      </form>
+
+      <ul>
+        <li><i class="fab fa-facebook-f fa-2x"></i></li>
+        <li><i class="fab fa-twitter fa-2x"></i></li>
+        <li><i class="fab fa-github fa-2x"></i></li>
+        <li><i class="fab fa-linkedin-in fa-2x"></i></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="register">
+    <div class="container">
+      <i class="fas fa-user-plus fa-5x"></i>
+      <img src="/assets/images/tt.jpg" alt="">
+      <h2>Hello,friend!</h2>
+      <p>Enter your personal details start journey with us</p>
+     <button><a routerLink="/user/login">go to Login <i class="fas fa-arrow-circle-right"></i></a></button> 
+    </div>
+  </div>
+</div>

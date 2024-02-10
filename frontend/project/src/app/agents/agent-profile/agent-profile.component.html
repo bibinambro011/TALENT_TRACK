@@ -1,0 +1,12 @@
+<app-agent-navbar></app-agent-navbar>
+
+<div class="card flex justify-content-center" >
+    <p-sidebar [(visible)]="sidebarVisible" [style]="{marginTop:'96px',background:'#09203F',color:'white',width:'15rem'}" >
+        <ng-template pTemplate="header">Header Content</ng-template>
+        <ng-template pTemplate="content">
+            <button (click)="logout()" >logout</button>
+        </ng-template>
+        <ng-template pTemplate="footer">Footer Content</ng-template>
+    </p-sidebar>
+    <p-button (click)="sidebarVisible = true" icon="pi pi-arrow-right"></p-button>
+</div>

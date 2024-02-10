@@ -1,0 +1,15 @@
+
+<app-agent-navbar></app-agent-navbar>
+<div class="parent">
+    <div class="login-card">
+      <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
+          <input type="text" placeholder="enter otp" class="form-control" [(ngModel)]="userotp"  name="otp" id="otp">
+        
+          <div class="button-container">
+              <button type="submit" class="login-btn">submit</button>
+             
+          </div>
+      </form>
+  </div>
+  </div>
+    
