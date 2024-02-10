@@ -9,7 +9,7 @@ export class adminController{
         const result=await adminservice.adminlogin(data);
       try{
         if(result){
-            if(result.password==data.password){
+            if(result[0].password==data.password){
 
             }
 
