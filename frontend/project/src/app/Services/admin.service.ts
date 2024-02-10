@@ -13,4 +13,14 @@ export class AdminService {
   adminlogin(data:userlog):Observable<any>{
     return this.http.post<any>(`${this.api}/admin/adminlogin`,data)
   }
-}
+  getAllUsers():Observable<any>{
+    return this.http.get<any>(`${this.api}/admin/getuserdata`)
+  }
+  getAllAgents():Observable<any>{
+    return this.http.get<any>(`${this.api}/admin/getagentdata`)
+  }
+  userBlock(data:any):Observable<any>{
+    return this.http.post<any>(`${this.api}/admin/blokUser`,data)
+  }
+  }
+
