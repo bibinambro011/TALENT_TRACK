@@ -1,0 +1,11 @@
+button {
+   
+    font-size: 1.2em;
+    color: #818181;
+    display: block;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  button:hover {
+    color: #f8f9fa;
+  }
