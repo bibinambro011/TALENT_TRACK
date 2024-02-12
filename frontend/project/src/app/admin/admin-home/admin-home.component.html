@@ -5,7 +5,7 @@
         <ng-template pTemplate="content">
             <button type="button" (click)="dashboard()" ><i class="pi pi-align-justify"></i> Dashboard</button><br>
             <button type="button" (click)="userdetails()"><i class="pi pi-user"></i> UserManagement</button><br>
-            <button type="button" (click)="admindetails()"> <i class="pi pi-users"></i> AgentManagement</button><br>
+            <button type="button" (click)="agentdetails()"> <i class="pi pi-users"></i> AgentManagement</button><br>
             <button type="button"><i class="pi pi-book"></i> Appointments</button><br>
             <button type="button" (click)="logout()"><i class="pi pi-sign-out"></i> Logout</button>
 
@@ -15,5 +15,6 @@
     <p-button (click)="sidebarVisible = true" icon="pi pi-arrow-right"></p-button>
 </div>
 
-<app-admin-dashboard *ngIf="visibility"></app-admin-dashboard>
-<app-admin-showalluser *ngIf="visibility"></app-admin-showalluser>
+<app-admin-dashboard *ngIf="dashboardvisibility"></app-admin-dashboard>
+<app-admin-showalluser *ngIf="uservisibility"></app-admin-showalluser>
+<app-admin-showallagents *ngIf="agentvisibility"></app-admin-showallagents>

@@ -6,6 +6,7 @@
           [formGroup]="profileForm"
           (ngSubmit)="onSubmit()"
           #myform="ngForm"
+          enctype="multipart/form-data"
           class="max-w-md mx-auto flex flex-col space-y-4"
         >
           <h1>Agent Register</h1>
@@ -91,7 +92,7 @@
             Category is required.
           </div>
   
-          <button type="submit">Register new account</button>
+          <button type="submit" >Register new account</button>
         </form>
   
         <ul>

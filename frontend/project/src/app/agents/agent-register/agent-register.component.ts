@@ -12,10 +12,12 @@ import { UserService } from 'src/app/Services/user.service';
 export class AgentRegisterComponent {
   profileForm !: FormGroup; 
   errorMessage !: string;
+  
 
   constructor(private formBuilder: FormBuilder,private service:UserService,private toastr: ToastrService,private router:Router) {} 
 
   ngOnInit(): void {
+
    
     this.profileForm = this.formBuilder.group({
       firstName: ['', Validators.required],
@@ -29,9 +31,7 @@ export class AgentRegisterComponent {
     });
   }
   onSubmit() {
-    console.log("before function")
   
-    
       const firstName= this.profileForm.get('firstName')?.value;
       const lastName= this.profileForm.get('lastName')?.value;
       const email = this.profileForm.get('email')?.value;
@@ -62,12 +62,13 @@ export class AgentRegisterComponent {
         this.toastr.error('password do not match');
         return;
       }
-     
+    
       this.service.registerAgent(obj).subscribe((result)=>{
         console.log("agentroute resulty is==>",result)
         localStorage.setItem('agentemail',obj.email); 
         localStorage.setItem('agentrole','agent'); 
-        this.router.navigate(["/agentmailverify"])
+        this.router.navigate(["/agent/agentmailverify"])
+        
 
       },(error)=>{
         this.toastr.error('email already exists');

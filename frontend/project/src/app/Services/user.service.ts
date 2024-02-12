@@ -31,4 +31,7 @@ export class UserService {
   verifyUser(data:any):Observable<any>{
     return this.http.post<any>(`${this.api}/users/verifyotp`,data)
   }
+  getAllverifiedAgents():Observable<any>{
+    return this.http.get<any>(`${this.api}/users/getVerifiedagents`)
+  }
 }

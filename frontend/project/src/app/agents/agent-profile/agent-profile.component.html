@@ -2,9 +2,16 @@
 
 <div class="card flex justify-content-center" >
     <p-sidebar [(visible)]="sidebarVisible" [style]="{marginTop:'96px',background:'#09203F',color:'white',width:'15rem'}" >
-        <ng-template pTemplate="header">Header Content</ng-template>
+        <ng-template pTemplate="header">
+          
+        </ng-template>
         <ng-template pTemplate="content">
-            <button (click)="logout()" >logout</button>
+            <button type="button" (click)="dashboard()" ><i class="pi pi-align-justify"></i> Dashboard</button><br>
+            <button type="button" (click)="posts()"><i class="pi pi-user"></i>posts</button><br>
+            <button type="button" (click)="Players()"> <i class="pi pi-users"></i>Players</button><br>
+            <button type="button" (click)="Appointments()"><i class="pi pi-book"></i> Appointments</button><br>
+            <button type="button" (click)="logout()"><i class="pi pi-sign-out"></i> Logout</button><br>
+           
         </ng-template>
         <ng-template pTemplate="footer">Footer Content</ng-template>
     </p-sidebar>

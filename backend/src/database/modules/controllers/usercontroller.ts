@@ -63,4 +63,14 @@ export class UserController {
       res.status(500).json({ message: error.message });
     }
   }
+  async getVerifiedagents(req:Request,res:Response){
+    try{
+      const data=await userService.getVerifiedagents();
+         res.status(200).json(data)
+   
+    }catch(error:any){
+      throw new Error(error.message)
+    }
+    
+  }
 }

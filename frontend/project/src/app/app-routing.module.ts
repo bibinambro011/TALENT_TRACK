@@ -8,6 +8,8 @@ import { AgentsComponent } from './agents/agents/agents.component';
 import { AgentRegisterComponent } from './agents/agent-register/agent-register.component';
 import { ProfileComponent } from './Components/profile/profile.component';
 import { userauthGuard } from './guards/userauth.guard';
+import { AgentSearchComponent } from './agents/agent-search/agent-search.component';
+import { SearchAgentComponent } from './Components/search-agent/search-agent.component';
 
 const routes: Routes = [
   {path:"",component:UserhomeComponent},
@@ -16,7 +18,9 @@ const routes: Routes = [
   {path:"home",component:UserhomeComponent},
   {path:"login",component:LoginComponent},
   {path:"register",component:RegisterComponent},
-  {path:"mailverify",component:OtpenterComponent},]},
+  {path:"agentsearch",component:SearchAgentComponent,canActivate:[userauthGuard]},
+  {path:"mailverify",component:OtpenterComponent}]},
+  
  
   // {path:"agents",children:[
   //   {path:"register",component:AgentRegisterComponent}
@@ -24,7 +28,9 @@ const routes: Routes = [
   {
     path: 'agents',
     loadChildren: () => import('./agents/agents.module').then(m => m.AgentsModule)
-  }
+  },
+ 
+ 
 ];
 
 @NgModule({

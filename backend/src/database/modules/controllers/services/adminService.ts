@@ -48,5 +48,13 @@ export class adminService{
             throw new Error("invalid")
         }
     }
+    async verifyagent(email:any){
+        try{
+            console.log("user id in service",email)
+            return adminrepository.verifyagent(email)
 
+        }catch(error){
+            throw new Error("invalid")
+        }
+    }
 }

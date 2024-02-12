@@ -49,7 +49,11 @@
 
 .hero-footer {
   display: flex;
-  margin-bottom: 1em;
+  margin-bottom: 10em;
+  margin-left: 3em;
+ 
+ 
+ 
 }
 
 .button {

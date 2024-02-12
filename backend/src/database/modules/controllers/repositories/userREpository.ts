@@ -1,4 +1,5 @@
 import usersModel from "/Users/User/Desktop/secondProject/backend/src/database/models/usermodel";
+import agentModel from "../../../models/agentmodels";
 import { UserDto } from "../dtos/userDto";
 import { comparePass } from "../../../../../Helper/passwordhash";
 import jwt from 'jsonwebtoken';
@@ -73,5 +74,13 @@ export class UserRepository {
     }catch(error:any){
       throw new Error(error.message)
     }
+  }
+  async getVerifiedagents(){
+    try{
+      return agentModel.find({is_verified:true})
+    }catch(error:any){
+      throw new Error(error.message)
+    }
+   
   }
 }

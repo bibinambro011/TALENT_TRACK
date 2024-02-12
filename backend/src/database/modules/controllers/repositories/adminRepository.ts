@@ -46,6 +46,23 @@ export class adminRepository{
         try{
             const data:any=await agentModel.findOne({email:email})
             console.log("user in repository===>",data)
+            if(data.is_blocked){
+                data.is_blocked=false;
+                data.save();
+                return true
+            }else{
+                data.is_blocked=true;
+                data.save();
+                return true
+            }
+        }catch (error){
+            throw new Error("invalid")
+        }
+    }
+    async verifyagent(email:any){
+        try{
+            const data:any=await agentModel.findOne({email:email})
+            console.log("user in repository===>",data)
             if(data.is_verified){
                 data.is_verified=false;
                 data.save();
@@ -59,4 +76,5 @@ export class adminRepository{
             throw new Error("invalid")
         }
     }
+    
 }

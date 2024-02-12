@@ -4,6 +4,7 @@ import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import generateMail from "../../../../Helper/mailOtp";
 import { agentService } from "./services/agentService";
+import cloudinary from "../../../../Helper/cloudinary";
 
 const agentservice = new agentService();
 
@@ -13,7 +14,11 @@ export class agetController {
     //agent resgistration 
   async registeragent(req: Request, res: Response) {
     console.log("registeragent called==>");
+    console.log("req.body bis==>",req.body)
+    console.log("req.file bis==>",req.file)
+  
     try {
+      const folderName = 'Talent Track';
       const agentData: UserDto = req.body;
 
       const agentdetails = await agentservice.agetDetails(agentData);
@@ -25,6 +30,11 @@ export class agetController {
       }
       const password = await bcrypt.hash(agentData.password, 10);
       agentData.password = password;
+      if (req.file) {
+        console.log("cloudinary===>")
+        const result = await cloudinary.uploader.upload(req.file.path, { public_id: `${folderName}/${req.file.originalname}` });
+        agentData.image = result.secure_url;
+      }
       const newUser = await agentservice.registeragent(agentData);
       res.status(201).json(newUser);
     } catch (error: any) {

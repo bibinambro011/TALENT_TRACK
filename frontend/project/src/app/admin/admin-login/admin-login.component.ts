@@ -36,6 +36,7 @@ export class AdminLoginComponent {
 this.loginform.reset()
   this.service.adminlogin(userCredentails).subscribe((result)=>{
     if(result){
+      localStorage.setItem("admintoken",result)
       this.toastr.success("login success")
       this.router.navigate(["/admin/admin-home"])
 

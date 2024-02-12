@@ -26,8 +26,13 @@ console.log("contructor function get called")
                 console.log(data)
                 if(data.agenttoken){
                     localStorage.setItem('agenttoken',JSON.parse(JSON.stringify(data)).agenttoken)
-                    this.route.navigate(['/agent/agent-home'])
-                    this.toastr.success("login success !!")
+                    if(data.userdetails.verified){
+                        this.route.navigate(['/agent/agent-home'])
+                        this.toastr.success("login success !!")
+                    }else{
+                        this.toastr.error("you have been registered please wait untill admin verify you !!")
+                    }
+                   
                    
                     return agentloginsuccess({agentdetails:data})
                 }else{
