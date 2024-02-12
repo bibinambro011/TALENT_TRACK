@@ -8,5 +8,6 @@ const userController = new UserController();
 router.post('/userregister', userController.registerUser);
 router.post("/userlogin",userController.userlogin)
 router.post("/verifyotp",userController.verifyotp)
+router.get("/getVerifiedagents",userController.getVerifiedagents)
 
 export default router;

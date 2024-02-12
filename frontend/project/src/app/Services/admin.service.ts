@@ -22,5 +22,12 @@ export class AdminService {
   userBlock(data:any):Observable<any>{
     return this.http.post<any>(`${this.api}/admin/blokUser`,data)
   }
+  agentBlock(data:any):Observable<any>{
+    return this.http.post<any>(`${this.api}/admin/blokagent`,data)
+  }
+  agentVerify(data:any):Observable<any>{
+    return this.http.post<any>(`${this.api}/admin/agentVerify`,data)
+  }
+  
   }
 

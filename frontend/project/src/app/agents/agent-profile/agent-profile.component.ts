@@ -9,10 +9,22 @@ import { Router } from '@angular/router';
   styleUrls: ['./agent-profile.component.css']
 })
 export class AgentProfileComponent {
-  sidebarVisible: boolean = false;
+  sidebarVisible: boolean = true;
   constructor( private router:Router){}
   logout(){
     localStorage.removeItem('agenttoken');
     this.router.navigate(['/agent/agent-login'])
+  }
+  dashboard(){
+
+  }
+  posts(){
+
+  }
+  Players(){
+
+  }
+  Appointments(){
+
   }
 }

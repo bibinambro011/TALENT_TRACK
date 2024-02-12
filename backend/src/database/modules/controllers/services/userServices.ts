@@ -40,4 +40,11 @@ export class UserService {
       throw new Error('Could not get user');
     }
   }
+  async getVerifiedagents(){
+    try{
+      return userRepository.getVerifiedagents()
+    }catch(error:any){
+      throw new Error(error.message)
+    }
+  }
 }

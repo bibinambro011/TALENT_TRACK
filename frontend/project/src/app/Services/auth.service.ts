@@ -18,4 +18,8 @@ checkagentLoggedIn(){
   const agentToken=this.service.getAgentTokenFromLocalStorage()
   return !! agentToken
 }
+checkadminLoggedIn(){
+  const adminToken=this.service.getAdminTokenFromLocalStorage()
+  return !! adminToken
+}
 }

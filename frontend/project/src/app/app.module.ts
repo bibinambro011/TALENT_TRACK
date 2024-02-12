@@ -27,6 +27,8 @@ import { ProfileComponent } from './Components/profile/profile.component';
 import { SidebarModule } from 'primeng/sidebar';
 import { ButtonModule } from 'primeng/button';
 import { AdminModule } from './admin/admin.module';
+import { SearchAgentComponent } from './Components/search-agent/search-agent.component';
+
 
 @NgModule({
   declarations: [
@@ -38,6 +40,7 @@ import { AdminModule } from './admin/admin.module';
     NavbarComponent,
     FooterComponent,
     ProfileComponent,
+    SearchAgentComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,5 +69,6 @@ import { AdminModule } from './admin/admin.module';
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
+  
 })
 export class AppModule {}

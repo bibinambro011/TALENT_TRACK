@@ -10,6 +10,6 @@ export class UserhomeComponent {
 constructor(private router:Router){}
 
   redirect(){
-this.router.navigate(["/agent/agent-search"])
+this.router.navigate(["/user/agentsearch"])
   }
 }

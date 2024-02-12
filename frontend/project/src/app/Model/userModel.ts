@@ -22,7 +22,8 @@ export interface logsuccess {
   name: string;
   email: string;
   role: string;
-  image:string,
+  verified:boolean;
+  image:string;
   category: string;
 }
 

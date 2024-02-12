@@ -26,7 +26,7 @@ import { AdminShowallagentsComponent } from './admin-showallagents/admin-showall
   ],
   imports: [
     CommonModule,
-    AdminRoutingModule,ReactiveFormsModule,FormsModule,HttpClientModule,SidebarModule,ButtonModule
+    AdminRoutingModule,ReactiveFormsModule,FormsModule,HttpClientModule,SidebarModule,ButtonModule,
   ]
 })
 export class AdminModule { }

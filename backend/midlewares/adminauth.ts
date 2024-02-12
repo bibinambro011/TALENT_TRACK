@@ -3,13 +3,15 @@ import { Request,Response } from "express";
 
 import jwt from "jsonwebtoken"
 
-const   userAuth = async(req:Request,res:Response,next:NextFunction)=>{
+const   adminAuth = async(req:Request,res:Response,next:NextFunction)=>{
+    console.log("inside middleware")
    const authHeader = req.headers['authorization'];
-   if(authHeader && authHeader.startsWith('User-Bearer')){
+   console.log("auth header is==>",authHeader)
+   if(authHeader && authHeader.startsWith('Admin-Bearer')){
       const token = authHeader.split(' ')[1];    // Getting token from the header
 
       try {
-         const decoded = jwt.verify(token,"secretKey",(err,decoded)=>{
+         const decoded = jwt.verify(token, 'secretkey',(err,decoded)=>{
             console.log("decoded data is ==>",decoded)
             if(err){
                res.status(401).json({message:'Unauthorized'});
@@ -25,4 +27,4 @@ const   userAuth = async(req:Request,res:Response,next:NextFunction)=>{
       res.status(401).json({message:'Unauthorized'});
    }
 }
-export default userAuth
+export default adminAuth

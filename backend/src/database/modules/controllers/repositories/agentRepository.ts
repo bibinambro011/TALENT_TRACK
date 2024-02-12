@@ -2,14 +2,18 @@ import { comparePass } from "../../../../../Helper/passwordhash";
 import agentModel from "../../../models/agentmodels";
 import jwt from 'jsonwebtoken';
 import dotenv from "dotenv"
+
+
 dotenv.config()
 import { UserDto } from "../dtos/userDto";
+import upload from '../../../../../Helper/multer';
 
 
 export class agentRepository{
     
     async create(agentData: UserDto): Promise<any> {
         try {
+          const uploads=upload.single('image')
           return await agentModel.create(agentData);
         } catch (error) {
           throw new Error("Could not create agent");
@@ -45,6 +49,7 @@ export class agentRepository{
                 name:info.firstName,
                 email:info.email,
                 image:info.image,
+                verified:info.is_verified,
                 category:info.category,
                 role:info.role
               }
@@ -68,11 +73,12 @@ export class agentRepository{
       async successVerify(email:string){
         try{
           let userdata=await agentModel.find({email:email})
-         userdata[0]. is_verified=true;
+        //  userdata[0]. is_verified=true;
          const updatedUser = await userdata[0].save();
          
         }catch(error:any){
           throw new Error(error.message)
         }
       }
+      
 }
