@@ -4,8 +4,10 @@ import { UserDto } from "../dtos/userDto";
 import { comparePass } from "../../../../../Helper/passwordhash";
 import jwt from 'jsonwebtoken';
 import dotenv from "dotenv"
+import { Secret } from "jsonwebtoken";
 dotenv.config()
 
+const jwtSecretToken: Secret = process.env.jwtsecrettoken as string
 export class UserRepository {
   async create(userData: UserDto): Promise<any> {
     try {
@@ -28,7 +30,7 @@ export class UserRepository {
         if(info.is_blocked){
           return "you are blocked by the admin"
         }
-        const token=  jwt.sign(info.email,"secretKey")
+        const token=  jwt.sign(info.email,jwtSecretToken)
         const accesseduser={
          
           usertoken:token,

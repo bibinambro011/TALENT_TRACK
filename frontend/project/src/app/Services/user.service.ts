@@ -9,7 +9,7 @@ import { logsuccess, userlog } from '../Model/userModel';
 export class UserService {
 
   constructor(private http: HttpClient) {}
-  api = 'http://localhost:3000';
+  api = 'http://localhost:4000';
 
   registerUser(data: any):Observable<any> {
     console.log("service is get called")

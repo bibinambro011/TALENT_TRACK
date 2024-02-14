@@ -44,6 +44,7 @@ export class agetController {
   async agentlogin(req: Request, res: Response) {
     try {
       const data = req.body;
+      console.log("admin body is ===>",data)
 
       const userdata = await agentservice.agentlogin(data);
       if (!userdata) {

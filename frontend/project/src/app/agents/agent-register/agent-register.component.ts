@@ -30,52 +30,42 @@ export class AgentRegisterComponent {
       // certificates:[""]
     });
   }
-  onSubmit() {
-  
-      const firstName= this.profileForm.get('firstName')?.value;
-      const lastName= this.profileForm.get('lastName')?.value;
-      const email = this.profileForm.get('email')?.value;
-      const password = this.profileForm.get('password')?.value;
-      const category=this.profileForm.get("category")?.value
-      const confirmPassword = this.profileForm.get('confirmPassword')?.value;
-      const image=this.profileForm.get("image")?.value
-      // const certificates=this.profileForm.get("certificates")?.value
-      
+  onSubmit(): void {
+    if (this.profileForm.invalid) {
+      this.errorMessage = 'Please fill in all required fields.';
+      return;
+    }
 
-      const obj={
-        firstName:firstName,
-        lastName:lastName,
-        email:email,
-        password:password,
-        confirmPassword:confirmPassword,
-        image:image,
-        category:category,
-        // certificate:certificates
-      }
-      if (this.profileForm.invalid) {
-        // Validate each field and display corresponding error messages
-        this.errorMessage = 'Please fill all required fields.';
-        return;
-      }
-  
-      if (this.profileForm.get('password')?.value !== this.profileForm.get('confirmPassword')?.value) {
-        this.toastr.error('password do not match');
-        return;
-      }
-    
-      this.service.registerAgent(obj).subscribe((result)=>{
-        console.log("agentroute resulty is==>",result)
-        localStorage.setItem('agentemail',obj.email); 
-        localStorage.setItem('agentrole','agent'); 
-        this.router.navigate(["/agent/agentmailverify"])
-        
+    const formData = new FormData();
+    formData.append('firstName', this.profileForm.get('firstName')?.value);
+    formData.append('lastName', this.profileForm.get('lastName')?.value);
+    formData.append('email', this.profileForm.get('email')?.value);
+    formData.append('password', this.profileForm.get('password')?.value);
+    formData.append('confirmPassword', this.profileForm.get('confirmPassword')?.value);
+    formData.append('category', this.profileForm.get('category')?.value);
+    formData.append('image', this.profileForm.get('image')?.value);
 
-      },(error)=>{
-        this.toastr.error('email already exists');
-        
-      })
-    } 
-     hasError(controlName: string, errorName: string) {
-      return this.profileForm.get(controlName)?.hasError(errorName);
+    if (this.profileForm.get('password')?.value !== this.profileForm.get('confirmPassword')?.value) {
+      this.toastr.error('Passwords do not match');
+      return;
+    }
+    this.service.registerAgent(formData).subscribe(
+      () => {
+        localStorage.setItem('email', formData.get('email') as string);
+        localStorage.setItem('role', 'user');
+        this.router.navigate(['/user/mailverify']);
+      },
+      (error) => {
+        this.toastr.error('An error occurred while registering');
+        console.error('Registration failed', error);
+      }
+    );
+  }
+
+    onFileSelected(event: any): void {
+      if (event.target.files.length > 0) {
+        const file = event.target.files[0];
+        this.profileForm.get('image')?.setValue(file);
+      }
     }
 }

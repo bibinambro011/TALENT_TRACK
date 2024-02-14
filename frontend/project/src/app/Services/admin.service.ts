@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class AdminService {
 
-  api = 'http://localhost:3000';
+  api = 'http://localhost:4000';
   constructor(private http:HttpClient) { }
   adminlogin(data:userlog):Observable<any>{
     return this.http.post<any>(`${this.api}/admin/adminlogin`,data)
