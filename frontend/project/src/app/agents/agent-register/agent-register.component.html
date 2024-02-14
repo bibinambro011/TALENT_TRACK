@@ -73,7 +73,7 @@
           <input
             id="image"
             type="file"
-            formControlName="image"
+            (change)="onFileSelected($event)"
             accept="image/*"
           />
           <label for="category">select a category</label>

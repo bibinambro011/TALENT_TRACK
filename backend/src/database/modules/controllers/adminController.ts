@@ -2,6 +2,7 @@ import { Response, Request } from "express";
 import { adminService } from "./services/adminService";
 import { userlog } from "./dtos/userDto";
 import jwt from "jsonwebtoken"
+import { Secret } from "jsonwebtoken";
 import { config } from "dotenv";
 
 const secret=process.env.jwtsecrettoken as string
@@ -14,7 +15,7 @@ export class adminController {
     try {
       if (result[0]) {
         if (result[0].password == data.password) {
-         let admintoken=jwt.sign(data.email,"secretkey")
+         let admintoken=jwt.sign(data.email,secret)
           res.status(200).json(admintoken);
         } else {
           res.status(401).json("invalid credentials");

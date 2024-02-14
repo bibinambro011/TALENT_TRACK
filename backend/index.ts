@@ -18,8 +18,8 @@ app.use('/image', express.static(path.join(__dirname, 'image')));
 app.use('/users', router);
 app.use("/agents",agentRouter);
 app.use("/admin",adminRouter)
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 connectToDatabase();
 app.listen(PORT, () => {
-  console.log("port is running at port number 3000");
+  console.log(`port is running at port number ${PORT}`);
 });

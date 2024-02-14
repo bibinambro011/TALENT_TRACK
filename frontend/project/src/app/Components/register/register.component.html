@@ -1,4 +1,5 @@
 <app-navbar></app-navbar>
+
 <div class="container">
   <div class="login">
     <div class="container">
@@ -13,10 +14,10 @@
           id="first-name"
           type="text"
           formControlName="firstName"
-          placeholder="firstName"
+          placeholder="First Name"
         />
         <div
-          *ngIf="profileForm.get('firstName')?.errors?.['required'] && myform?.submitted"
+          *ngIf="hasError('firstName', 'required') && myform?.submitted"
           class="text-red-500"
         >
           First name is required.
@@ -25,33 +26,33 @@
           id="last-name"
           type="text"
           formControlName="lastName"
-          placeholder="lastName"
+          placeholder="Last Name"
         />
         <div
-          *ngIf="profileForm.get('lastName')?.errors?.['required'] && myform?.submitted"
+          *ngIf="hasError('lastName', 'required') && myform?.submitted"
           class="text-red-500"
         >
           Last name is required.
         </div>
 
         <input type="email" placeholder="Email" formControlName="email" />
-        <div *ngIf="profileForm.get('email')?.errors?.['required'] && myform?.submitted" class="text-red-500">Email is required.</div>
-        <div *ngIf="profileForm.get('email')?.errors?.['email'] && myform?.submitted" class="text-red-500">Please enter a valid email.</div>
+        <div *ngIf="hasError('email', 'required') && myform?.submitted" class="text-red-500">Email is required.</div>
+        <div *ngIf="hasError('email', 'email') && myform?.submitted" class="text-red-500">Please enter a valid email.</div>
 
         <input
           id="password"
           type="password"
           formControlName="password"
-          placeholder="password"
+          placeholder="Password"
         />
         <div
-          *ngIf="profileForm.get('password')?.errors?.['required'] && myform?.submitted"
+          *ngIf="hasError('password', 'required') && myform?.submitted"
           class="text-red-500"
         >
           Password is required.
         </div>
         <div
-          *ngIf="profileForm.get('password')?.errors?.['minlength'] && myform?.submitted"
+          *ngIf="hasError('password', 'minlength') && myform?.submitted"
           class="text-red-500"
         >
           Password should be at least 6 characters long.
@@ -60,24 +61,29 @@
           id="confirm_password"
           type="password"
           formControlName="confirmPassword"
-          placeholder="confirm password"
+          placeholder="Confirm Password"
         />
         <div
-          *ngIf="profileForm.get('confirmPassword')?.errors?.['required'] && myform?.submitted"
+          *ngIf="hasError('confirmPassword', 'required') && myform?.submitted"
           class="text-red-500"
         >
           Confirm Password is required.
         </div>
      
-      
-
         <input
           id="image"
           type="file"
-          formControlName="image"
+          (change)="onFileSelected($event)"
           accept="image/*"
         />
-        <label for="category">select a category</label>
+        <div
+          *ngIf="hasError('image', 'required') && myform?.submitted"
+          class="text-red-500"
+        >
+          Image is required.
+        </div>
+
+        <label for="category">Select a category</label>
         <select id="category" formControlName="category">
           <option value="football">FOOTBALL</option>
           <option value="cricket">CRICKET</option>
@@ -87,7 +93,7 @@
           <option value="volleyball">VOLLEYBALL</option>
         </select>
         <div
-          *ngIf="profileForm.get('category')?.errors?.['required'] && myform?.submitted"
+          *ngIf="hasError('category', 'required') && myform?.submitted"
           class="text-red-500"
         >
           Category is required.
@@ -109,9 +115,9 @@
     <div class="container">
       <i class="fas fa-user-plus fa-5x"></i>
       <img src="/assets/images/tt.jpg" alt="">
-      <h2>Hello,friend!</h2>
-      <p>Enter your personal details start journey with us</p>
-     <button><a routerLink="/user/login">go to Login <i class="fas fa-arrow-circle-right"></i></a></button> 
+      <h2>Hello, friend!</h2>
+      <p>Enter your personal details to start your journey with us.</p>
+      <button><a routerLink="/user/login">Go to Login <i class="fas fa-arrow-circle-right"></i></a></button> 
     </div>
   </div>
 </div>
