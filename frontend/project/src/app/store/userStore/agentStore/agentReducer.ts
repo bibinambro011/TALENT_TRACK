@@ -10,7 +10,7 @@ const _agentReducer=createReducer(
     console.log("reducer data is==>",data)
     return {
       ...state,
-      userInfo: {
+      agentInfo: {
         _id:data.id,
         firstName:data.name,
         email: data.email,

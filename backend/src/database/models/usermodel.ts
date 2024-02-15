@@ -67,4 +67,7 @@ const usersModel: Model<UserDocument> = mongoose.model(
   "userSchema",
   userSchema
 );
+
+
+
 export default usersModel;

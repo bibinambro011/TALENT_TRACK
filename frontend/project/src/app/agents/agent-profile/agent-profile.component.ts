@@ -1,30 +1,27 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-
-
 @Component({
   selector: 'app-agent-profile',
   templateUrl: './agent-profile.component.html',
-  styleUrls: ['./agent-profile.component.css']
+  styleUrls: ['./agent-profile.component.css'],
 })
 export class AgentProfileComponent {
+  addpost: boolean = false;
   sidebarVisible: boolean = true;
-  constructor( private router:Router){}
-  logout(){
+  constructor(private router: Router) {}
+  logout() {
     localStorage.removeItem('agenttoken');
-    this.router.navigate(['/agent/agent-login'])
+    this.router.navigate(['/agent/agent-login']);
   }
-  dashboard(){
-
+  dashboard() {}
+  posts() {
+    this.sidebarVisible = false;
+    this.router.navigate(['/agent/post']);
   }
-  posts(){
-
-  }
-  Players(){
-
-  }
-  Appointments(){
-
+  Players() {}
+  Appointments() {
+    this.addpost = true;
+    this.sidebarVisible = false;
   }
 }

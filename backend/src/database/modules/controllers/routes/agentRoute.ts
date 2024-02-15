@@ -7,7 +7,10 @@ const agentController=new agetController()
 
 agentRouter.post("/agentregister",upload.single('image'),agentController.registeragent)
 agentRouter.post("/agentlogin",agentController.agentlogin)
-agentRouter.post("/agentverifyotp",agentController.agentverifyotp)
+agentRouter.post("/agentverifyotp",agentController.agentverifyotp);
+agentRouter.post("/addpost",agentController.addpost);
+agentRouter.post("/addslot",agentController.addslot)
+
 
 
 export default agentRouter
