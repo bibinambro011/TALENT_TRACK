@@ -1,5 +1,6 @@
 import { UserDto } from "../dtos/userDto";
 import { agentRepository } from "../repositories/agentRepository";
+import { UserRepository } from "../repositories/userREpository";
 
 
 const agentrepository=new agentRepository()
@@ -43,6 +44,13 @@ async verifyotp(email:string){
       return await agentrepository.successVerify(email)
     }catch(error){
       throw new Error('Could not get user');
+    }
+  }
+  async addslot(data:any){
+    try{
+      return await agentrepository.addslot(data)
+    }catch{
+      throw new Error("failure adding slot")
     }
   }
 }

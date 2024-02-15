@@ -13,17 +13,17 @@ export interface userlog {
   email: string;
   password: string;
 }
-export interface successresponsedata{
-usertoken:string
-userdetails:logsuccess
+export interface successresponsedata {
+  usertoken: string;
+  userdetails: logsuccess;
 }
 export interface logsuccess {
   id: string;
   name: string;
   email: string;
   role: string;
-  verified:boolean;
-  image:string;
+  verified: boolean;
+  image: string;
   category: string;
 }
 
@@ -33,4 +33,8 @@ export interface stateinterface {
   email: string;
   image: string;
   role: string;
+}
+export interface dateandtime {
+  date: string;
+  time: string;
 }

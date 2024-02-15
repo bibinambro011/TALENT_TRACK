@@ -1,5 +1,6 @@
 import { comparePass } from "../../../../../Helper/passwordhash";
 import agentModel from "../../../models/agentmodels";
+import addagentslot from "../../../models/agentaddslot"
 import jwt from 'jsonwebtoken';
 import dotenv from "dotenv"
 
@@ -81,4 +82,23 @@ export class agentRepository{
         }
       }
       
+//agent adding posts
+async addpost(data:any){
+  try{
+    const ref=data.agentId.ref
+  }catch{
+    throw new Error("error adding posts")
+  }
+}
+
+//slot add 
+async addslot(data:any){
+  try{
+    await addagentslot.create(data);
+    return true
+  }catch{
+    throw new Error("failure adding slot")
+  }
+ 
+}
 }

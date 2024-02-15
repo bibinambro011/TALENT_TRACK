@@ -18,6 +18,11 @@ import { AgentSearchComponent } from './agent-search/agent-search.component';
 import { AgentProfileComponent } from './agent-profile/agent-profile.component';
 import { SidebarModule } from 'primeng/sidebar';
 import { ButtonModule } from 'primeng/button';
+import { PostComponent } from './post/post.component';
+import { AddSlotComponent } from './add-slot/add-slot.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CalendarModule } from 'primeng/calendar';
+
 
 @NgModule({
   declarations: [
@@ -29,10 +34,14 @@ import { ButtonModule } from 'primeng/button';
     AgentotpComponent,
     AgentSearchComponent,
     AgentProfileComponent,
+    PostComponent,
+    AddSlotComponent,
   ],
   imports: [
     CommonModule,
+    BrowserAnimationsModule,
     AgentsRoutingModule,
+    CalendarModule,
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,

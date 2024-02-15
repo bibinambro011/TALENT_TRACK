@@ -5,6 +5,7 @@ import bcrypt from "bcrypt";
 import generateMail from "../../../../Helper/mailOtp";
 import { agentService } from "./services/agentService";
 import cloudinary from "../../../../Helper/cloudinary";
+import { UserService } from "./services/userServices";
 
 const agentservice = new agentService();
 
@@ -44,7 +45,7 @@ export class agetController {
   async agentlogin(req: Request, res: Response) {
     try {
       const data = req.body;
-      console.log("admin body is ===>",data)
+      console.log("agent body is ===>",data)
 
       const userdata = await agentservice.agentlogin(data);
       if (!userdata) {
@@ -72,4 +73,33 @@ export class agetController {
       res.status(500).json({ message: error.message });
     }
   }
+  
+async addpost(req:Request,res:Response){
+  try{
+    console.log(req.body)
+    res.status(200).json(req.body)
+  }catch{
+    throw new Error("error updating data")
+  }
+}
+async addslot(req:Request,res:Response){
+  try{
+const {date,time,id}=req.body;
+const data={
+  agentId: id,
+  time:time,
+  date:date
+}
+console.log(data)
+    const slot=await agentservice.addslot(data);
+    if(slot){
+      res.status(200).json("salot added successfully")
+    }else{
+      res.status(401).json("failure adding slot")
+    }
+
+  }catch{
+    throw new Error("failure addig slot")
+  }
+}
 }

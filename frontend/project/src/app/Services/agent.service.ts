@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AgentService {
-  api = 'http://localhost:3000';
+  api = 'http://localhost:4000';
   constructor(private http:HttpClient) { }
 
   agentlogin(data:userlog):Observable<any>{
@@ -18,6 +18,9 @@ export class AgentService {
   
   verifyUser(data:any):Observable<any>{
     return this.http.post<any>(`${this.api}/agents/agentverifyotp`,data)
+  }
+  addSlot(data:any):Observable<any>{
+    return this.http.post<any>(`${this.api}/agents/addslot`,data)
   }
   
 }

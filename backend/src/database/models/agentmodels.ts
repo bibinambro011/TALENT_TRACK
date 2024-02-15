@@ -1,3 +1,5 @@
+
+import { ObjectId } from 'mongodb';
 import mongoose, { Document, Model } from 'mongoose';
 export interface AgentDocument extends Document {
     firstName: string;
@@ -67,5 +69,10 @@ const agentSchema = new mongoose.Schema<AgentDocument>({
 
   });
   
+
+  
+
+
+
   const  agentModel : Model<AgentDocument>= mongoose.model("agentSchema", agentSchema);
   export default agentModel

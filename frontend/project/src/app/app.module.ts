@@ -62,7 +62,7 @@ import { SearchAgentComponent } from './Components/search-agent/search-agent.com
     StoreModule.forRoot({ user: UserReducer,agent: AgentReducer }, {}),
     EffectsModule.forRoot([UserEffect,AgentEffect]),
     AgentsModule,
-    AdminModule
+    AdminModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
