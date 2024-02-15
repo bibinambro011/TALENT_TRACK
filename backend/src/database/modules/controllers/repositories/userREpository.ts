@@ -1,5 +1,6 @@
 import usersModel from "/Users/User/Desktop/secondProject/backend/src/database/models/usermodel";
 import agentModel from "../../../models/agentmodels";
+import addagentslot from "../../../models/agentaddslot"
 import { UserDto } from "../dtos/userDto";
 import { comparePass } from "../../../../../Helper/passwordhash";
 import jwt from 'jsonwebtoken';
@@ -8,6 +9,8 @@ import { Secret } from "jsonwebtoken";
 dotenv.config()
 
 const jwtSecretToken: Secret = process.env.jwtsecrettoken as string
+
+// creating a userRepository class
 export class UserRepository {
   async create(userData: UserDto): Promise<any> {
     try {
@@ -16,6 +19,9 @@ export class UserRepository {
       throw new Error("Could not create user");
     }
   }
+
+  //  getting user 
+
   async getUser(data: any): Promise<any> {
     try {
       let info: any = await usersModel.findOne({ email: data.email });
@@ -51,6 +57,8 @@ export class UserRepository {
       throw new Error("Could not find user");
     }
   }
+  //  fetching user details 
+
   async getUserdetails(email: string) {
     try {
       let userdata = await usersModel.find({ email: email });
@@ -59,6 +67,9 @@ export class UserRepository {
       throw new Error(error.message);
     }
   }
+
+  // verifying otp 
+
   async verifyotp(email:string){
     try{
       let userdata=await usersModel.find({email:email})
@@ -67,6 +78,8 @@ export class UserRepository {
       throw new Error(error.message)
     }
   }
+  // confirming the email verification 
+
   async successVerify(email:string){
     try{
       let userdata=await usersModel.find({email:email})
@@ -77,12 +90,22 @@ export class UserRepository {
       throw new Error(error.message)
     }
   }
+  // fetching and sending only the verified agents
+
   async getVerifiedagents(){
     try{
       return agentModel.find({is_verified:true})
     }catch(error:any){
       throw new Error(error.message)
     }
+   
+  }
+  // sending all the available slots to the user
+  async agentAvailableSlots(id:any){
+    try{
+      return await addagentslot.find({agentId:id})
+    }catch{
+      throw new Error ("error fetching data")    }
    
   }
 }

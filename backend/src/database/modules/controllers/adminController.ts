@@ -6,8 +6,10 @@ import { Secret } from "jsonwebtoken";
 import { config } from "dotenv";
 
 const secret=process.env.jwtsecrettoken as string
+// creating an instance of the adminservice class
 const adminservice = new adminService();
 
+// creating adminController
 export class adminController {
   async adminlogin(req: Request, res: Response) {
     let data: userlog = req.body;
@@ -25,6 +27,10 @@ export class adminController {
       }
     } catch (error) {}
   }
+
+  // getting userdata and sending it to the client side
+  // method get
+
   async getuserdata(req: Request, res: Response) {
     try {
       const data = await adminservice.getuserdata();
@@ -35,6 +41,10 @@ export class adminController {
       throw new Error("invalid");
     }
   }
+
+  // sending agent details to the client side
+  // method get
+
   async getagentdata(req: Request, res: Response) {
     try {
       const data = await adminservice.getagentdata();
@@ -45,6 +55,10 @@ export class adminController {
       throw new Error("invalid");
     }
   }
+
+  // blocking user
+  // method post
+
   async blokUser(req: Request, res: Response) {
     try {
       const data = req.body;
@@ -57,6 +71,10 @@ export class adminController {
       throw new Error("invalid");
     }
   }
+
+  // blocking agent 
+  // method patch
+
   async blokagent(req: Request, res: Response) {
     try {
       const data = req.body;
@@ -69,6 +87,10 @@ export class adminController {
       throw new Error("invalid");
     }
   }
+
+  // verifying agent 
+  // method post
+
   async verifyagent(req: Request, res: Response) {
     try {
       const data = req.body;

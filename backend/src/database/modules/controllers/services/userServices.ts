@@ -47,4 +47,15 @@ export class UserService {
       throw new Error(error.message)
     }
   }
+
+  //getting available slots
+
+  async agentAvailableSlots(id:any){
+    try{
+      return userRepository.agentAvailableSlots(id)
+    }catch{
+      throw new Error("error fetching slots")
+    }
+   
+  }
 }

@@ -10,5 +10,6 @@ router.post('/userregister',upload.single('image'), userController.registerUser)
 router.post("/userlogin",userController.userlogin)
 router.post("/verifyotp",userController.verifyotp)
 router.get("/getVerifiedagents",userController.getVerifiedagents)
+router.get("/showavailableslots/:agentId",userController.agentAvailableSlots)
 
 export default router;

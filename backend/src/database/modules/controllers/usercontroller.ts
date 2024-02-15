@@ -5,11 +5,13 @@ import bcrypt from "bcrypt";
 import generateMail from "../../../../Helper/mailOtp";
 import cloudinary from "../../../../Helper/cloudinary";
 
+
 const userService = new UserService();
 
 //user controller class
 export class UserController {
   //user Registrration
+  
   async registerUser(req: Request, res: Response) {
     const folderName = "Talent Track";
 
@@ -44,6 +46,7 @@ export class UserController {
   }
 
   //user login
+
   async userlogin(req: Request, res: Response) {
     try {
       const data = req.body;
@@ -59,6 +62,7 @@ export class UserController {
     }
   }
   //user verifying otp
+
   async verifyotp(req: Request, res: Response) {
     try {
       const data = req.body;
@@ -80,6 +84,27 @@ export class UserController {
       res.status(200).json(data);
     } catch (error: any) {
       throw new Error(error.message);
+    }
+  }
+
+  //method get
+  //getting slot details
+  async agentAvailableSlots(req:Request,res:Response){
+    try{
+     console.log(req.params)
+      let id=req.params.agentId
+      console.log(id)
+      let data=await userService.agentAvailableSlots(id);
+      if(data.length>0){
+        res.status(200).json(data)
+      }else if(data.length==0){
+        res.status(200).json("there are np available slots")
+      }else{
+        res.status(401).json("error fetching data")
+      }
+
+    }catch{
+      throw new Error("error fetching data")
     }
   }
 }
