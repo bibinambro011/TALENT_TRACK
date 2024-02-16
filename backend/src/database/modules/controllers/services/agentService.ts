@@ -1,3 +1,4 @@
+import { AnyARecord } from "dns";
 import { UserDto } from "../dtos/userDto";
 import { agentRepository } from "../repositories/agentRepository";
 import { UserRepository } from "../repositories/userREpository";
@@ -51,6 +52,25 @@ async verifyotp(email:string){
       return await agentrepository.addslot(data)
     }catch{
       throw new Error("failure adding slot")
+    }
+  }
+  // sending data fetched from the repository to controller
+
+  async availableslots(id:string){
+    try{
+      return await agentrepository.availableslots(id)
+    }catch{
+      throw new Error("failure fetching data")
+    }
+  }
+
+  //deleting a slot and sending back the remaining slot
+
+  async deletingslot(slotid:string,id:string){
+    try{
+      return await agentrepository.deletingslot(slotid,id)
+    }catch{
+      throw new Error("error deleting a a slot")
     }
   }
 }

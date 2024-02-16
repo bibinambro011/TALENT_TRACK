@@ -94,11 +94,36 @@ async addpost(data:any){
 //slot add 
 async addslot(data:any){
   try{
-    await addagentslot.create(data);
+   await addagentslot.create(data);
     return true
   }catch{
     throw new Error("failure adding slot")
   }
  
+}
+
+//fetching avilable slots to display in the agent side tro showvase for cancelling;
+async availableslots(id:string){
+  try{
+    let availableslots=await addagentslot.find({agentId:id,booked:false})
+    return availableslots
+
+  }catch{
+    throw new Error("error fetching data")
+  }
+}
+
+// deleting a slot a  slot and sending back the remaining slot
+async deletingslot(slotid:string,id:string){
+  try{
+    await addagentslot.deleteOne({_id:id});
+    
+    let totalslot=await addagentslot.find({agentId:slotid,booked:false});
+    return totalslot
+  }catch{
+    throw new Error("error deleting a slot")
+  }
+ 
+
 }
 }

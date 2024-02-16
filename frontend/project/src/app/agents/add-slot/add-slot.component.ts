@@ -14,6 +14,7 @@ import { getAgentInfo } from 'src/app/store/userStore/agentStore/agectSelector';
 })
 export class AddSlotComponent {
   constructor(private store:Store,private service:AgentService,private toastr:ToastrService){}
+  
     date: Date | undefined=new Date()
     selecteddetails:any={} 
     mindate=new Date()
@@ -48,5 +49,5 @@ export class AddSlotComponent {
       
       })
     }
-    
+   
 }

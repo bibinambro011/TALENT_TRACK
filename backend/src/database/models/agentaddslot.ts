@@ -22,6 +22,10 @@ const agentslotadd: Schema = new Schema({
   time: {
     type: String,
   },
+  booked:{
+    type:Boolean,
+    default:false
+  }
  
 });
 

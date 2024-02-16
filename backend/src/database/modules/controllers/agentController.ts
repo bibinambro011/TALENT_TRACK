@@ -5,6 +5,7 @@ import bcrypt from "bcrypt";
 import generateMail from "../../../../Helper/mailOtp";
 import { agentService } from "./services/agentService";
 import cloudinary from "../../../../Helper/cloudinary";
+import { UserService } from "./services/userServices";
 
 // creating an instance of a agentservice class
 
@@ -115,6 +116,40 @@ export class agetController {
       }
     } catch {
       throw new Error("failure addig slot");
+    }
+  }
+
+  // method get
+  // fetching available slots
+
+  async availableslots(req: Request, res: Response) {
+    try {
+      let id = req.params.id as string;
+      let data = await agentservice.availableslots(id);
+      if (data) {
+        res.status(200).json(data);
+      } else {
+        res.status(401).json("error fetching data");
+      }
+    } catch {
+      throw new Error("error fetching data");
+    }
+  }
+
+  // deleting a slot and sending back the available slots
+  // method delete
+
+  async deletingslot(req:Request,res:Response){
+    try{
+      const {id,slotid}=req.query as any
+      let data=await agentservice.deletingslot(slotid,id);
+      if (data){
+        res.status(200).json(data)
+      }else{
+        res.status(401).json("error deleting a slot")
+      }
+    }catch{
+      throw new Error("error deleting a slot")
     }
   }
 }
