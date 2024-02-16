@@ -24,6 +24,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarModule } from 'primeng/calendar';
 
 
+
 @NgModule({
   declarations: [
     AgentsComponent,
@@ -47,6 +48,7 @@ import { CalendarModule } from 'primeng/calendar';
     HttpClientModule,
     SidebarModule,
     ButtonModule
+   
 
   ],
 })
