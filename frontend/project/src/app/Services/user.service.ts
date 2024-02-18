@@ -34,4 +34,7 @@ export class UserService {
   getAllverifiedAgents():Observable<any>{
     return this.http.get<any>(`${this.api}/users/getVerifiedagents`)
   }
+  userbookingslot(data:any):Observable<any>{
+    return this.http.post<any>(`${this.api}/users/userslotbooking`,data)
+  }
 }

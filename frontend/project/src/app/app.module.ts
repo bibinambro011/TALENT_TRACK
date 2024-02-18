@@ -28,6 +28,10 @@ import { SidebarModule } from 'primeng/sidebar';
 import { ButtonModule } from 'primeng/button';
 import { AdminModule } from './admin/admin.module';
 import { SearchAgentComponent } from './Components/search-agent/search-agent.component';
+import { SharedModule } from 'primeng/api';
+import { AgentDetailsComponent } from './shared/agent-details/agent-details.component';
+import { CalendarModule } from 'primeng/calendar';
+
 
 
 @NgModule({
@@ -41,16 +45,19 @@ import { SearchAgentComponent } from './Components/search-agent/search-agent.com
     FooterComponent,
     ProfileComponent,
     SearchAgentComponent,
+    AgentDetailsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    CalendarModule,
     SidebarModule,
     ButtonModule,
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    SharedModule,
     ToastNoAnimationModule.forRoot(),
     ToastrModule.forRoot({
       timeOut: 3000, // Time to close the toaster (in milliseconds)
@@ -62,7 +69,7 @@ import { SearchAgentComponent } from './Components/search-agent/search-agent.com
     StoreModule.forRoot({ user: UserReducer,agent: AgentReducer }, {}),
     EffectsModule.forRoot([UserEffect,AgentEffect]),
     AgentsModule,
-    AdminModule,
+    AdminModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

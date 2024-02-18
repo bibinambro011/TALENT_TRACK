@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 export class AgentProfileComponent {
   addpost: boolean = false;
   sidebarVisible: boolean = true;
+  profilepage:boolean=false
   constructor(private router: Router) {}
   logout() {
     localStorage.removeItem('agenttoken');
@@ -22,6 +23,13 @@ export class AgentProfileComponent {
   Players() {}
   Appointments() {
     this.addpost = true;
+    this.profilepage=false
     this.sidebarVisible = false;
+  }
+  profile(){
+    this.sidebarVisible = false;
+    this.profilepage=true
+    this.addpost = false;
+    this.router.navigate(["/agent/gent-profile-page"])
   }
 }

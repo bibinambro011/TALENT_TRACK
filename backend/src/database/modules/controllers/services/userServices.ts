@@ -1,5 +1,5 @@
 import { UserRepository } from '../repositories/userREpository';
-import { UserDto } from '../dtos/userDto';
+import { UserDto,userBookingDocument } from '../dtos/userDto';
 
 
 const userRepository = new UserRepository();
@@ -59,5 +59,12 @@ export class UserService {
    
   }
 
+  async userslotbooking(data:userBookingDocument){
+    try{
+      return await userRepository.userslotbooking(data)
+    }catch{
+      throw new Error("error in adding user booking details")
+    }
+  }
   
   }

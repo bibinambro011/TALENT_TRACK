@@ -1,0 +1,46 @@
+
+
+
+<div class="grid grid-cols-2">
+    <div class="bg-gradient-to-r from-blue-900 to-blue-300   h-96 ">
+        <img src="{{searchagentdata.image}}" alt="image" class="mx-auto w-auto h-60 border-spacing-1 justify-center align-middle mt-20">
+    </div>
+    <div class="bg-blue-400 pt-5">
+        <h1 class="font-normal text-6xl">Haii My Name is <br> {{searchagentdata.firstName}}.</h1><br><br>
+        <p class="ml-10">i have 10 years of experience as a football agent <br> i have secured the careers of more than 100 players</p><br>
+        <button class="ml-6 bg-white w-60 border-spacing-1 pt-1 pb-1 rounded-md border border-black" (click)="availableslots(searchagentdata.id)">book appointment</button>
+
+    </div>
+ </div>
+
+
+
+
+ <div class="overflow-auto">
+    <div class="grid grid-cols-2 gap-4 mt-20">
+        <ng-container *ngFor="let item of slots">
+            <div class="relative bg-white shadow-md rounded-lg p-4 border-2 border-blue-500m ml-10 mr-10 mb-10">
+                <p>{{item.date | date}}</p>
+                <p>{{item.time}}</p>
+                <button class="absolute bottom-2 right-2 pl-12 pr-12 h-7 bg-cyan-800 border border-md rounded" (click)="userslotbook(item)">book</button>
+            </div>
+        </ng-container>
+    </div>
+</div>
+
+<!-- <div class="bg-red-50 w-30 block" *ngIf="showcalender">
+    <p-calendar [(ngModel)]="date" [readonlyInput]="true"   (onSelect)="dateSelected($event)"></p-calendar>
+</div>
+
+<div class="pb-96 pt-96"></div>
+
+
+<div>
+    <ul *ngFor="let item of allotedTime; let i=index">
+      <li>Start Time: {{ item.time }}</li>
+    
+     
+    </ul>
+</div> -->
+
+

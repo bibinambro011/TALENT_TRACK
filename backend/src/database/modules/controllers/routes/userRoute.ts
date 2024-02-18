@@ -11,5 +11,6 @@ router.post("/userlogin",userController.userlogin)
 router.post("/verifyotp",userController.verifyotp)
 router.get("/getVerifiedagents",userController.getVerifiedagents)
 router.get("/showavailableslots/:agentId",userController.agentAvailableSlots)
+router.post("/userslotbooking",userController.userslotbooking)
 
 export default router;

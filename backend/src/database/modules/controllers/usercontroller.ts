@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { UserService } from "./services/userServices";
-import { UserDto, userlog } from "./dtos/userDto";
+import { UserDto, userlog ,userBookingDocument} from "./dtos/userDto";
+
 import bcrypt from "bcrypt";
 import generateMail from "../../../../Helper/mailOtp";
 import cloudinary from "../../../../Helper/cloudinary";
@@ -105,6 +106,20 @@ export class UserController {
 
     }catch{
       throw new Error("error fetching data")
+    }
+  }
+
+  async userslotbooking(req:Request,res:Response){
+    try{
+      let data:userBookingDocument=req.body;
+      let userdata=await userService.userslotbooking(data)
+      if(userdata){
+        res.status(200).json(userdata)
+      }else{
+        res.status(401).json("error adding userbooking details")
+      }
+    }catch{
+      throw new Error("error adding userbooking details")
     }
   }
 }

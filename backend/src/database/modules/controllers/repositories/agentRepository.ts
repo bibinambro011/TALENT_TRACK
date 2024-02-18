@@ -12,7 +12,7 @@ import upload from '../../../../../Helper/multer';
 
 export class agentRepository{
     
-    async create(agentData: UserDto): Promise<any> {
+    async create(agentData: any): Promise<any> {
         try {
           const uploads=upload.single('image')
           return await agentModel.create(agentData);
@@ -20,7 +20,7 @@ export class agentRepository{
           throw new Error("Could not create agent");
         }
       }
-      async agentDetails(agentData: UserDto): Promise<any> {
+      async agentDetails(agentData: any): Promise<any> {
         try {
           return await agentModel.find({email:agentData.email});
         } catch (error) {
@@ -30,16 +30,22 @@ export class agentRepository{
       async agentlogin(data: any): Promise<any> {
         try {
           let info: any = await agentModel.findOne({ email: data.email });
+          console.log("repository==>",info)
          if(!info){
           return null
          }
     
           let isValidPassword = await comparePass(data.password, info.password);
           if (!isValidPassword) {
+            console.log("password missmatch")
             return "password mismatch";
+            
           }else{
             if(info.is_blocked){
+              console.log("you are blocked by the admin");
               return "you are blocked by the admin"
+             
+              
             }
             const token=  jwt.sign(info.email,"secretKey")
             const accesseduser={
@@ -95,7 +101,8 @@ async addpost(data:any){
 async addslot(data:any){
   try{
    await addagentslot.create(data);
-    return true
+   let total=await addagentslot.find({agentId:data.agentId,booked:false})
+    return total
   }catch{
     throw new Error("failure adding slot")
   }
@@ -116,14 +123,22 @@ async availableslots(id:string){
 // deleting a slot a  slot and sending back the remaining slot
 async deletingslot(slotid:string,id:string){
   try{
-    await addagentslot.deleteOne({_id:id});
-    
-    let totalslot=await addagentslot.find({agentId:slotid,booked:false});
+    console.log("deleting iod is==>",slotid)
+    await addagentslot.deleteOne({_id:slotid});
+    let totalslot=await addagentslot.find({agentId:id,booked:false});
     return totalslot
   }catch{
     throw new Error("error deleting a slot")
   }
- 
+}
 
+async getAgentdetails(id:string){
+  try{
+    
+    return await agentModel.find({_id:id});
+    
+  }catch{
+    throw new Error("error deleting a slot")
+  }
 }
 }

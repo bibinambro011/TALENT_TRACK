@@ -8,7 +8,7 @@ const agentrepository=new agentRepository()
 
 export class agentService{
 
- async  registeragent(agentData:UserDto):Promise<any>{
+ async  registeragent(agentData:any):Promise<any>{
     try{
         console.log("agent service",agentData)
         return agentrepository.create(agentData)
@@ -16,8 +16,9 @@ export class agentService{
         throw new Error ("could not register agent")
     }
 }
-async agentlogin(data:UserDto){
+async agentlogin(data:any){
     try{
+      console.log("ser5vice get called")
         return agentrepository.agentlogin(data)
 
     }catch(error){
@@ -35,6 +36,7 @@ async agetDetails(agentData:UserDto):Promise<any>{
 }
 async verifyotp(email:string){
     try{
+      console.log("inside mail verifyotp in service",)
       return await agentrepository.verifyotp(email)
     }catch(error){
       throw new Error('Could not get user');
@@ -73,4 +75,11 @@ async verifyotp(email:string){
       throw new Error("error deleting a a slot")
     }
   }
+ async agentDetails(id:string){
+    try{
+      return agentrepository.getAgentdetails(id)
+    }catch{
+      throw new Error("error fetching data")
+    }
+ }
 }
