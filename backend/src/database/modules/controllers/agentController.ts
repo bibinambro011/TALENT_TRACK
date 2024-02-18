@@ -16,10 +16,6 @@ export class agetController {
   //agent resgistration
   // method post
   async registeragent(req: Request, res: Response) {
-    console.log("registeragent called==>");
-    console.log("req.body bis==>", req.body);
-    console.log("req.file bis==>", req.file);
-
     try {
       const folderName = "Talent Track";
       const agentData: UserDto = req.body;
@@ -34,7 +30,6 @@ export class agetController {
       const password = await bcrypt.hash(agentData.password, 10);
       agentData.password = password;
       if (req.file) {
-        console.log("cloudinary===>");
         const result = await cloudinary.uploader.upload(req.file.path, {
           public_id: `${folderName}/${req.file.originalname}`,
         });
@@ -53,8 +48,7 @@ export class agetController {
   async agentlogin(req: Request, res: Response) {
     try {
       const data = req.body;
-      console.log("agent body is ===>", data);
-
+      console.log("controller data is==>",data)
       const userdata = await agentservice.agentlogin(data);
       if (!userdata) {
         return res.status(401).json("invalid credentials");
@@ -72,7 +66,7 @@ export class agetController {
   async agentverifyotp(req: Request, res: Response) {
     try {
       const data = req.body;
-
+      console.log("otp is==>",data)
       const verifyuser = await agentservice.verifyotp(data.email);
       if (verifyuser[0].otp == data.otp) {
         const succesverify = await agentservice.successVerify(data.email);
@@ -110,7 +104,7 @@ export class agetController {
       console.log(data);
       const slot = await agentservice.addslot(data);
       if (slot) {
-        res.status(200).json("salot added successfully");
+        res.status(200).json(slot);
       } else {
         res.status(401).json("failure adding slot");
       }
@@ -139,17 +133,33 @@ export class agetController {
   // deleting a slot and sending back the available slots
   // method delete
 
-  async deletingslot(req:Request,res:Response){
+  async deletingslot(req: Request, res: Response) {
+    try {
+      const { id, slotid } = req.query as any;
+      let data = await agentservice.deletingslot(slotid, id);
+      if (data) {
+        res.status(200).json(data);
+      } else {
+        res.status(401).json("error deleting a slot");
+      }
+    } catch {
+      throw new Error("error deleting a slot");
+    }
+  }
+
+  async agentDetails(req:Request,res:Response){
+    console.log("inside controller",req.query)
     try{
-      const {id,slotid}=req.query as any
-      let data=await agentservice.deletingslot(slotid,id);
-      if (data){
+      let id:string=req.query.id as string
+    let data=  await agentservice.agentDetails(id);
+    console.log("data is==>",data)
+      if(data){
         res.status(200).json(data)
       }else{
-        res.status(401).json("error deleting a slot")
+        res.status(401).json("error fetching data")
       }
     }catch{
-      throw new Error("error deleting a slot")
+      throw new Error("error fetching agent details")
     }
   }
 }

@@ -22,6 +22,9 @@ import { PostComponent } from './post/post.component';
 import { AddSlotComponent } from './add-slot/add-slot.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarModule } from 'primeng/calendar';
+import { AgentProfilePageComponent } from './agent-profile-page/agent-profile-page.component';
+import { DialogModule } from 'primeng/dialog';
+
 
 
 
@@ -37,6 +40,8 @@ import { CalendarModule } from 'primeng/calendar';
     AgentProfileComponent,
     PostComponent,
     AddSlotComponent,
+    AgentProfilePageComponent,
+   
   ],
   imports: [
     CommonModule,
@@ -47,7 +52,9 @@ import { CalendarModule } from 'primeng/calendar';
     FormsModule,
     HttpClientModule,
     SidebarModule,
-    ButtonModule
+    ButtonModule,
+    DialogModule,
+   
    
 
   ],

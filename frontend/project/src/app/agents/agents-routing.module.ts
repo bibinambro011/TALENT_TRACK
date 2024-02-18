@@ -9,6 +9,7 @@ import { userauthGuard } from '../guards/userauth.guard';
 import { AgentProfileComponent } from './agent-profile/agent-profile.component';
 import { agentauthGuard } from '../guards/agentauth.guard';
 import { PostComponent } from './post/post.component';
+import { AgentProfilePageComponent } from './agent-profile-page/agent-profile-page.component';
 
 
 const routes: Routes = [
@@ -19,7 +20,8 @@ const routes: Routes = [
   {path:"agentmailverify",component:AgentotpComponent},
   {path:"agent-search",component:AgentSearchComponent,canActivate:[userauthGuard]},
   {path:"agent-profile",component:AgentProfileComponent,canActivate:[agentauthGuard]},
-   {path:"agent-post",component:PostComponent,canActivate:[agentauthGuard]}]},
+   {path:"agent-post",component:PostComponent,canActivate:[agentauthGuard]},
+  {path:"agent-profile-page",component:AgentProfilePageComponent,canActivate:[agentauthGuard]}]},
 ];
 
 @NgModule({

@@ -4,6 +4,9 @@ interface slotaddinterface extends Document {
   agentId: mongoose.Types.ObjectId;
   date: Date;
   time: string;
+  booked:boolean;
+  bookedUserId:mongoose.Types.ObjectId;
+
 
 }
 
@@ -25,8 +28,11 @@ const agentslotadd: Schema = new Schema({
   booked:{
     type:Boolean,
     default:false
-  }
- 
+  },
+ bookedUserId:{
+  type: Schema.Types.ObjectId,
+  ref:'userschema'
+ }
 });
 
 const addagentslot = mongoose.model<slotaddinterface>('agentslotadd', agentslotadd);

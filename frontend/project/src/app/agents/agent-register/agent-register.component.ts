@@ -51,9 +51,9 @@ export class AgentRegisterComponent {
     }
     this.service.registerAgent(formData).subscribe(
       () => {
-        localStorage.setItem('email', formData.get('email') as string);
-        localStorage.setItem('role', 'user');
-        this.router.navigate(['/user/mailverify']);
+        localStorage.setItem('agentemail', formData.get('email') as string);
+        localStorage.setItem('role', 'agent');
+        this.router.navigate(['/agent/agentmailverify']);
       },
       (error) => {
         this.toastr.error('An error occurred while registering');

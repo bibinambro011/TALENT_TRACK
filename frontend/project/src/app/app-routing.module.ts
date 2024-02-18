@@ -10,6 +10,7 @@ import { ProfileComponent } from './Components/profile/profile.component';
 import { userauthGuard } from './guards/userauth.guard';
 import { AgentSearchComponent } from './agents/agent-search/agent-search.component';
 import { SearchAgentComponent } from './Components/search-agent/search-agent.component';
+import { AgentDetailsComponent } from './shared/agent-details/agent-details.component';
 
 const routes: Routes = [
   {path:"",component:UserhomeComponent},
@@ -19,7 +20,8 @@ const routes: Routes = [
   {path:"login",component:LoginComponent},
   {path:"register",component:RegisterComponent},
   {path:"agentsearch",component:SearchAgentComponent,canActivate:[userauthGuard]},
-  {path:"mailverify",component:OtpenterComponent}]},
+  {path:"mailverify",component:OtpenterComponent},
+  {path:"agentprofile",component:AgentDetailsComponent}]},
   
  
   // {path:"agents",children:[

@@ -1,5 +1,26 @@
 <app-navbar></app-navbar>
-<div class="bg-gray-600">
+
+<div class="card flex justify-content-center" >
+  <p-sidebar [(visible)]="sidebarVisible" [style]="{marginTop:'96px',background:'#09203F',color:'white',width:'15rem'}" >
+      <ng-template pTemplate="header">        
+      </ng-template>
+      <ng-template pTemplate="content">
+          <button type="button"  ><i class="pi pi-align-justify"></i> FOOTBALL</button><br>
+          <button type="button"><i class="pi pi-sign-out"></i> CRICKET</button><br>
+          <button type="button"  ><i class="pi pi-align-justify"></i> BADMINTON</button><br>
+          <button type="button"><i class="pi pi-sign-out"></i> HOCKEY</button><br>
+          <button type="button"  ><i class="pi pi-align-justify"></i> TENNIS</button><br>
+          <button type="button"><i class="pi pi-sign-out"></i> BASKETBALL</button><br>    
+      </ng-template>
+      <ng-template pTemplate="footer">Footer Content</ng-template>
+  </p-sidebar>
+  <p-button (click)="sidebarVisible = true" icon="pi pi-arrow-right"></p-button>
+</div>
+
+
+
+<div *ngIf="visible">
+  <div class="bg-gray-600">
     <div class=" mb-10">
         <form>   
             <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
@@ -49,7 +70,7 @@
               <span class="text-sm text-gray-500 dark:text-gray-400">{{agent.category}}</span>
               <div class="flex mt-4 md:mt-6">
                 <a href="#" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Follow</a>
-                <a href="#" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700 ms-3">book a slot</a>
+                <a  class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700 ms-3" (click)="getagent(agent._id)">book a slot</a>
               </div>
             </div>
           </div>
@@ -57,3 +78,9 @@
       </div>
       
 </div>
+
+</div>
+
+
+<app-agent-details [searchagentdata]="agentdata" *ngIf="showcomponent"></app-agent-details>
+

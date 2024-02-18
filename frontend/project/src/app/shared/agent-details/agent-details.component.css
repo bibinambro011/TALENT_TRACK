@@ -1,0 +1,5 @@
+p-calendar .custom-theme  td span.p-disabled {
+    color: #fff !important;
+    background: darkred !important
+  }
+  

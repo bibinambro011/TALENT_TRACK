@@ -12,6 +12,7 @@ agentRouter.post("/addpost",agentController.addpost);
 agentRouter.post("/addslot",agentController.addslot);
 agentRouter.get("/availableslots/:id",agentController.availableslots)
 agentRouter.delete("/deletingslot",agentController.deletingslot)
+agentRouter.get("/agentDetails",agentController.agentDetails)
 
 
 

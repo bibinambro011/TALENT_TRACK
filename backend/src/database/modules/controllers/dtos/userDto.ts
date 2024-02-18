@@ -1,3 +1,5 @@
+import mongoose from "mongoose";
+
 export interface UserDto {
     firstName: string;
     lastName: string;
@@ -16,5 +18,13 @@ export interface UserDto {
   export interface userlog{
     email:string;
     password:string
+  }
+  export interface userBookingDocument extends Document {
+    slotId: mongoose.Types.ObjectId;
+    agentId: mongoose.Types.ObjectId;
+    userId: mongoose.Types.ObjectId;
+    time: string;
+    date: Date;
+    status: string;
   }
   

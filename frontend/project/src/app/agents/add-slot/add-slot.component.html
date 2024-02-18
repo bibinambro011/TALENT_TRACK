@@ -1,21 +1,22 @@
 <label for="date">select the date</label>
 <div class="card flex justify-content-center" id="add-date">
   <p-calendar
-    [(ngModel)]="date"
-    #selecteddate
-    [minDate]="mindate"
-    dateFormat="dd/mm/yy"
-    [readonlyInput]="true"
-    (onSelect)="selectedDate($event)"
-    dataType="string"
-  ></p-calendar>
+  [(ngModel)]="date"
+  #selecteddate
+  [minDate]="mindate"
+  dateFormat="dd/mm/yy"
+  [readonlyInput]="true"
+  dataType="string"
+ 
+></p-calendar>
+
 </div>
 
 <div>
   <div class="row" style="padding-top: 20px">
     <div class="col md-4 col-sm-4 col-xl-4 col-lg-4"></div>
     <div class="col col-md-4 col-sm-4 col-xl-4 col-lg-4">
-      <label for="" class="col col-md-10 col-sm-10 col-xl-10" style="padding-bottom: 10px">
+      <label for="" class="col col-md-10 col-sm-10 col-xl-10" style="padding-bottom: 10px;font-size: larger;">
         select time</label
       >
       <ul *ngFor="for; let time; of: available_time">
@@ -33,13 +34,16 @@
         </option>
       </ul>
     </div>
-    <div class="col col-md-4 col-lg-4 col-xl-4">
-      <ul>
-        <li>
-          <h1>cancel a slot</h1>
-          <button class="btn btn-primary">button</button><br><br>
-          <button class="btn btn-primary">button</button><br><br>
+    <div class=" col col-md-4 col-lg-4 col-xl-4" style="width: 18rem;">
+     
+      <ul class=" card list-group list-group-flush"  *ngFor="let item of addedslots; index as i">
+        <li class="list-group-item">
+         <h1>Slot {{ i + 1 }}</h1>
+                <p>Date: {{ item.date | date }}</p> 
+                <p>Time: {{ item.time }}</p>
+                <button class="btn btn-primary" (click)="cancelSlot(item._id)">Cancel</button>
         </li>
+        
       </ul>
     </div>
     
