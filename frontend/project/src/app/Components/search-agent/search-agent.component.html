@@ -1,16 +1,16 @@
 <app-navbar></app-navbar>
 
-<div class="card flex justify-content-center" >
+<div class="card flex justify-content-center" *ngIf="showsidebar" >
   <p-sidebar [(visible)]="sidebarVisible" [style]="{marginTop:'96px',background:'#09203F',color:'white',width:'15rem'}" >
       <ng-template pTemplate="header">        
       </ng-template>
       <ng-template pTemplate="content">
-          <button type="button"  ><i class="pi pi-align-justify"></i> FOOTBALL</button><br>
-          <button type="button"><i class="pi pi-sign-out"></i> CRICKET</button><br>
-          <button type="button"  ><i class="pi pi-align-justify"></i> BADMINTON</button><br>
-          <button type="button"><i class="pi pi-sign-out"></i> HOCKEY</button><br>
-          <button type="button"  ><i class="pi pi-align-justify"></i> TENNIS</button><br>
-          <button type="button"><i class="pi pi-sign-out"></i> BASKETBALL</button><br>    
+          <button type="button"(click)="searchagent('football')"><i class="pi pi-align-justify"></i> FOOTBALL</button><br>
+          <button type="button" (click)="searchagent('cricket')"><i class="pi pi-sign-out"></i> CRICKET</button><br>
+          <button type="button"  (click)="searchagent('badminton')"><i class="pi pi-align-justify"></i> BADMINTON</button><br>
+          <button type="button" (click)="searchagent('hockey')"><i class="pi pi-sign-out"></i> HOCKEY</button><br>
+          <button type="button" (click)="searchagent('volleyball')" ><i class="pi pi-align-justify"></i> VOLLEYBALL</button><br>
+          <button type="button" (click)="searchagent('basketball')"><i class="pi pi-sign-out"></i> BASKETBALL</button><br>    
       </ng-template>
       <ng-template pTemplate="footer">Footer Content</ng-template>
   </p-sidebar>
@@ -21,19 +21,15 @@
 
 <div *ngIf="visible">
   <div class="bg-gray-600">
-    <div class=" mb-10">
-        <form>   
-            <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+    <div class=" mb-4">
+       
+           
             <div class="relative">
-                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                    </svg>
-                </div>
-                <input type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search agents" >
-                <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+        
+                <input type="search" #inpname (keydown)="onKeyDownEvent($event)" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search agents" >
+              
             </div>
-        </form>
+      
         
     </div>
     
@@ -83,4 +79,5 @@
 
 
 <app-agent-details [searchagentdata]="agentdata" *ngIf="showcomponent"></app-agent-details>
+
 

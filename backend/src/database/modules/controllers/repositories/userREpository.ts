@@ -124,5 +124,34 @@ export class UserRepository {
       throw new Error("failed to add booking details");
     }
   }
+
+  // fetching particuar agent category and sending the details
+  async agentCategory(type:string){
+    try{
+      return agentModel.find({category:type})
+    }catch{
+      throw new Error("error fetching data")
+    }
+  }
   
+  //fetching agents by name
+  async getagentByName(name:string){
+    try{
+      console.log("inside repo", name)
+      return await agentModel.find({ firstName: { $regex: `${name}` } });
+      
+    }catch{
+      throw new Error("error fetching data")
+    }
+  }
+  //fetching user by id
+  async getUserById(id:string){
+    try{
+      return await usersModel.find({_id:id})
+
+    }catch{
+      throw new Error("error fetching data")
+    }
+   
+  }
 }

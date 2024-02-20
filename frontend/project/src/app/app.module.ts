@@ -31,7 +31,7 @@ import { SearchAgentComponent } from './Components/search-agent/search-agent.com
 import { SharedModule } from 'primeng/api';
 import { AgentDetailsComponent } from './shared/agent-details/agent-details.component';
 import { CalendarModule } from 'primeng/calendar';
-
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -51,6 +51,7 @@ import { CalendarModule } from 'primeng/calendar';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    NgxPaginationModule,
     CalendarModule,
     SidebarModule,
     ButtonModule,

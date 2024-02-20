@@ -37,4 +37,18 @@ export class UserService {
   userbookingslot(data:any):Observable<any>{
     return this.http.post<any>(`${this.api}/users/userslotbooking`,data)
   }
+  agentCategory(data:any):Observable<any>{
+    console.log("inside service", data);
+    
+    return this.http.get<any>(`${this.api}/users/agentCategory?category=${data}`)
+  }
+  getagentByName(data:string):Observable<any>{
+    console.log("inside service", data);
+    
+    return this.http.get<any>(`${this.api}/users/getagentByName?name=${data}`)
+  }
+  getUser(id:string):Observable<any> {
+    console.log("inside service==>",id)
+    return this.http.get<any>(`${this.api}/users/getUserById?id=${id}`)
+  }
 }

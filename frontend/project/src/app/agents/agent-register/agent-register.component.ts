@@ -37,8 +37,8 @@ export class AgentRegisterComponent {
     }
 
     const formData = new FormData();
-    formData.append('firstName', this.profileForm.get('firstName')?.value);
-    formData.append('lastName', this.profileForm.get('lastName')?.value);
+    formData.append('firstName', this.profileForm.get('firstName')?.value.toLowerCase);
+    formData.append('lastName', this.profileForm.get('lastName')?.value.toLowerCase);
     formData.append('email', this.profileForm.get('email')?.value);
     formData.append('password', this.profileForm.get('password')?.value);
     formData.append('confirmPassword', this.profileForm.get('confirmPassword')?.value);

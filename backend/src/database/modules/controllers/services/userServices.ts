@@ -58,12 +58,38 @@ export class UserService {
     }
    
   }
-
+// sending back slot status false agents slots
   async userslotbooking(data:userBookingDocument){
     try{
       return await userRepository.userslotbooking(data)
     }catch{
       throw new Error("error in adding user booking details")
+    }
+  }
+  async agentCategory(item:string){
+    try{
+      return userRepository.agentCategory(item)
+    }catch{
+      throw new Error("error fetching data")
+    }
+  }
+
+  //fetching agent by name 
+
+  async getagentByName(item:string){
+    try{
+      console.log("inside service", item)
+      return userRepository.getagentByName(item)
+    }catch{
+      throw new Error("error fetching data")
+    }
+  }
+  async getUserById(id:any){
+    try{
+      return userRepository.getUserById(id)
+      
+    }catch{
+      throw new Error("error fetching data")
     }
   }
   

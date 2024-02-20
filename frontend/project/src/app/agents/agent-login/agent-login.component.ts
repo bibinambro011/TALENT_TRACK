@@ -37,13 +37,7 @@ export class AgentLoginComponent {
       }
       console.log("userCredentials==>",userCredentails)
 this.loginform.reset()
-   this.store.dispatch(loginagent({agentCredentails:userCredentails}))
-  //  this.store.select(getAgentInfo).subscribe((res: any)=>{
-  //   console.log("agent selector get called")
-  //   console.log(res);
-    
-  //  })
-     
+   this.store.dispatch(loginagent({agentCredentails:userCredentails}))  
     }else{
       this.toastr.error("please provide the credentials")
     }
