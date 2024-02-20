@@ -1,21 +1,49 @@
 <app-navbar></app-navbar>
-<nav id="sidebar">
-  <div class="sidebar-header">
-    <h1 >User Panel</h1>
-  </div>
+<div class="card flex justify-content-center" >
+  <p-sidebar [(visible)]="sidebarVisible" [style]="{marginTop:'96px',background:'#09203F',color:'white',width:'15rem'}" >
+      <ng-template pTemplate="header">
+        
+      </ng-template>
+      <ng-template pTemplate="content">
+          <button type="button" (click)="dashboard()" ><i class="pi pi-align-justify"></i> Dashboard</button><br><br>
+          <button type="button" (click)="profile()"><i class="pi pi-prime"></i> profile</button><br><br>
+          <button type="button" (click)="Appointments()"><i class="pi pi-align-justify"></i> Appointments</button><br><br>
+          <button type="button" (click)="logout()"><i class="pi pi-sign-out"></i> Logout</button><br><br>
+         
+      </ng-template>
+      <ng-template pTemplate="footer">Footer Content</ng-template>
+  </p-sidebar>
+  <p-button (click)="sidebarVisible = true" icon="pi pi-arrow-right"></p-button>
+</div>
 
-  <ul class="list-unstyled components">
-    <li *ngIf="!hideSidebar">
-      <a routerLink="/admin/dashboard"><i class="pi pi-align-justify" style="font-size: 1rem"></i> Dashboard</a>
-    </li>
-    <li *ngIf="!hideSidebar">
-      <a routerLink="/admin/users"><i class="pi pi-users" style="font-size: 1rem"></i> Agents</a>
-    </li>
-    <li *ngIf="!hideSidebar">
-      <a routerLink="/admin/posts"><i class="pi pi-prime" style="font-size: 1rem"></i> Profile</a>
-    </li>
-    <li *ngIf="!hideSidebar">
-      <button (click)="logout()" ><i class="pi pi-power-off" style="font-size: 1rem"></i> Logout</button>
-    </li>
-  </ul>
-</nav>
+
+<!-- dashboard showing code -->
+
+<div class="dashboard" *ngIf="showdashboard">
+  <div class="flex justify-center items-center h-full">
+    <div class="wallet w-60 h-28 border-2 border-red bg-yellow-100 flex items-center justify-center mt-20">
+      <p>Wallet balance is </p>
+    </div>
+  </div>
+</div>
+
+
+<!-- profile displaying code-->
+
+
+<div class="show-profile ml-5" *ngIf="showprofile">
+  <div class="flex flex-col items-start justify-start border-2 border-black w-96 p-4" *ngFor="let user of user">
+    <img src="{{ user.image }}" alt="User Image" class="w-32 h-32 rounded-full mb-4">
+    <h2 class="text-xl font-bold mb-2">{{ user.firstName }} {{ user.lastName }}</h2>
+    <p class="text-sm text-gray-500 mb-4">{{ user.category }}</p>
+    <div class="flex">
+      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4">Edit Profile</button>
+      <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Logout</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- show Appointments -->
+
+

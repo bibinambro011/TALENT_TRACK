@@ -5,6 +5,7 @@ import { UserDto, userlog ,userBookingDocument} from "./dtos/userDto";
 import bcrypt from "bcrypt";
 import generateMail from "../../../../Helper/mailOtp";
 import cloudinary from "../../../../Helper/cloudinary";
+import { UserRepository } from "./repositories/userREpository";
 
 
 const userService = new UserService();
@@ -108,7 +109,7 @@ export class UserController {
       throw new Error("error fetching data")
     }
   }
-
+// sending back slot status false slots to display it in the user for proceed booking information
   async userslotbooking(req:Request,res:Response){
     try{
       let data:userBookingDocument=req.body;
@@ -122,4 +123,52 @@ export class UserController {
       throw new Error("error adding userbooking details")
     }
   }
+  // sending back the agent category details
+  async agentCategory(req:Request, res: Response){
+    try{
+      let category:any=req.query.category
+      let data=await userService.agentCategory(category)
+      if(data){
+        res.status(200).json(data)
+      }else{
+        res.status(401).json("error fetching data")
+      }
+    }catch{
+      throw new Error("Error fetching data")
+    }
+  }
+
+
+  // fetching and sending agents by name
+
+  async getagentByName(req:Request, res: Response){
+    try{
+      let name:any=req.query.name
+      console.log(req.query)
+      let data=await userService.getagentByName(name)
+      if(data){
+        res.status(200).json(data)
+      }else{
+        res.status(401).json("error fetching data")
+      }
+    }catch{
+      throw new Error("Error fetching data")
+    }
+  }
+
+  async getUserById(req:Request, res:Response){
+    try{
+      let id=req.query.id 
+      console.log("id is =>",id)
+      const data=await userService.getUserById(id);
+      if(data){
+        res.status(200).json(data)
+      }else{
+        res.status(401).json("error sendinig data")
+      }
+    }catch{
+      throw new Error("Error fetching data")
+    }
+  }
+
 }

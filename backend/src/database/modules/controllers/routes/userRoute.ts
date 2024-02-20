@@ -12,5 +12,7 @@ router.post("/verifyotp",userController.verifyotp)
 router.get("/getVerifiedagents",userController.getVerifiedagents)
 router.get("/showavailableslots/:agentId",userController.agentAvailableSlots)
 router.post("/userslotbooking",userController.userslotbooking)
-
+router.get("/agentCategory",userController.agentCategory)
+router.get("/getagentByName",userController.getagentByName);
+router.get("/getUserById",userController.getUserById)
 export default router;
