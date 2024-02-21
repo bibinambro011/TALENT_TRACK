@@ -51,4 +51,8 @@ export class UserService {
     console.log("inside service==>",id)
     return this.http.get<any>(`${this.api}/users/getUserById?id=${id}`)
   }
+  userbookings(data:string,id:string):Observable<any>{
+    console.log("userbookings service get called")
+    return this.http.get<any>(`${this.api}/users/userbookings?id=${id}&status=${data}`)
+  }
 }
