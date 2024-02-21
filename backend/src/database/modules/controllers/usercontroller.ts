@@ -170,5 +170,21 @@ export class UserController {
       throw new Error("Error fetching data")
     }
   }
+// fetching user booking detrails based on status
 
+async userbookings(req:Request,res:Response){
+  try{
+    console.log(req.query)
+    let status=req.query.status as string
+    let id=req.query.id as string
+    let data:any=await userService.userbookings(status,id)
+    if(data){
+      res.status(200).json(data)
+    }else{
+      res.status(401).json("error fetching data")
+    }
+  }catch{
+    throw new Error("Error fetching data")
+  }
+}
 }

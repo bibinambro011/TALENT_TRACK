@@ -93,4 +93,14 @@ export class UserService {
     }
   }
   
+  //fetching userbooking information from userRepository 
+  async userbookings(status:string,id:string){
+    try{
+      console.log("inside service");
+      
+     return await userRepository.userbookings(status,id)
+    }catch{
+      throw new Error("error fetching data")
+    }
+  }
   }

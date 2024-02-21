@@ -154,4 +154,27 @@ export class UserRepository {
     }
    
   }
+
+  //fetching bookings based on status
+
+  async userbookings(status: string, id: string) {
+    try {
+        console.log("inside repo==>", id);
+        if (status === 'All') {
+          console.log("inside repository==>")
+            let dta= await userBookingModel.find({ userId: id }).populate('agentId').exec();
+            console.log(dta);
+            return dta
+            
+        } else {
+            let data = await userBookingModel.find({ userId: id, status: status }).populate('agentId').exec();
+            console.log(data);
+            return data;
+        }
+
+    } catch (error) {
+        throw new Error("error fetching data");
+    }
+}
+
 }

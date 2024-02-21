@@ -10,13 +10,18 @@ import { UserService } from 'src/app/Services/user.service';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  styleUrls: ['./profile.component.css'],
+
 })
 export class ProfileComponent implements OnInit {
   sidebarVisible:boolean=true;
   showdashboard:boolean=false
   showprofile:boolean=false;
-  user:any[]=[]
+  showappointments:boolean=false;
+  id:any
+  selectedOption:any
+  user:any[]=[];
+  userbookings:any[]=[]
   constructor(private service :CommonService,private router:Router,private store:Store,private userservice:UserService){}
   
 @Output() eventdata :  EventEmitter<string> = new EventEmitter<string>()
@@ -32,23 +37,41 @@ export class ProfileComponent implements OnInit {
 
    }
    Appointments(){
-
+    this.showappointments=true
+    this.showdashboard=false;
+    this.sidebarVisible=false;
+    this.showprofile=false
    }
    profile(){
+    this.showprofile=false;
     this.showdashboard=false;
     this.sidebarVisible=false;
     this.showprofile=true
     console.log("clicked profile")
    }
-   ngOnInit(){
-    console.log("inint function get called")
-    let id:any
-    this.store.select(getUserInfo).subscribe((data)=>{
-      if(data){
-        id=data._id
+
+   // fetch bookins details
+
+   bookings(data:string){
+    this.userbookings=[]
+    console.log("function get called bookings")
+    this.userservice.userbookings(data,this.id).subscribe((res)=>{
+      if(res){
+        this.userbookings.push(res)
       }
     })
-    this.userservice.getUser(id).subscribe((res)=>{
+    console.log("====>",this.userbookings)
+   }
+
+   ngOnInit(){
+    console.log("inint function get called")
+   
+    this.store.select(getUserInfo).subscribe((data)=>{
+      if(data){
+       this.id=data._id
+      }
+    })
+    this.userservice.getUser(this.id).subscribe((res)=>{
       if(res){
         res.forEach((data:any)=>{
           this.user.push(data)
@@ -58,5 +81,4 @@ export class ProfileComponent implements OnInit {
 
     console.log("userc details are==>",this.user)
    }
-   
 }

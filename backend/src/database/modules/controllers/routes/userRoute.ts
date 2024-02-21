@@ -15,4 +15,5 @@ router.post("/userslotbooking",userController.userslotbooking)
 router.get("/agentCategory",userController.agentCategory)
 router.get("/getagentByName",userController.getagentByName);
 router.get("/getUserById",userController.getUserById)
+router.get("/userbookings",userController.userbookings)
 export default router;

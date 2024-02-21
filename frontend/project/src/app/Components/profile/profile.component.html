@@ -46,4 +46,49 @@
 
 <!-- show Appointments -->
 
+<div  *ngIf="showappointments">
+  <!-- Search Field -->
+  
+<div class="w-70 h-20 bg-red-50 p-8">
+  <div class="mb-4">
+    <select class="border border-gray-300 p-2 rounded-md" [(ngModel)]="selectedOption" (change)="bookings(selectedOption)">
+      <option value="All" >All</option>
+      <option value="pending" >Pending</option>
+      <option value="confirmed" >Confirmed</option>
+      <option value="consulted" >Consulted</option>
+      <option value="cancelled" >Cancelled</option>
+      <option value="agent cancelled">agent cancelled</option>
+    </select>
+  </div>
+</div>
 
+ 
+  
+  
+  <!-- Dropdown Menu -->
+ 
+  
+  <!-- Table -->
+  <div>
+    <table class="table-auto">
+      <thead>
+        <tr>
+          <th class="px-4 py-2">Date</th>
+          <th class="px-4 py-2">Time</th>
+          <th class="px-4 py-2">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Use nested *ngFor loops to iterate through the array of arrays and then through each inner array -->
+        <ng-container *ngFor="let innerArray of userbookings">
+          <tr *ngFor="let data of innerArray">
+            <td class="border px-4 py-2">{{ data.date | date }}</td>
+            <td class="border px-4 py-2">{{ data.time }}</td>
+            <td class="border px-4 py-2">{{ data.status }}</td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+  
+</div>

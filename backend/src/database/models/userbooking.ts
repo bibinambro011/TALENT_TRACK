@@ -14,6 +14,7 @@ const userBookinSchema = new mongoose.Schema<userBookingDocument>({
   },
   agentId: {
     type: Schema.Types.ObjectId,
+    ref:'agentSchema'
   },
   userId: {
     type: Schema.Types.ObjectId,
