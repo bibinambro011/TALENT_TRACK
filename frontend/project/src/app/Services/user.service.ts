@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { logsuccess, userlog } from '../Model/userModel';
@@ -10,6 +10,7 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
   api = 'http://localhost:4000';
+
 
   registerUser(data: any):Observable<any> {
     console.log("service is get called")
@@ -52,7 +53,15 @@ export class UserService {
     return this.http.get<any>(`${this.api}/users/getUserById?id=${id}`)
   }
   userbookings(data:string,id:string):Observable<any>{
-    console.log("userbookings service get called")
+   
     return this.http.get<any>(`${this.api}/users/userbookings?id=${id}&status=${data}`)
+  }
+  cancelbooking(data:any):Observable<any>{
+    console.log("cancelling booking service ",data)
+    return this.http.patch<any>(`${this.api}/users/cancelbooking`,data)
+  }
+  editUser(data:any):Observable<any>{
+    console.log("inside service==>",data)
+    return this.http.post<any>(`${this.api}/users/editUser`,data)
   }
 }

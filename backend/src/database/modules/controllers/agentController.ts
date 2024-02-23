@@ -162,4 +162,47 @@ export class agetController {
       throw new Error("error fetching agent details")
     }
   }
+
+  //fetching all the booked slots
+  // method get 
+  async getAllSlots(req:Request,res:Response){
+    console.log("inside controller",req.query )
+    try{
+      let id=req.query.id as string
+      let data=await agentservice.getAllSlots(id);
+      if(data){
+        res.status(200).json(data)
+      }
+    }catch{
+      throw new Error("error fetching slot details")
+    }
+  
+  }
+  //fetching details by slot status 
+ async slotDetailsByOption(req:Request,res:Response){
+  try{
+    console.log("controller ",req.query)
+    let {id,data}=req.query as any
+    let datas=await agentservice.slotDetailsByOption(id,data)
+    if(datas){
+      res.status(200).json(datas)
+    }
+  }catch{
+    throw new Error("Error fetching data")
+  }
+ }
+
+ // fetcching fdata from the repository after deleting a slot 
+ async agentslotcancell(req:Request,res:Response){
+  try{
+    console.log("controller ",req.query)
+    let {slotId,agentId}=req.query as any
+    let datas=await agentservice.agentslotcancell(slotId,agentId)
+    if(datas){
+      res.status(200).json(datas)
+    }
+  }catch{
+    throw new Error("Error fetching data")
+  }
+ }
 }

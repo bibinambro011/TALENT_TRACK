@@ -114,7 +114,7 @@ export class UserRepository {
       
       await addagentslot.updateOne(
         { _id: data.slotId },
-        { $set: { bookedUserId: data.userId,booked:true } } 
+        { $set: { bookedUserId: data.userId,booked:true,status:'Confirmed' } } 
       );
       
      await userBookingModel.create(data);
@@ -159,11 +159,10 @@ export class UserRepository {
 
   async userbookings(status: string, id: string) {
     try {
-        console.log("inside repo==>", id);
+       
         if (status === 'All') {
-          console.log("inside repository==>")
             let dta= await userBookingModel.find({ userId: id }).populate('agentId').exec();
-            console.log(dta);
+          
             return dta
             
         } else {
@@ -175,6 +174,37 @@ export class UserRepository {
     } catch (error) {
         throw new Error("error fetching data");
     }
+}
+// cancel booking 
+
+async cancelbooking(id:string,userid:string,status:string){
+  try{
+    await userBookingModel.updateOne({_id:id},{$set:{status:'cancelled'}});
+    let data = await userBookingModel.find({ userId: userid, status:status }).populate('agentId').exec();
+    
+    console.log("inside repo==>",data)
+    return data;
+
+  }catch{
+    throw new Error("error cancelling slot")
+  }
+}
+
+//editing user and sending updated info to user
+
+async editUser(data:any){
+  try{
+    if(data.image){
+  await usersModel.updateMany({_id:data.userId},{$set:{firstName:data.firstName,lastName:data.lastName,image:data.image}});
+  return usersModel.find({_id:data.userId})
+} else{
+  await usersModel.updateMany({_id:data.userId},{$set:{firstName:data.firstName,lastName:data.lastName}});
+  return usersModel.find({_id:data.userId})
+}  
+  }catch{
+    throw new Error("error fetching data")
+}
+
 }
 
 }

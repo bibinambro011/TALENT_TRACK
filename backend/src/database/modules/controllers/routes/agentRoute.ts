@@ -13,6 +13,9 @@ agentRouter.post("/addslot",agentController.addslot);
 agentRouter.get("/availableslots/:id",agentController.availableslots)
 agentRouter.delete("/deletingslot",agentController.deletingslot)
 agentRouter.get("/agentDetails",agentController.agentDetails)
+agentRouter.get("/getAllSlots",agentController.getAllSlots)
+agentRouter.get("/slotDetailsByOption",agentController.slotDetailsByOption)
+agentRouter.delete("/agentslotcancell",agentController.agentslotcancell)
 
 
 
