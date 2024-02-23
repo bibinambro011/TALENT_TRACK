@@ -103,4 +103,22 @@ export class UserService {
       throw new Error("error fetching data")
     }
   }
+
+  //cancel booking 
+  async cancelbooking(id:string,userid:string,status:string){
+    try{
+      return await userRepository.cancelbooking(id,userid,status)
+    }catch{
+      throw new Error("error cancelling slot")
+    }
   }
+
+  //updaing user and sending data
+  async editUser(data:any){
+    try{
+      return await userRepository.editUser(data)
+    }catch{
+      throw new Error("error updating user")
+    }
+  }
+}

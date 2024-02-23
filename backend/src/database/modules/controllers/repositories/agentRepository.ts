@@ -141,4 +141,54 @@ async getAgentdetails(id:string){
     throw new Error("error deleting a slot")
   }
 }
+
+//fetching all the slots to display it in the agent side
+
+async getAllSlots(id:string){
+  try{
+    console.log("inside repo===>",id)
+    let data= await addagentslot.find({agentId:id}).populate('bookedUserId').exec()
+    console.log("data is==> ", data)
+    return data
+  }catch{
+    throw new Error("error")
+  }
+}
+
+//fetching slot details by status type
+
+async slotDetailsByOption(id:string,status:string){
+  console.log("status is===>",status)
+  try {
+       
+    if (status === 'All') {
+        let dta= await addagentslot.find({ agentId: id }).populate('bookedUserId').exec();
+        console.log(" All filtered data is==>",dta);
+      
+        return dta
+        
+    } else {
+        let data = await addagentslot.find({ agentId: id, status: status }).populate('bookedUserId').exec();
+        console.log("filtered data is==>",data);
+        return data;
+    }
+
+} catch (error) {
+    throw new Error("error fetching data");
+}
+}
+
+//getting slots after cancelling one
+
+async agentslotcancell(slotid:string,agentId:string){
+  try{
+    await addagentslot.deleteOne({_id:slotid})
+  let dta= await addagentslot.find({ agentId: agentId }).populate('bookedUserId').exec();
+  return dta
+  }catch{
+    throw new Error("error fetching data")
+  }
+  
+
+}
 }

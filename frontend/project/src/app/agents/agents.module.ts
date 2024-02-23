@@ -24,6 +24,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarModule } from 'primeng/calendar';
 import { AgentProfilePageComponent } from './agent-profile-page/agent-profile-page.component';
 import { DialogModule } from 'primeng/dialog';
+import { AgentAppointmentsComponent } from './agent-appointments/agent-appointments.component';
 
 
 
@@ -41,6 +42,7 @@ import { DialogModule } from 'primeng/dialog';
     PostComponent,
     AddSlotComponent,
     AgentProfilePageComponent,
+    AgentAppointmentsComponent,
    
   ],
   imports: [

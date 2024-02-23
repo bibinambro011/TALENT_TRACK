@@ -109,7 +109,10 @@ export class UserController {
       throw new Error("error fetching data")
     }
   }
+
 // sending back slot status false slots to display it in the user for proceed booking information
+// method get 
+
   async userslotbooking(req:Request,res:Response){
     try{
       let data:userBookingDocument=req.body;
@@ -124,6 +127,7 @@ export class UserController {
     }
   }
   // sending back the agent category details
+  //method get
   async agentCategory(req:Request, res: Response){
     try{
       let category:any=req.query.category
@@ -140,6 +144,7 @@ export class UserController {
 
 
   // fetching and sending agents by name
+  // method get
 
   async getagentByName(req:Request, res: Response){
     try{
@@ -155,6 +160,8 @@ export class UserController {
       throw new Error("Error fetching data")
     }
   }
+  // fetching user by id 
+  // method get
 
   async getUserById(req:Request, res:Response){
     try{
@@ -171,6 +178,7 @@ export class UserController {
     }
   }
 // fetching user booking detrails based on status
+// method get 
 
 async userbookings(req:Request,res:Response){
   try{
@@ -187,4 +195,60 @@ async userbookings(req:Request,res:Response){
     throw new Error("Error fetching data")
   }
 }
+
+// cancel booking by user and fetching the updated details 
+// method patch 
+
+async cancelbooking(req:Request, res:Response){
+  try{
+    console.log(req.body)
+    let {id,userid,status}=req.body as any
+    let data:any=await userService.cancelbooking(id,userid,status)
+    if(data){
+      res.status(200).json(data)
+    }else{
+      res.status(401).json("error fetching data")
+    }
+  }catch{
+    throw new Error("Error fetching data")
+  }
+}
+
+//updaing user
+//method put
+
+async editUser(req: Request, res: Response) {
+  try {
+    const folderName = "Talent Track";
+    console.log("req.body is==>", req.body.firstName);
+    console.log("req.body is==>", req.body);
+
+    if (req.file) {
+      console.log("file name is", req.file.path);
+    }
+
+    let data: any = req.body as any;
+    if (req.file) {
+      console.log("cloudinary===>");
+      const result = await cloudinary.uploader.upload(req.file.path, {
+        public_id: `${folderName}/${req.file.originalname}`,
+      });
+      data.image = result.secure_url;
+    }
+
+    let userdata = await userService.editUser(data);
+    if (userdata) {
+      console.log("User data updated successfully");
+      return res.status(200).json(userdata);
+    } else {
+      console.log("Error updating data");
+      return res.status(401).json("Error updating data");
+    }
+  } catch (error) {
+    console.error("An error occurred:", error);
+    return res.status(500).json("An error occurred while updating data");
+  }
+}
+
+
 }

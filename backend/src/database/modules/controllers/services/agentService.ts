@@ -77,9 +77,38 @@ async verifyotp(email:string){
   }
  async agentDetails(id:string){
     try{
-      return agentrepository.getAgentdetails(id)
+      return await agentrepository.getAgentdetails(id)
     }catch{
       throw new Error("error fetching data")
     }
+ }
+
+ //fetching all booked slots 
+ async getAllSlots(id:string){
+  try{
+    return  await agentrepository.getAllSlots(id)
+  }catch{
+    throw new Error("error fetching slots")
+  }
+ }
+
+ //fetching slot by status type 
+ async slotDetailsByOption(id:string,status:string){
+  try{
+    return await agentrepository.slotDetailsByOption(id,status)
+  }
+  catch{
+    throw new Error("error fetching data")
+  }
+ }
+
+ //fetching data from userRouter after deletiong slot 
+ async agentslotcancell(slotId:string,agentId:string){
+  try{
+    return await agentrepository.agentslotcancell(slotId,agentId)
+  }
+  catch{
+    throw new Error("error fetching data")
+  }
  }
 }

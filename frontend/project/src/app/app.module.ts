@@ -32,6 +32,7 @@ import { SharedModule } from 'primeng/api';
 import { AgentDetailsComponent } from './shared/agent-details/agent-details.component';
 import { CalendarModule } from 'primeng/calendar';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 
 @NgModule({
@@ -60,6 +61,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     BrowserAnimationsModule,
     SharedModule,
     ToastNoAnimationModule.forRoot(),
+    SweetAlert2Module.forRoot(),
     ToastrModule.forRoot({
       timeOut: 3000, // Time to close the toaster (in milliseconds)
       positionClass: 'toast-top-right', // Toast position

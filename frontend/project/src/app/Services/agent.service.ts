@@ -11,16 +11,16 @@ export class AgentService {
   constructor(private http:HttpClient) { }
 
   agentlogin(data:userlog):Observable<any>{
-    console.log("agent login==>",data)
+ 
     return this.http.post<any>(`${this.api}/agents/agentlogin`,data)
   }
   
   verifyUser(data:any):Observable<any>{
-    console.log("otp is==>",data)
+  
     return this.http.post<any>(`${this.api}/agents/agentverifyotp`,data)
   }
   addSlot(data:any):Observable<any>{
-    console.log("slot data")
+  
     return this.http.post<any>(`${this.api}/agents/addslot`,data)
   }
   deletingslot(id:string,agentId:string):Observable<any>{
@@ -32,7 +32,19 @@ export class AgentService {
     return this.http.get<any>(`${this.api}/agents/agentDetails?id=${id}`)
   }
   availableslots(id:any):Observable<any>{
-    console.log("inside service==>",id)
+   
     return this.http.get<any>(`${this.api}/agents/availableslots/${id}`)
+  }
+  bookingdetails(id:string):Observable<any>{
+  
+    return this.http.get<any>(`${this.api}/agents/getAllSlots?id=${id}`)
+  }
+  slotDetailsByOption(agentId:string,status:string):Observable<any>{
+    
+    return this.http.get<any>(`${this.api}/agents/slotDetailsByOption?id=${agentId}&data=${status}`)
+  }
+  agentslotcancell(slotId:string,agentId:string):Observable<any>{
+    console.log("service get called===>",slotId)
+    return this.http.delete<any>(`${this.api}/agents/agentslotcancell?slotId=${slotId}&agentId=${agentId}`)
   }
 }

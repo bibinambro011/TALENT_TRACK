@@ -29,9 +29,13 @@ const agentslotadd: Schema = new Schema({
     type:Boolean,
     default:false
   },
+  status:{
+    type:String,
+    default:"pending"
+  },
  bookedUserId:{
   type: Schema.Types.ObjectId,
-  ref:'userschema'
+  ref:'userSchema'
  }
 });
 

@@ -1,0 +1,77 @@
+<div >
+    <!-- Search Field -->
+  
+    <div class="w-70 h-20 bg-red-50 p-8">
+      <div class="mb-4">
+        <select
+          class="border border-gray-300 p-2 rounded-md"
+          [(ngModel)]="selectedOption"
+          (change)="bookingsStatus(selectedOption)"
+        
+        >
+          <option value="All" selected>All</option>
+          <option value="pending">Pending</option>
+          <option value="Confirmed">Confirmed</option>
+          <option value="Consulted">Consulted</option>
+          <option value="Cancelled">Cancelled</option>
+          <option value="Agent cancelled">agent cancelled</option>
+        </select>
+      </div>
+      <!-- Table -->
+      <div class="overflow-x-auto">
+        <table class="min-w-full">
+          <thead>
+            <tr>
+              <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                Date
+              </th>
+              <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                Time
+              </th>
+              <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                User Name
+              </th>
+              <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                Email
+              </th>
+              <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                Status
+              </th>
+              <th class="px-6 py-3 bg-gray-50"></th><!-- Empty header for Cancel button column -->
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let item of slots">
+              <tr class="border-t border-gray-200">
+                <td class="px-6 py-4 whitespace-no-wrap">{{ item.date | date }}</td>
+                <td class="px-6 py-4 whitespace-no-wrap">{{ item.time }}</td>
+                <td class="px-6 py-4 whitespace-no-wrap">{{ item?.bookedUserId?.firstName }}</td>
+                <td class="px-6 py-4 whitespace-no-wrap">{{ item?.bookedUserId?.email }}</td>
+                <td class="px-6 py-4 whitespace-no-wrap">
+                  {{ item.status }}
+                  <div *ngIf="item.status=='Confirmed'">
+                    <select class="bg-yellow-500 hover:bg-yellow-700 text-white px-4 py-2 rounded-md"
+                            [(ngModel)]="selectedOptions[item._id]"
+                            (change)="onRejectConsultChange(selectedOptions[item._id], item._id)">
+                      <option value="agent cancelled">Reject</option>
+                      <option value="consulted">Consult</option>
+                    </select>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-no-wrap">
+                  <button *ngIf="item.status=='pending'"
+                          type="button"
+                          class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded-md"
+                          (click)="cancelSlot(item._id)">
+                    Cancel
+                  </button>
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+      
+    </div>
+  </div>
+  
