@@ -15,7 +15,9 @@ agentRouter.delete("/deletingslot",agentController.deletingslot)
 agentRouter.get("/agentDetails",agentController.agentDetails)
 agentRouter.get("/getAllSlots",agentController.getAllSlots)
 agentRouter.get("/slotDetailsByOption",agentController.slotDetailsByOption)
-agentRouter.delete("/agentslotcancell",agentController.agentslotcancell)
+agentRouter.delete("/agentslotcancell",agentController.agentslotcancell);
+agentRouter.get("/slotbookingchangeStatus",agentController.slotbookingchangeStatus)
+agentRouter.put("/editAgent",upload.single('image'),agentController.editAgent)
 
 
 

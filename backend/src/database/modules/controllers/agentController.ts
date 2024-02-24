@@ -205,4 +205,48 @@ export class agetController {
     throw new Error("Error fetching data")
   }
  }
+
+ // fetching slots after updationg the status
+
+ async slotbookingchangeStatus(req:Request,res:Response){
+  try{
+    console.log(req.query)
+    let {status,slotId,agentId}=req.query as any
+    let data:any=await agentservice.slotbookingchangeStatus(slotId,status,agentId)
+    if(data){
+      console.log("data is==>",data)
+      res.status(200).json(data)
+    }
+
+  }catch{
+     throw new Error("error fetching data")
+  }
+ }
+
+ //updating agent and fetching agent details
+ //method put
+ async editAgent(req:Request,res:Response){
+  const folderName = "Talent Track";
+  console.log("edit use controller get called",req.body)
+  try{
+    let data=req.body;
+    if (req.file) {
+      console.log("cloudinary===>");
+      const result = await cloudinary.uploader.upload(req.file.path, {
+        public_id: `${folderName}/${req.file.originalname}`,
+      });
+      data.image = result.secure_url;
+    }
+    let agent=await agentservice.editAgent(data)
+    if(agent){
+      console.log("afetr edit adat is====>",agent)
+      res.status(200).json(agent)
+    }else{
+      res.status(401).json("failed to fetch data")
+    }
+  }catch{
+    throw new Error("error fetching data")
+  }
+  
+ }
 }

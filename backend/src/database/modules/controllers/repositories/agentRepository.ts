@@ -1,5 +1,6 @@
 import { comparePass } from "../../../../../Helper/passwordhash";
 import agentModel from "../../../models/agentmodels";
+import userBookingModel from "../../../models/userbooking";
 import addagentslot from "../../../models/agentaddslot"
 import jwt from 'jsonwebtoken';
 import dotenv from "dotenv"
@@ -190,5 +191,43 @@ async agentslotcancell(slotid:string,agentId:string){
   }
   
 
+}
+
+// updating booking status that is user is rejection or coonsulted option is clicking
+
+async  slotbookingchangeStatus(slotId:string,status:string,agentId:string){
+try{
+  await userBookingModel.updateOne({slotId:slotId},{$set:{status:status}});
+  await addagentslot.updateOne({_id:slotId},{$set:{status:status}})
+  let data=await addagentslot.find({agentId:agentId});
+  return data
+
+}catch{
+throw new Error("error fetching value")
+}
+}
+
+//editing agent profile
+
+async editAgent(data:any){
+  try{
+    if(data.image){
+      let datas=await agentModel.updateOne({_id:data.agentId},{$set:{firstName:data.firstName,lastName:data.lastName,category:data.category
+        ,experience:data.experience,clubConnections:data.clubConnections,image:data.image
+      }})
+      let agent=await agentModel.find({_id:data.agentId});
+      return agent
+    }else{
+      let datas=await agentModel.updateOne({_id:data.agentId},{$set:{firstName:data.firstName,lastName:data.lastName,category:data.category
+        ,experience:data.experience,clubConnections:data.clubConnections,
+      }})
+      let agent=await agentModel.find({_id:data.agentId});
+      return agent
+    }
+    
+  }catch{
+    throw new Error("error fetching data")
+  }
+ 
 }
 }

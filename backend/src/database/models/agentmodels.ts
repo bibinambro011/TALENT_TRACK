@@ -16,6 +16,7 @@ export interface AgentDocument extends Document {
     certificate:string;
     category:string;
     experience:string;
+    clubConnections:String
 
 
 }
@@ -64,6 +65,9 @@ const agentSchema = new mongoose.Schema<AgentDocument>({
     },
     experience:{
         type:String
+    },
+    clubConnections:{
+      type:String
     }
    
 

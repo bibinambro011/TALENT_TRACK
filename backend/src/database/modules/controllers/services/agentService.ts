@@ -111,4 +111,22 @@ async verifyotp(email:string){
     throw new Error("error fetching data")
   }
  }
+
+ // sending data after updating slots 
+ async slotbookingchangeStatus(slotId:string,status:string,agentId:string){
+  try{
+    return await agentrepository.slotbookingchangeStatus(slotId,status,agentId)
+  }catch{
+    throw new Error("error fetching data")
+  }
+ }
+ //after upading agent sending agent details
+
+ async editAgent(data:any){
+  try{
+   return await agentrepository.editAgent(data)
+  }catch{
+    throw new Error("error updatinf agent")
+  }
+ }
 }
