@@ -1,83 +1,81 @@
-
-
-
-
-<div class="container mx-auto p-6 bg-gray-800 text-white">
-    <div class="bg-gray-900 shadow-md rounded-lg p-6">
+<div class="container mx-auto p-6 grid grid-cols-2">
+    <div>
+      <div class="bg-gray-600 shadow-md rounded-lg p-6">
         <h1 class="text-2xl font-semibold text-gray-100">Agent Profile</h1>
         <div class="mt-4">
-            <div class="grid grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-gray-300 text-sm font-bold mb-2">image</label>
-                    <button class="ml-6 bg-white w-60 pt-1 pb-1 rounded-md border border-black">book appointment</button>
-
-
-                </div>
-                <div>
-                    <label class="block text-gray-300 text-sm font-bold mb-2">Full Name:{{agentdetails.firstName}}</label>
-                    <p class="text-gray-100"></p>
-                </div>
-                <div>
-                    <label class="block text-gray-300 text-sm font-bold mb-2">Email:{{agentdetails.email}}</label>
-                    <p class="text-gray-100"></p>
-                </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-gray-300 text-sm font-bold mb-2">Image</label>
+              <img [src]="agentdetails.image" class="w-40 h-40 rounded" alt="Agent Image">
             </div>
-            <div class="mt-4">
-                <label class="block text-gray-300 text-sm font-bold mb-2">Address:</label>
-                <p class="text-gray-100"></p>
+            <div>
+              <div>
+                <label class="block text-gray-300 text-sm font-bold mb-2">Full Name:</label>
+                <p class="text-gray-100">{{ agentdetails.firstName }} {{ agentdetails.lastName }}</p>
+              </div>
+              <div>
+                <label class="block text-gray-300 text-sm font-bold mb-2">Email:</label>
+                <p class="text-gray-100">{{ agentdetails.email }}</p>
+              </div>
+              <div>
+                <label class="block text-gray-300 text-sm font-bold mb-2">Category:</label>
+                <p class="text-gray-100">{{ agentdetails.category }}</p>
+              </div>
+              <div>
+                <label class="block text-gray-300 text-sm font-bold mb-2" *ngIf="agentdetails.experience">Experience:</label>
+                <p class="text-gray-100" *ngIf="agentdetails.experience">{{ agentdetails.experience }}</p>
             </div>
-            <div class="mt-4">
-                <label class="block text-gray-300 text-sm font-bold mb-2">Phone:</label>
-                <p class="text-gray-100"></p>
-            </div>
-            <div class="mt-4">
-                <label class="block text-gray-300 text-sm font-bold mb-2">Bio:</label>
-                <p class="text-gray-100"></p>
-            </div>
-            <div class="mt-6">
-                <div class="card flex justify-content-center">
-                    <p-button (click)="showDialog()" icon="pi pi-user" label="Login"></p-button>
-                    <p-dialog [(visible)]="visible">
-                        <ng-template pTemplate="headless">
-                            <div class="flex flex-column px-8 py-3 gap-1" style="border-radius: 12px; background-image: radial-gradient(circle at left top, var(--primary-400), var(--primary-700)); width: 600px;"> <!-- Adjust width here -->
-                                <form>
-                                    <div class="inline-flex flex-column gap-1">
-                                        <label for="firstname" class="text-primary-50 font-semibold">First Name</label>
-                                        <input type="text" id="firstname" class="bg-white-alpha-20 border-none p-1 text-primary-50 w-full" formControlName="firstname"/>
-                                    </div><br><br>
-                                    <div class="inline-flex flex-column gap-1">
-                                        <label for="lastname" class="text-primary-50 font-semibold">Last Name</label>
-                                        <input type="text" id="lastname" class="bg-white-alpha-20 border-none p-1 text-primary-50 w-full" formControlName="lastname"/>
-                                    </div><br><br>
-                                    <div class="inline-flex flex-column gap-1">
-                                        <label for="email" class="text-primary-50 font-semibold">Email</label>
-                                        <input type="email" id="email" class="bg-white-alpha-20 border-none p-1 text-primary-50 w-full" formControlName="email"/>
-                                    </div><br><br>
-                                    <div class="inline-flex flex-column gap-1">
-                                        <label for="experience" class="text-primary-50 font-semibold">Experience</label>
-                                        <input type="text" id="experience" class="bg-white-alpha-20 border-none p-1 text-primary-50 w-full" formControlName="experience"/>
-                                    </div><br><br>
-                                    <div class="inline-flex flex-column gap-1">
-                                        <label for="image" class="text-primary-50 font-semibold">Image</label>
-                                        <input type="text" id="image" class="bg-white-alpha-20 border-none p-1 text-primary-50 w-full" formControlName="image"/>
-                                    </div><br><br>
-                                    <div class="inline-flex flex-column gap-1">
-                                        <label for="fees" class="text-primary-50 font-semibold">Fees</label>
-                                        <input type="text" id="fees" class="bg-white-alpha-20 border-none p-1 text-primary-50 w-full" formControlName="fees"/>
-                                    </div><br><br>
-                                    <button type="submit" (click)="closeDialog()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit</button>
-                                </form>
-                            </div>
-                        </ng-template>
-                    </p-dialog>
-                </div>
+            <div>
+                <label class="block text-gray-300 text-sm font-bold mb-2" *ngIf="agentdetails.clubConnections">Club Connections:</label>
+                <p class="text-gray-100" *ngIf="agentdetails.clubConnections">{{ agentdetails.clubConnections }}</p>
             </div>
             
+            </div>
+          </div>
         </div>
+        <div class="grid grid-cols-2 justify-between mt-6">
+          <div>
+            <button type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="showEditOptions = !showEditOptions">Edit</button>
+          </div>
+          <div>
+            <button type="button" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" (click)="logoutAgent()">Logout</button>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
+    <div>
+      <div *ngIf="showEditOptions" class="ml-10 border border-black p-6">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">Edit Profile</h2>
+        <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+          <div class="mb-4">
+            <label for="firstName" class="block text-gray-700 text-sm font-bold mb-2">First Name</label>
+            <input type="text" formControlName="firstName" id="firstName"  class="border border-gray-400 px-4 py-2 w-full">
+          </div>
+          <div class="mb-4">
+            <label for="lastName" class="block text-gray-700 text-sm font-bold mb-2">Last Name</label>
+            <input type="text" formControlName="lastName" id="lastName" class="border border-gray-400 px-4 py-2 w-full">
+          </div>
 
-
-
-
-
+          <div class="mb-4">
+            <label for="image" class="block text-gray-700 text-sm font-bold mb-2">Image</label>
+            <input type="file"  id="image" (change)="onFileSelect($event)" class="border border-gray-400 px-4 py-2 w-full" accept="image/*">
+          </div>
+          <div class="mb-4">
+            <label for="category" class="block text-gray-700 text-sm font-bold mb-2">Category</label>
+            <input type="text" formControlName="category" id="category"  class="border border-gray-400 px-4 py-2 w-full">
+          </div>
+          <div class="mb-4">
+            <label for="experience" class="block text-gray-700 text-sm font-bold mb-2">Experience</label>
+            <textarea formControlName="experience" id="experience"  class="border border-gray-400 px-4 py-2 w-full"></textarea>
+          </div>
+          <div class="mb-4">
+            <label for="clubConnections" class="block text-gray-700 text-sm font-bold mb-2">Club Connections</label>
+            <textarea formControlName="clubConnections" id="clubConnections"  class="border border-gray-400 px-4 py-2 w-full"></textarea>
+          </div>
+          <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Save</button>
+          <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" (click)="canceleditoption()">Cancel</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  

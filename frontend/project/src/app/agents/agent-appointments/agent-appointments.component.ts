@@ -59,7 +59,15 @@ export class AgentAppointmentsComponent {
     })
   }
   onRejectConsultChange(status:string,slotId:string){
-    console.log("result is==>", status, "and id is ==>", slotId)
+   this.service.slotbookingchangeStatus(slotId,status,this.agentId).subscribe((data)=>{
+    if(data){
+      this.slots=[]
+      data.forEach((res:any)=>{
+        this.slots.push(res)
+      })
+    }
+   })
+    
   }
   ngOnInit() {
     this.slots=[]
