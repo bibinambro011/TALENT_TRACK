@@ -23,7 +23,7 @@ export class AgentProfilePageComponent implements OnDestroy {
     private service: AgentService,
     private store: Store,
     private fb: FormBuilder,
-    private router:Router
+    private router: Router
   ) {}
   initeditprofile() {
     this.profileForm = this.fb.group({
@@ -89,28 +89,7 @@ export class AgentProfilePageComponent implements OnDestroy {
     }
   }
 
-  ngOnInit() {
-    this.agentInfoSubscription = this.store
-      .select(getAgentInfo)
-      .subscribe((res) => {
-        if (res) {
-          this.agentId = res._id;
-          this.getAgentDetails(); // Call the method to fetch agent details when agentInfo is available
-        }
-      });
-    this.initeditprofile();
-  }
-
-  ngOnDestroy() {
-    if (this.agentInfoSubscription) {
-      this.agentInfoSubscription.unsubscribe();
-    }
-    if (this.agentDetailsSubscription) {
-      this.agentDetailsSubscription.unsubscribe();
-    }
-  }
-
-   getAgentDetails() {
+  getAgentDetails() {
     this.agentDetailsSubscription = this.service
       .getAgentdetails(this.agentId)
       .subscribe((res) => {
@@ -127,12 +106,27 @@ export class AgentProfilePageComponent implements OnDestroy {
         }
       });
   }
-  logoutAgent(){
-    localStorage.removeItem("agenttoken") 
-    this.router.navigate(["/agent/agent-login"])
+  logoutAgent() {
+    localStorage.removeItem('agenttoken');
+    this.router.navigate(['/agent/agent-login']);
   }
-
- 
-
- 
+  ngOnInit() {
+    this.agentInfoSubscription = this.store
+      .select(getAgentInfo)
+      .subscribe((res) => {
+        if (res) {
+          this.agentId = res._id;
+          this.getAgentDetails(); // Call the method to fetch agent details when agentInfo is available
+        }
+      });
+    this.initeditprofile();
+  }
+  ngOnDestroy() {
+    if (this.agentInfoSubscription) {
+      this.agentInfoSubscription.unsubscribe();
+    }
+    if (this.agentDetailsSubscription) {
+      this.agentDetailsSubscription.unsubscribe();
+    }
+  }
 }

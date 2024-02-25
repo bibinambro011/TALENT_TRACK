@@ -121,4 +121,21 @@ export class UserService {
       throw new Error("error updating user")
     }
   }
+
+  async paymentSuccess(data:any){
+    try{
+      return await userRepository.paymentSuccess(data)
+    }catch{
+      throw new Error("error updating payment")
+    }
+  }
+
+  //payment failure 
+  async paymentfailure(data:any){
+    try{
+      return await userRepository.paymentfailure(data)
+    }catch{
+      throw new Error("error updating payment")
+    }
+  }
 }

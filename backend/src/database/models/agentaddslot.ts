@@ -36,6 +36,13 @@ const agentslotadd: Schema = new Schema({
  bookedUserId:{
   type: Schema.Types.ObjectId,
   ref:'userSchema'
+ },
+ paymentstatus:{
+  type:String
+ },
+ bookingAmount:{
+  type:String,
+  default:'1500'
  }
 });
 

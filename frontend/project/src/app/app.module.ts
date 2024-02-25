@@ -33,6 +33,7 @@ import { AgentDetailsComponent } from './shared/agent-details/agent-details.comp
 import { CalendarModule } from 'primeng/calendar';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { PaymentComponent } from './Components/payment/payment.component';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     FooterComponent,
     ProfileComponent,
     SearchAgentComponent,
-    AgentDetailsComponent
+    AgentDetailsComponent,
+    PaymentComponent
   ],
   imports: [
     BrowserModule,

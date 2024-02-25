@@ -64,4 +64,13 @@ export class UserService {
     console.log("inside service==>",data)
     return this.http.post<any>(`${this.api}/users/editUser`,data)
   }
+
+  getKey():Observable<string>{
+    return this.http.get<string>(`${this.api}/users/getKey`)
+  }
+
+  paymentVerification(data:any):Observable<any>{
+    console.log("booking data from service==>",data)
+    return this.http.post<string>(`${this.api}/users/paymentVerification`,data)
+  }
 }

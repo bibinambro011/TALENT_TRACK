@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/Services/user.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
   profileForm!: FormGroup;
   errorMessage: string = '';
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -43,19 +45,31 @@ export class RegisterComponent implements OnInit {
     }
 
     const formData = new FormData();
-    formData.append('firstName', this.profileForm.get('firstName')?.value.toLowerCase());
-    formData.append('lastName', this.profileForm.get('lastName')?.value.toLowerCase);
+    formData.append(
+      'firstName',
+      this.profileForm.get('firstName')?.value.toLowerCase()
+    );
+    formData.append(
+      'lastName',
+      this.profileForm.get('lastName')?.value.toLowerCase()
+    );
     formData.append('email', this.profileForm.get('email')?.value);
     formData.append('password', this.profileForm.get('password')?.value);
-    formData.append('confirmPassword', this.profileForm.get('confirmPassword')?.value);
+    formData.append(
+      'confirmPassword',
+      this.profileForm.get('confirmPassword')?.value
+    );
     formData.append('category', this.profileForm.get('category')?.value);
     formData.append('image', this.profileForm.get('image')?.value);
 
-    if (this.profileForm.get('password')?.value !== this.profileForm.get('confirmPassword')?.value) {
+    if (
+      this.profileForm.get('password')?.value !==
+      this.profileForm.get('confirmPassword')?.value
+    ) {
       this.toastr.error('Passwords do not match');
       return;
     }
-    this.service.registerUser(formData).subscribe(
+    const registrationSub = this.service.registerUser(formData).subscribe(
       () => {
         localStorage.setItem('email', formData.get('email') as string);
         localStorage.setItem('role', 'user');
@@ -66,6 +80,7 @@ export class RegisterComponent implements OnInit {
         console.error('Registration failed', error);
       }
     );
+    this.subscriptions.push(registrationSub);
   }
 
   onFileSelected(event: any): void {
@@ -77,5 +92,9 @@ export class RegisterComponent implements OnInit {
 
   hasError(controlName: string, errorName: string): boolean {
     return this.profileForm.get(controlName)?.hasError(errorName) ?? false;
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 }

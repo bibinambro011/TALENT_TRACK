@@ -207,4 +207,44 @@ async editUser(data:any){
 
 }
 
+
+async paymentSuccess(data:any){
+  try{
+    try {
+      
+      await addagentslot.updateOne(
+        { _id: data.slotId },
+        { $set: { bookedUserId: data.userId,booked:true,status:'Confirmed',paymentstatus:'paid' } } 
+      );
+      
+     await userBookingModel.create(data);
+     return addagentslot.find({agentId:data.agentId,booked:false})
+     
+    } catch {
+      throw new Error("failed to add booking details");
+    }
+  }catch{
+    throw new Error("error adding payment")
+  }
+}
+
+async paymentfailure(data:any){
+  try{
+    try {
+      
+      await addagentslot.updateOne(
+        { _id: data.slotId },
+        { $set: { bookedUserId: data.userId,booked:true,status:'pending',paymentstatus:'failed' } } 
+      );
+      
+     await userBookingModel.create(data);
+     return addagentslot.find({agentId:data.agentId,booked:false})
+     
+    } catch {
+      throw new Error("failed to add booking details");
+    }
+  }catch{
+    throw new Error("error adding payment")
+  }
+}
 }
