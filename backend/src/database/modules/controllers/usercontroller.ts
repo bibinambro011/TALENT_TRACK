@@ -6,10 +6,12 @@ import bcrypt from "bcrypt";
 import generateMail from "../../../../Helper/mailOtp";
 import cloudinary from "../../../../Helper/cloudinary";
 import { UserRepository } from "./repositories/userREpository";
+import RazorpayInstance from '../../../../Helper/razorpayConfig';
+import crypto from "crypto"
 
 
 const userService = new UserService();
-
+var orderdata : any;
 //user controller class
 export class UserController {
   //user Registrration
@@ -110,22 +112,99 @@ export class UserController {
     }
   }
 
+//getting Razorpay key
+async getKey(req: Request, res: Response) {
+   res.status(200).json({ key: process.env.key_id });
+}
+
 // sending back slot status false slots to display it in the user for proceed booking information
 // method get 
 
+
+
   async userslotbooking(req:Request,res:Response){
-    try{
+    try{   
       let data:userBookingDocument=req.body;
-      let userdata=await userService.userslotbooking(data)
-      if(userdata){
-        res.status(200).json(userdata)
-      }else{
-        res.status(401).json("error adding userbooking details")
+      orderdata = req.body
+
+      console.log("payment details are===>",req.body)
+      const {bookingamount}=req.body 
+      console.log("===>",bookingamount)
+      const options={
+        amount: Number(bookingamount*100),
+        currency: "INR"
       }
-    }catch{
-      throw new Error("error adding userbooking details")
+      console.log("options are===>",options)
+      const order = await RazorpayInstance.orders.create(options)
+      console.log("orderssss==>",order)
+      if (order) {
+        console.log("order==>",order)
+        res.status(200).json( order)
+      }
+    }catch(error){
+      console.log(error)
+      
     }
   }
+
+ // @DESC to verify the payment 
+// @METHOD  post
+// @PATH /paymentverification 
+async paymentVerification(req: Request, res: Response): Promise<void> {
+  try {
+    
+      const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
+      const body = razorpay_order_id + '|' + razorpay_payment_id;
+      const expectedSignature = crypto.createHmac('sha256', 'Ki2cAMKxf2JxKvJRQh2Xiq6U' || '').update(body.toString()).digest('hex');
+      const isAuth = expectedSignature === razorpay_signature;
+
+      if (isAuth && orderdata) {
+          try {
+              const {
+               slotId,
+               agentId,
+               userId,
+               time,
+               date,
+               bookingamount
+              } = orderdata;
+            let payment=  await userService.paymentSuccess(orderdata)
+            if(payment){
+              res.status(200).json( {success: true,payment})
+            }
+          }catch{
+            throw new Error("error updating payment")
+          } 
+      } else {
+          try {
+
+              const {
+                slotId,
+                agentId,
+                userId,
+                time,
+                date,
+                bookingamount
+              } = orderdata;
+
+              let payment=  await userService.paymentfailure(orderdata)
+              if(payment){
+                res.status(400).json({ success: false,payment });
+              }
+              
+          } catch (error) {
+              console.error('Error in orderReceived:', error);
+          }
+
+          res.status(400).json({ success: false });
+      }
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ success: false, error: 'Internal Server Error' });
+  }
+}
+
+  
   // sending back the agent category details
   //method get
   async agentCategory(req:Request, res: Response){
@@ -252,3 +331,4 @@ async editUser(req: Request, res: Response) {
 
 
 }
+

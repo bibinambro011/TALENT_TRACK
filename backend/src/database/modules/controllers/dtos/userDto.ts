@@ -26,5 +26,6 @@ export interface UserDto {
     time: string;
     date: Date;
     status: string;
+    bookingamount:string
   }
   
