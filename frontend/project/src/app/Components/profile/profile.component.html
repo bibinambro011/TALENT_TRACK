@@ -195,7 +195,7 @@
                   type="button"
                   class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded-md"
                   *ngIf="data.status === 'confirmed'"
-                  (click)="cancelbooking(data._id, data.userId, data.status)"
+                  (click)="cancelbooking(data._id, data.userId, data.status,data.paymentId)"
                 >
                   Cancel
                 </button>
@@ -206,4 +206,8 @@
       </table>
     </div>
   </div>
+
+  
+
+
 </div>

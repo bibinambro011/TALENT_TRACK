@@ -10,8 +10,12 @@ import { Route, Router } from '@angular/router';
   styleUrls: ['./otpenter.component.css'],
 })
 export class OtpenterComponent {
-  constructor(private service: UserService, private toaster: ToastrService,private router:Router) {}
-  userotp !:number
+  constructor(
+    private service: UserService,
+    private toaster: ToastrService,
+    private router: Router
+  ) {}
+  userotp!: number;
   onSubmit(userForm: NgForm) {
     const email = localStorage.getItem('email');
     const obj = {
@@ -22,7 +26,7 @@ export class OtpenterComponent {
     this.service.verifyUser(obj).subscribe(
       (result) => {
         this.toaster.success('verification successfull !!');
-        this.router.navigate(["/user/login"])
+        this.router.navigate(['/user/login']);
       },
       (error) => {
         // Handle error

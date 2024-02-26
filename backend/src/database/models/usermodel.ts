@@ -14,6 +14,7 @@ export interface UserDocument extends Document {
   certificate: string;
   category: string;
   position: string;
+  wallet:number
 }
 
 const userSchema = new mongoose.Schema<UserDocument>({
@@ -61,6 +62,10 @@ const userSchema = new mongoose.Schema<UserDocument>({
   position: {
     type: String,
   },
+  wallet:{
+    type:Number,
+    default:0
+  }
 });
 
 const usersModel: Model<UserDocument> = mongoose.model(

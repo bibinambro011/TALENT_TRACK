@@ -177,18 +177,30 @@ export class UserRepository {
 }
 // cancel booking 
 
-async cancelbooking(id:string,userid:string,status:string){
-  try{
-    await userBookingModel.updateOne({_id:id},{$set:{status:'cancelled'}});
-    let data = await userBookingModel.find({ userId: userid, status:status }).populate('agentId').exec();
-    
-    console.log("inside repo==>",data)
-    return data;
+async cancelbooking(id: string, userid: string, status: string, amountrefund: string) {
+  try {
+    let datas = await userBookingModel.findOne({ _id: id });
+    console.log("datas===>", datas);
 
-  }catch{
-    throw new Error("error cancelling slot")
+    // Ensure datas?.bookingamount is properly cast to a number
+    let bookingAmount = datas?.bookingamount ? parseFloat(datas.bookingamount) : 0;
+    let refundAmount = parseFloat(amountrefund);
+
+    let finalamount: number = bookingAmount - refundAmount;
+    await userBookingModel.updateOne({ _id: id }, { $set: { status: 'cancelled', refundamount: refundAmount,bookingamount:finalamount } });
+    let user=await usersModel.find({_id:userid})
+    let updatedamount=user[0].wallet+Number(amountrefund)
+    await usersModel.updateOne({_id:userid},{$set:{wallet:updatedamount}})
+    let data = await userBookingModel.find({ userId: userid, status: status }).populate('agentId').exec();
+
+    console.log("inside repo==>", data);
+    return data;
+  } catch (error) {
+    console.error("Error cancelling slot:", error);
+    throw new Error("Error cancelling slot");
   }
 }
+
 
 //editing user and sending updated info to user
 
@@ -207,8 +219,17 @@ async editUser(data:any){
 
 }
 
+// finding slot to cancel
+async findCancellingSlot(id:string){
+  try{
+    return await userBookingModel.find({_id:id})
+  }catch(error:any){
+    throw new Error(error)
+  }
+}
 
-async paymentSuccess(data:any){
+
+async paymentSuccess(data:any,razorpay_payment_id:string){
   try{
     try {
       
@@ -216,12 +237,13 @@ async paymentSuccess(data:any){
         { _id: data.slotId },
         { $set: { bookedUserId: data.userId,booked:true,status:'Confirmed',paymentstatus:'paid' } } 
       );
-      
+      data.paymentId=razorpay_payment_id
+      data.bookingamount=data.bookingamount
      await userBookingModel.create(data);
      return addagentslot.find({agentId:data.agentId,booked:false})
      
-    } catch {
-      throw new Error("failed to add booking details");
+    } catch(error:any) {
+      throw new Error(error);
     }
   }catch{
     throw new Error("error adding payment")

@@ -1,46 +1,24 @@
-
-
-
-<div class="grid grid-cols-2">
-    <div class="bg-gradient-to-r from-blue-900 to-blue-300   h-96 ">
-        <img src="{{searchagentdata.image}}" alt="image" class="mx-auto w-auto h-60 border-spacing-1 justify-center align-middle mt-20">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 p-8">
+    <!-- Left Column - Agent Information -->
+    <div class="bg-blue-900 p-8 rounded-lg flex flex-col justify-center items-center">
+        <img src="{{searchagentdata.image}}" alt="Agent Image" class="w-64 h-64 rounded-full mb-8">
+        <h1 class="text-4xl font-semibold text-white text-center mb-4">Hi, I'm {{searchagentdata.firstName}} {{searchagentdata.lastName}}</h1>
+        <p class="text-white text-lg text-center " *ngIf="searchagentdata.experience">I have {{searchagentdata.experience}} years of experience as a {{searchagentdata.category}} agent and have secured the careers of more than 100 players.</p>
+        <p class="text-white text-lg text-center mb-8" *ngIf="searchagentdata.clubConnections">I directly have connections with clubs such as  {{searchagentdata.clubConnections}} </p>
+        <button class="bg-white text-black py-2 px-6 rounded-lg font-semibold hover:bg-gray-200 transition duration-300 ease-in-out" (click)="availableslots(searchagentdata.id)">Book Appointment</button>
     </div>
-    <div class="bg-blue-400 pt-5">
-        <h1 class="font-normal text-6xl">Haii My Name is <br> {{searchagentdata.firstName}}.</h1><br><br>
-        <p class="ml-10">i have 10 years of experience as a football agent <br> i have secured the careers of more than 100 players</p><br>
-        <button class="ml-6 bg-white w-60 border-spacing-1 pt-1 pb-1 rounded-md border border-black" (click)="availableslots(searchagentdata.id)">book appointment</button>
 
-    </div>
- </div>
-
-
-
-
- <div class="overflow-auto">
-    <div class="grid grid-cols-2 gap-4 mt-20">
-        <ng-container *ngFor="let item of slots">
-            <div class="relative bg-white shadow-md rounded-lg p-4 border-2 border-blue-500m ml-10 mr-10 mb-10">
-                <p>{{item.date | date}}</p>
-                <p>{{item.time}}</p>
-                <button class="absolute bottom-2 right-2 pl-12 pr-12 h-7 bg-cyan-800 border border-md rounded" (click)="userslotbook(item)">book</button>
-            </div>
-        </ng-container>
+    <!-- Right Column - Available Slots -->
+    <div class="bg-white p-8 rounded-lg">
+        <h2 class="text-3xl font-semibold mb-6">Available Slots</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <ng-container *ngFor="let item of slots">
+                <div class="bg-gray-100 p-4 rounded-lg shadow-md">
+                    <p class="text-lg font-semibold">{{ item.date | date }}</p>
+                    <p class="text-gray-600">{{ item.time }}</p>
+                    <button class="bg-blue-900 text-white py-2 px-4 rounded-lg mt-4 block w-full text-center font-semibold hover:bg-blue-600 transition duration-300 ease-in-out" (click)="userslotbook(item)">Book</button>
+                </div>
+            </ng-container>
+        </div>
     </div>
 </div>
-
-<!-- <div class="bg-red-50 w-30 block" *ngIf="showcalender">
-    <p-calendar [(ngModel)]="date" [readonlyInput]="true"   (onSelect)="dateSelected($event)"></p-calendar>
-</div>
-
-<div class="pb-96 pt-96"></div>
-
-
-<div>
-    <ul *ngFor="let item of allotedTime; let i=index">
-      <li>Start Time: {{ item.time }}</li>
-    
-     
-    </ul>
-</div> -->
-
-

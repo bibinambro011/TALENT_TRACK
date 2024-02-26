@@ -18,6 +18,11 @@ export class AddSlotComponent {
   ) {
    
   }
+  addNewTime(){
+    this.available_time.push(this.newTime)
+    this.newTime=""
+  }
+  newTime:any
   showavailableslots: boolean = true;
   addedslots: any = [];
   date: Date | undefined = new Date();
@@ -41,7 +46,7 @@ export class AddSlotComponent {
         result.forEach((data: any) => {
           this.addedslots.push(data);
         });
-        this.toastr.success('user added successfully');
+        this.toastr.success('slot added successfully');
       } else {
         this.toastr.error('failure adding slot');
       }

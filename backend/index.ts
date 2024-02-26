@@ -7,6 +7,7 @@ import router from  "../backend/src/database/modules/controllers/routes/userRout
 import agentRouter from "../backend/src/database/modules/controllers/routes/agentRoute"
 import adminRouter from "../backend/./src/database/modules/controllers/routes/adminRoute"
 import * as path from 'path';
+import errorHandlingMidleware from "./midlewares/errorhandling";
 
 dotenv.config()
 
@@ -15,6 +16,7 @@ const app:Application=express()
 app.use(express.json());
 app.use(cors({origin: 'http://localhost:4200'}))
 app.use('/image', express.static(path.join(__dirname, 'image')));
+app.use(errorHandlingMidleware)
 app.use('/users', router);
 app.use("/agents",agentRouter);
 app.use("/admin",adminRouter)

@@ -1,0 +1,31 @@
+<div class="bg-transparent p-2 flex items-center flex-wrap" *ngIf="pages.length !==0 && total > 5">
+    <nav aria-label="Page navigation">
+      <ul class="inline-flex">
+        <li>
+          <button (click)="changePage(currentPage - 1)"  [disabled]="currentPage === 1"
+            class="h-10 px-4 mr-2 text-black transition-colors duration-150 rounded-l-lg focus:shadow-outline hover:bg-sky-200"
+            >
+            <i class="fa-solid fa-angles-left"></i>                
+          </button>
+        </li>
+        <li *ngFor="let page of pages" class="mx-2">
+          <button (click)="changePage(page)" 
+            class="h-10 px-4 text-black transition-colors duration-150 focus:shadow-outline"
+            [class.bg-sky-900]="currentPage === page"
+            [class.text-white]="currentPage === page">
+            {{ page }}
+          </button>
+        </li>
+        
+        <li>
+          <button (click)="changePage(currentPage + 1)" 
+            class="h-10 px-4 ml-2 text-black transition-colors duration-150rounded-r-lg focus:shadow-outline hover:bg-sky-200"
+            [disabled]="currentPage === pages.length">
+            <i class="fa-solid fa-angles-right"></i>        
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  
+ 

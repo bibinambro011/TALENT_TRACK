@@ -6,6 +6,9 @@ export interface userBookingDocument extends Document {
   time: string;
   date: Date;
   status: string;
+  paymentId:string;
+  refundamount:string;
+  bookingamount:string 
 }
 
 const userBookinSchema = new mongoose.Schema<userBookingDocument>({
@@ -29,6 +32,16 @@ const userBookinSchema = new mongoose.Schema<userBookingDocument>({
     type: String,
     default:"confirmed"
   },
+  paymentId:{
+    type:String
+  },
+  
+  bookingamount:{
+    type:String 
+  },
+  refundamount:{
+    type:String
+  }
 });
 
 const userBookingModel: Model<userBookingDocument> = mongoose.model(
