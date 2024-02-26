@@ -113,9 +113,9 @@ export class UserService {
     }
   }
   //cancel booking 
-  async cancelbooking(id:string,userid:string,status:string,amountrefund:string){
+  async cancelbooking(id:string,userid:string,status:string,amountrefund:string,slotId:string){
     try{
-      return await userRepository.cancelbooking(id,userid,status,amountrefund)
+      return await userRepository.cancelbooking(id,userid,status,amountrefund,slotId)
     }catch{
       throw new Error("error cancelling slot")
     }

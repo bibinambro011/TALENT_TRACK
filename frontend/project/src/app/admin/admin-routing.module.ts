@@ -9,16 +9,20 @@ import { adminauthGuard } from '../guards/adminauth.guard';
 
 
 const routes: Routes = [
-  {path:'admin',children:[
-    {path:'',component:AdminLoginComponent},
-  {path:"admin-home",component:AdminHomeComponent,canActivate:[adminauthGuard]},
-  {path:"admin-dashboard",component:AdminDashboardComponent,canActivate:[adminauthGuard]},
-  {path:"admin-allusers",component:AdminShowalluserComponent,canActivate:[adminauthGuard]},
-  {path:"admin-allagents",component:AdminShowallagentsComponent,canActivate:[adminauthGuard]},
-  
-  ]}
-  
+  {
+    path: 'admin',
+    children: [
+      { path: '', component: AdminLoginComponent },
+      { path: "admin-home", component: AdminHomeComponent, canActivate: [adminauthGuard] },
+      { path: "admin-dashboard", component: AdminDashboardComponent, canActivate: [adminauthGuard] },
+      { path: "admin-allusers", component: AdminShowalluserComponent, canActivate: [adminauthGuard] },
+      { path: "admin-allagents", component: AdminShowallagentsComponent, canActivate: [adminauthGuard] },
+      // Wildcard route
+      { path: '**', redirectTo: 'admin' } // Redirect to admin component if path does not match any defined routes
+    ]
+  }
 ];
+
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
