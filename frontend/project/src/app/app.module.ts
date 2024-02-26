@@ -33,8 +33,7 @@ import { AgentDetailsComponent } from './shared/agent-details/agent-details.comp
 import { CalendarModule } from 'primeng/calendar';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
-import { PaymentComponent } from './Components/payment/payment.component';
-
+import { PaginationComponent } from './shared/pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +47,7 @@ import { PaymentComponent } from './Components/payment/payment.component';
     ProfileComponent,
     SearchAgentComponent,
     AgentDetailsComponent,
-    PaymentComponent
+    PaginationComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,16 +70,15 @@ import { PaymentComponent } from './Components/payment/payment.component';
       progressBar: true, // Show progress bar
     }),
 
-    StoreModule.forRoot({ user: UserReducer,agent: AgentReducer }, {}),
-    EffectsModule.forRoot([UserEffect,AgentEffect]),
+    StoreModule.forRoot({ user: UserReducer, agent: AgentReducer }, {}),
+    EffectsModule.forRoot([UserEffect, AgentEffect]),
     AgentsModule,
-    AdminModule
+    AdminModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
-  
 })
 export class AppModule {}

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { SharedService } from 'src/app/Services/shared.service';
 import { UserService } from 'src/app/Services/user.service';
 
+
 @Component({
   selector: 'app-search-agent',
   templateUrl: './search-agent.component.html',
@@ -17,6 +18,8 @@ export class SearchAgentComponent {
   agents:any=[]
 
 agentdata:any={}
+
+
 
 
   ngOnInit(){
@@ -42,6 +45,8 @@ agentdata:any={}
           this.agentdata.image=data.image
           this.agentdata.id=data._id;
           this.agentdata.email=data.email
+          this.agentdata.experience=data.experience;
+          this.agentdata.clubConnections=data.clubConnections
           
           this.router.navigate(["/agentprofile"])
         })

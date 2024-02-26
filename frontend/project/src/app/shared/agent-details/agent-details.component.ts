@@ -65,7 +65,6 @@ getUserId(){
     this.userservice.userbookingslot(obj).subscribe((data)=>{
       if(data){
         this.payWithRazor(data);
-        this.toastr.success('slot booked successfully')
       }else{
         this.toastr.error('failure book slot')
       }

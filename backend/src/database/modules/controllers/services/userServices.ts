@@ -103,11 +103,19 @@ export class UserService {
       throw new Error("error fetching data")
     }
   }
+  // finding slot to cancell
 
-  //cancel booking 
-  async cancelbooking(id:string,userid:string,status:string){
+  async findCancellingSlot(id:string){
     try{
-      return await userRepository.cancelbooking(id,userid,status)
+      return userRepository.findCancellingSlot(id)
+    }catch(error:any){
+      throw new Error(error);
+    }
+  }
+  //cancel booking 
+  async cancelbooking(id:string,userid:string,status:string,amountrefund:string){
+    try{
+      return await userRepository.cancelbooking(id,userid,status,amountrefund)
     }catch{
       throw new Error("error cancelling slot")
     }
@@ -122,9 +130,9 @@ export class UserService {
     }
   }
 
-  async paymentSuccess(data:any){
+  async paymentSuccess(data:any,razorpay_payment_id:string){
     try{
-      return await userRepository.paymentSuccess(data)
+      return await userRepository.paymentSuccess(data,razorpay_payment_id)
     }catch{
       throw new Error("error updating payment")
     }

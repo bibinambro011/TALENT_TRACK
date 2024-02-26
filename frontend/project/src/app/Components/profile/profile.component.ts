@@ -9,11 +9,11 @@ import Swal from 'sweetalert2';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
-
 })
 export class ProfileComponent implements OnInit, OnDestroy {
   sidebarVisible: boolean = true;
@@ -27,7 +27,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   editedUser: any;
   editMode: boolean = false;
   uploadForm!: FormGroup;
-  filedvalue: string = "bibin";
+  filedvalue: string = 'bibin';
   eventdata: EventEmitter<string> = new EventEmitter<string>();
   logoutSubscription: Subscription = new Subscription();
   userInfoSubscription: Subscription = new Subscription();
@@ -42,48 +42,48 @@ export class ProfileComponent implements OnInit, OnDestroy {
   ) {}
 
   logout() {
-    this.eventdata.emit("data send from profile component");
-    localStorage.removeItem("token");
-    this.router.navigate(["/user/login"]);
+    this.eventdata.emit('data send from profile component');
+    localStorage.removeItem('token');
+    this.router.navigate(['/user/login']);
   }
 
   dashboard() {
+    this.visibilityhandle();
     this.showdashboard = true;
-    this.showprofile = false;
-    this.showappointments = false;
-    this.sidebarVisible = false;
   }
 
   Appointments() {
+    this.visibilityhandle();
     this.showappointments = true;
-    this.showdashboard = false;
-    this.sidebarVisible = false;
-    this.showprofile = false;
   }
 
   profile() {
-    this.showprofile = false;
-    this.showdashboard = false;
-    this.sidebarVisible = false;
-    this.showappointments = false;
+    this.visibilityhandle();
     this.showprofile = true;
   }
 
   cancelEdit() {
-    this.editMode=false
+    this.editMode = false;
   }
 
   editprofile() {
+    this.visibilityhandle;
     this.editMode = true;
     this.showprofile = true;
   }
 
-  bookings(data: string) {
+  // creating a common function hor conditionally displaying the nnecessary fileds
+
+  visibilityhandle() {
     this.editMode = false;
     this.showprofile = false;
     this.showdashboard = false;
     this.sidebarVisible = false;
     this.showprofile = false;
+    this.showappointments = false;
+  }
+  bookings(data: string) {
+    this.visibilityhandle();
     this.showappointments = true;
     this.userbookings = [];
     this.userBookingsSubscription = this.userservice
@@ -95,11 +95,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
       });
   }
 
-  cancelbooking(data: string, userId: string, status: string): void {
+  // booking cancellation from the user side
+
+  cancelbooking(data: string, userId: string, status: string,paymentId:string): void {
     let details = {
       id: data,
       userid: userId,
       status: status,
+      paymentId:paymentId
     };
 
     // Show the custom alert
@@ -118,7 +121,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   showCustomAlert(): Promise<any> {
     return Swal.fire({
       title: 'Are you sure?',
-      text: 'You won\'t be able to revert this!',
+      text: "You won't be able to revert this!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -135,13 +138,53 @@ export class ProfileComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit() {
-    this.initForm();
-    this.userInfoSubscription = this.store.select(getUserInfo).subscribe((data) => {
-      if (data) {
-        this.id = data._id;
+  
+// called this functiin when the form is get submitted
+
+  onSubmit() {
+    if (this.uploadForm.invalid) {
+      return;
+    }
+    this.user = [];
+    const formData = new FormData();
+    formData.append('userId', this.id);
+    formData.append('image', this.uploadForm.get('image')?.value);
+    formData.append(
+      'firstName',
+      this.uploadForm.get('firstName')?.value.toLowerCase()
+    );
+    formData.append(
+      'lastName',
+      this.uploadForm.get('lastName')?.value.toLowerCase()
+    );
+    this.userservice.editUser(formData).subscribe((result) => {
+      if (result) {
+        result.forEach((data: any) => {
+          this.user.push(data);
+        });
       }
     });
+    this.editMode = false;
+  }
+// getting the image
+  onFileSelect(event: any): void {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.uploadForm.get('image')?.setValue(file);
+    }
+  }
+  ngOnInit() {
+    this.initForm();
+    this.userInfoSubscription = this.store
+      .select(getUserInfo)
+      .subscribe((data) => {
+        if (data) {
+          this.id = data._id;
+        }
+      });
+
+      // getting userdetails by passing user id, which is saved globally
+
     this.userservice.getUser(this.id).subscribe((res) => {
       if (res) {
         res.forEach((data: any) => {
@@ -151,32 +194,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     });
   }
 
-  onSubmit() {
-    if (this.uploadForm.invalid) {
-      return;
-    }
-    this.user = [];
-    const formData = new FormData();
-    formData.append("userId", this.id);
-    formData.append("image", this.uploadForm.get('image')?.value);
-    formData.append("firstName", this.uploadForm.get('firstName')?.value.toLowerCase());
-    formData.append("lastName", this.uploadForm.get('lastName')?.value.toLowerCase());
-    this.userservice.editUser(formData).subscribe((result) => {
-      if (result) {
-        result.forEach((data: any) => {
-          this.user.push(data);
-        });
-      }
-    });
-    this.editMode=false;
-  }
-
-  onFileSelect(event: any): void {
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      this.uploadForm.get('image')?.setValue(file);
-    }
-  }
+// unsubscribing all the observables while leaving the component 
 
   ngOnDestroy(): void {
     this.logoutSubscription.unsubscribe();

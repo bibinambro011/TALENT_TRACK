@@ -4,17 +4,19 @@ import { AgentDetailsComponent } from './agent-details/agent-details.component';
 import { CalendarModule } from 'primeng/calendar';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PaginationComponent } from './pagination/pagination.component';
 
 
 
 
 @NgModule({
   declarations: [
-    AgentDetailsComponent
+    AgentDetailsComponent,
+    PaginationComponent
   ],
   imports: [
     CommonModule,FormsModule,BrowserAnimationsModule,CalendarModule
   ],
-  exports:[AgentDetailsComponent]
+  exports:[AgentDetailsComponent,PaginationComponent]
 })
 export class SharedModule { }
