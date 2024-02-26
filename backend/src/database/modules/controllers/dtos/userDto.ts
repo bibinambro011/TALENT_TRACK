@@ -41,7 +41,8 @@ export interface IcancelBooking {
   id: string;
   userid: string;
   status: string;
-  paymentId:string
+  paymentId:string;
+  slotId:string;
 }
 
 interface Agent {

@@ -279,7 +279,7 @@ export class UserController {
   async cancelbooking(req: Request, res: Response, next: NextFunction) {
     try {
       console.log(req.body);
-      const { id, userid, status,paymentId }: IcancelBooking = req.body;
+      const { id, userid, status,paymentId,slotId }: IcancelBooking = req.body;
       console.log("cancel details are====> ",req.body)
       const cancelslot=await userService.findCancellingSlot(id);
       console.log("cancelslot====>",cancelslot);
@@ -297,7 +297,8 @@ export class UserController {
             // Handle refund failure
           } else {
             const amountrefund=refundamount.toString()
-            let data = await userService.cancelbooking(id, userid, status,amountrefund);
+
+            let data = await userService.cancelbooking(id, userid, status,amountrefund,slotId);
             if (data) {
               res.status(200).json(data);
             } else {

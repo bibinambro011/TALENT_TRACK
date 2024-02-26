@@ -174,7 +174,7 @@ export class UserRepository {
 }
 // cancel booking 
 
-async cancelbooking(id: string, userid: string, status: string, amountrefund: string) {
+async cancelbooking(id: string, userid: string, status: string, amountrefund: string,slotId:string) {
   try {
     let datas = await userBookingModel.findOne({ _id: id });
 
@@ -183,6 +183,7 @@ async cancelbooking(id: string, userid: string, status: string, amountrefund: st
     let refundAmount = parseFloat(amountrefund);
 
     let finalamount: number = bookingAmount - refundAmount;
+    await addagentslot.updateOne({_id:slotId },{$set:{status:'cancelled'}})
     await userBookingModel.updateOne({ _id: id }, { $set: { status: 'cancelled', refundamount: refundAmount,bookingamount:finalamount } });
     let user=await usersModel.find({_id:userid})
     let updatedamount=user[0].wallet+Number(amountrefund)
