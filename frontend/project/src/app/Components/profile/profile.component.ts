@@ -97,12 +97,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   // booking cancellation from the user side
 
-  cancelbooking(data: string, userId: string, status: string,paymentId:string): void {
+  cancelbooking(data: string, userId: string, status: string,paymentId:string,slotId:string): void {
     let details = {
       id: data,
       userid: userId,
       status: status,
-      paymentId:paymentId
+      paymentId:paymentId,
+      slotId:slotId
     };
 
     // Show the custom alert
