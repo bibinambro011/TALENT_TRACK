@@ -50,7 +50,6 @@ export class UserRepository {
             role: info.role,
           },
         };
-        console.log("accesseduser is==>", accesseduser);
         return accesseduser;
       }
     } catch (error: any) {
@@ -137,7 +136,6 @@ export class UserRepository {
   //fetching agents by name
   async getagentByName(name:string){
     try{
-      console.log("inside repo", name)
       return await agentModel.find({ firstName: { $regex: `${name}` } });
       
     }catch{
@@ -167,7 +165,6 @@ export class UserRepository {
             
         } else {
             let data = await userBookingModel.find({ userId: id, status: status }).populate('agentId').exec();
-            console.log(data);
             return data;
         }
 
@@ -180,7 +177,6 @@ export class UserRepository {
 async cancelbooking(id: string, userid: string, status: string, amountrefund: string) {
   try {
     let datas = await userBookingModel.findOne({ _id: id });
-    console.log("datas===>", datas);
 
     // Ensure datas?.bookingamount is properly cast to a number
     let bookingAmount = datas?.bookingamount ? parseFloat(datas.bookingamount) : 0;
@@ -193,7 +189,6 @@ async cancelbooking(id: string, userid: string, status: string, amountrefund: st
     await usersModel.updateOne({_id:userid},{$set:{wallet:updatedamount}})
     let data = await userBookingModel.find({ userId: userid, status: status }).populate('agentId').exec();
 
-    console.log("inside repo==>", data);
     return data;
   } catch (error) {
     console.error("Error cancelling slot:", error);
