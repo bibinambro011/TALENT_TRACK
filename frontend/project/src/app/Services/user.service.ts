@@ -32,6 +32,25 @@ export class UserService {
   verifyUser(data:any):Observable<any>{
     return this.http.post<any>(`${this.api}/users/verifyotp`,data)
   }
+  getUserTokenFromLocalStorage():string{
+    return localStorage.getItem('token') as string;
+  }
+  getRefreshTokenfromLocalStorage(){
+    return localStorage.getItem('refreshtoken') as string;
+
+  }
+  generateRefreshToken(){
+    let input={
+      token:this.getUserTokenFromLocalStorage(),
+      refreshtoken:this.getRefreshTokenfromLocalStorage()
+    }
+    return this.http.post<any>(`${this.api}/users/refreshtoken`,input)
+  }
+  saveTokenData(tokendata:any){
+    localStorage.setItem('token',tokendata.token)
+    localStorage.setItem('refreshtoken',tokendata.refreshtoken)
+  }
+  
   getAllverifiedAgents():Observable<any>{
     return this.http.get<any>(`${this.api}/users/getVerifiedagents`)
   }

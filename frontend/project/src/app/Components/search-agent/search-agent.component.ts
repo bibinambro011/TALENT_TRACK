@@ -50,7 +50,7 @@ export class SearchAgentComponent implements OnDestroy {
           this.agentdata.experience = data.experience;
           this.agentdata.clubConnections = data.clubConnections;
 
-          this.router.navigate(['/agentprofile']);
+          // this.router.navigate(['/agentprofile']);
         });
       }
     });

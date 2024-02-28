@@ -6,22 +6,23 @@ import upload from '../../../../../Helper/multer';
 const router = express.Router();
 const userController = new UserController();
 
-router.post('/userregister',upload.single('image'), userController.registerUser);
+router.post('/userregister',userAuth,upload.single('image'), userController.registerUser);
 router.post("/userlogin",userController.userlogin)
 router.post("/verifyotp",userController.verifyotp)
-router.post("/userslotbooking",userController.userslotbooking)
-router.post("/paymentVerification",userController.paymentVerification)
+router.post("/userslotbooking",userAuth,userController.userslotbooking)
+router.post("/paymentVerification",userAuth,userController.paymentVerification)
 
-router.get("/getVerifiedagents",userController.getVerifiedagents)
-router.get("/showavailableslots/:agentId",userController.agentAvailableSlots)
+router.get("/getVerifiedagents",userAuth,userController.getVerifiedagents)
+router.get("/showavailableslots/:agentId",userAuth,userController.agentAvailableSlots)
 router.get("/agentCategory",userController.agentCategory)
 router.get("/getagentByName",userController.getagentByName);
 router.get("/getUserById",userController.getUserById)
-router.get("/userbookings",userController.userbookings);
+router.get("/userbookings",userAuth,userController.userbookings);
 router.get("/getKey",userController.getKey)
 
-router.patch("/cancelbooking",userController.cancelbooking)
+router.patch("/cancelbooking",userAuth,userController.cancelbooking)
 
-router.post("/editUser",upload.single('image'),userController.editUser);
+router.post("/editUser",userAuth,upload.single('image'),userController.editUser);
+router.post("/refreshtoken",userController.refreshtoken)
 
 export default router;
