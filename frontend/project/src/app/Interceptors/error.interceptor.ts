@@ -1,23 +1,38 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
-  HttpErrorResponse
+  HttpErrorResponse,
+  HttpResponse
 } from '@angular/common/http';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError, switchMap } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
+import { UserService } from '../Services/user.service';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
-  constructor(private toastr: ToastrService) {}
+  constructor(
+    private toastr: ToastrService,
+    private router: Router,
+    private injector: Injector
+  ) {}
 
-  intercept(request: HttpRequest<any>, next: HttpHandler) {
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
-        let errorMessage = 'An unknown error occurred';
+        console.log("error is==>", error);
+        if (error.status === 401) {
+          console.log("inside 401 block===>");
+      
+          // Using refresh token
+          return this.handleRefreshToken(request, next);
+        }
+        let errorMessage = 'An error occurred';
         if (error.error instanceof ErrorEvent) {
           // Client-side error
           errorMessage = `Error: ${error.error.message}`;
@@ -29,5 +44,29 @@ export class ErrorInterceptor implements HttpInterceptor {
         return throwError(errorMessage);
       })
     );
+  }
+
+  handleRefreshToken(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const userService = this.injector.get(UserService);
+    return userService.generateRefreshToken().pipe(
+      switchMap((data: any) => {
+        userService.saveTokenData(data);
+        const newRequest = this.addTokenHeader(request, data.refreshToken);
+        // Forward the modified request to the next handler
+        return next.handle(newRequest);
+      }),
+      catchError((error: any) => {
+        this.router.navigate(["user/login"]);
+        return throwError(error);
+      })
+    );
+  }
+
+  addTokenHeader(req: HttpRequest<any>, token: string): HttpRequest<any> {
+    return req.clone({
+      setHeaders: {
+        Authorization: `User-Bearer ${token}`,
+      },
+    });
   }
 }

@@ -5,7 +5,7 @@ import { AgentService } from 'src/app/Services/agent.service';
 import { ToasterService } from 'src/app/Services/toaster.service';
 import { UserService } from 'src/app/Services/user.service';
 import { WindowRefService } from 'src/app/Services/window-ref.service';
-import { getUserInfo } from 'src/app/store/userStore/userSelector';
+import { getUserInfo } from '../../store/userStore/userSelector'
 
 @Component({
   selector: 'app-agent-details',
@@ -24,7 +24,7 @@ export class AgentDetailsComponent {
   
   constructor(private agentservice:AgentService,private store:Store,private userservice:UserService,private toastr:ToasterService,private winRef: WindowRefService){}
 
-  availableslots(id:any){
+  availableslots(id:string){
    
     this.slots=[]
    this.agentservice.availableslots(id).subscribe((res)=>{
@@ -92,7 +92,7 @@ getUserId(){
 
       description: '',  // product description
 
-      image: './assets/logo.png', // company logo or product image
+      image: 'assets/images/tt.jpg', // company logo or product image
 
       order_id: val.id, // order_id created by you in backend
 

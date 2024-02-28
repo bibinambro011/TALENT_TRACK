@@ -1,4 +1,4 @@
-import usersModel from "/Users/User/Desktop/secondProject/backend/src/database/models/usermodel";
+import usersModel from "../../../models/usermodel";
 import agentModel from "../../../models/agentmodels";
 import addagentslot from "../../../models/agentaddslot";
 import userBookingModel from "../../../models/userbooking";
@@ -11,7 +11,8 @@ import { Secret } from "jsonwebtoken";
 dotenv.config();
 
 const jwtSecretToken: Secret = process.env.jwtsecrettoken as string;
-
+const jwtrefreshtoken: Secret =process.env.jwtrefreshtoken as string;
+let email:string=''
 // creating a userRepository class
 export class UserRepository {
   async create(userData: UserDto): Promise<any> {
@@ -25,6 +26,7 @@ export class UserRepository {
   //  getting user
 
   async getUser(data: any): Promise<any> {
+    console.log("get user=====>")
     try {
       let info: any = await usersModel.findOne({ email: data.email });
       if (!info) {
@@ -38,9 +40,13 @@ export class UserRepository {
         if (info.is_blocked) {
           return "you are blocked by the admin";
         }
-        const token = jwt.sign(info.email, jwtSecretToken);
+        console.log("inside repo========================>")
+        email=info.email
+        const refreshtoken=jwt.sign({email:info.email}, jwtrefreshtoken,{expiresIn:'1d'})
+        const token = jwt.sign({email:info.email}, jwtSecretToken,{expiresIn:'20s'});
         const accesseduser = {
           usertoken: token,
+          refreshtoken:refreshtoken,
           userdetails: {
             id: info._id,
             name: info.firstName,
@@ -53,7 +59,35 @@ export class UserRepository {
         return accesseduser;
       }
     } catch (error: any) {
+      console.log("inside catch error===")
       throw new Error("Could not find user");
+    }
+  }
+
+  // getting new token data after token expiry
+  async refreshtoken(data: any) {
+    try {
+      let { refreshtoken } = data;
+  
+      return new Promise((resolve, reject) => {
+        jwt.verify(refreshtoken, jwtrefreshtoken, (err: any, decoded: any) => {
+          if (err) {
+            // Wrong Refresh Token
+            reject(err);
+          } else {
+            // Correct token, generate new tokens
+            const newRefreshtoken = jwt.sign({ email: decoded.email }, jwtrefreshtoken, { expiresIn: '1d' });
+            const newAccessToken = jwt.sign({ email: decoded.email }, jwtSecretToken, { expiresIn: '20s' });
+            const accesseduser = {
+              token: newAccessToken,
+              refreshtoken: newRefreshtoken,
+            };
+            resolve(accesseduser);
+          }
+        });
+      });
+    } catch (error: any) {
+      throw new Error(error);
     }
   }
   //  fetching user details

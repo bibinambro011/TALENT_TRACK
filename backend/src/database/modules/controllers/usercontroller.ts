@@ -351,4 +351,18 @@ export class UserController {
       next(error);
     }
   }
+
+  //getting new token by passing refresh token
+  // method post
+  async refreshtoken(req:Request,res:Response){
+    try{
+    let data:any=await  userService.refreshtoken(req.body)
+    if(data){
+      return res.status(200).json(data)
+    }
+    }catch(error:any){
+      throw new Error(error)
+    }
+    
+  }
 }

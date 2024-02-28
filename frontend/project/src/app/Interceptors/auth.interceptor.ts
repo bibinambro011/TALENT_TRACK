@@ -37,7 +37,7 @@ export class AuthInterceptor implements HttpInterceptor {
       });
       return next.handle(authRequest);
     } else if (window.location.pathname.includes('/user') && this.userToken) {
-      // Checking mentee auth
+      // Checking user auth
       // user interceptor checking
     
       const userToken: string = this.userToken;
@@ -49,7 +49,7 @@ export class AuthInterceptor implements HttpInterceptor {
       });
       return next.handle(authRequest);
     } else if (window.location.pathname.includes('/agent') && this.agentToken) {
-      // Checking mentor auth
+      // Checking agent auth
       // agent interceptor checking
       console.log('agent interceptor works');
       const agentToken: string = this.agentToken;

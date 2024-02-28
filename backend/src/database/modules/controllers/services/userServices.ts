@@ -16,14 +16,14 @@ export class UserService {
     try{
       return await userRepository.getUser(data)
     }catch(error:any){
-    throw new Error('Could not register user');
+    throw new Error('Could not get user');
   }
   }
   async userdetails(email:string){
     try{
       return await userRepository.getUserdetails(email)
     }catch(error){
-      throw new Error('Could not get user');
+      throw new Error('Could not get userdetails');
     }
   }
   async verifyotp(email:string){
@@ -144,6 +144,16 @@ export class UserService {
       return await userRepository.paymentfailure(data)
     }catch{
       throw new Error("error updating payment")
+    }
+  }
+
+  // getting new token after token expiry 
+  async refreshtoken(data:any){
+    try{
+    return userRepository.refreshtoken(data)
+
+    }catch(error:any){
+      throw new Error(error)
     }
   }
 }

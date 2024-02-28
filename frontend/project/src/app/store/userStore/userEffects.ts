@@ -25,6 +25,7 @@ export class UserEffect {
                 console.log(data)
                 if(data.usertoken){
                     localStorage.setItem('token',JSON.parse(JSON.stringify(data)).usertoken)
+                    localStorage.setItem('refreshtoken',JSON.parse(JSON.stringify(data)).refreshtoken)
                     this.route.navigate(['/user/home'])
                     this.toastr.success("login success !!")
                    
