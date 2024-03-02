@@ -20,6 +20,15 @@ export class chatService{
     }
 
    } 
+
+   // fetching all the chats 
+   async fetchChats(userId:string){
+    try{
+        return await chatrepository.fetchChats(userId)
+    }catch(error:any){
+
+    }
+   }
 }
 
 

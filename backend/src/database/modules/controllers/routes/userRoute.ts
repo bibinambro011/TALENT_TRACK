@@ -29,5 +29,6 @@ router.post("/refreshtoken",userController.refreshtoken)
 
 //chat routes
 router.post("/accessChat",chatcontroller.accessChat)
+router.get("/fetchChats",chatcontroller.fetchChats)
 
 export default router;
