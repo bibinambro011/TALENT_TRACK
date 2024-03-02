@@ -30,6 +30,23 @@ async accessChat(req: Request, res: Response) {
 
 
 }
+// getting all the avilable chat 
+
+async fetchChats(req:Request,res:Response){
+    try{
+        let userId:string=req.query.id as string
+        console.log("userId is==>",userId)
+        let data:any=await chatservice.fetchChats(userId)
+        if(data){
+            res.status(200).json(data)
+        }else{
+            res.status(401).json("error fetching chats")
+        }
+
+    }catch(error:any){
+        throw new Error(error)
+    }
+}
    
 
 }
