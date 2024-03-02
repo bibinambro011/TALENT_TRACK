@@ -46,4 +46,25 @@ export class chatRepository{
           }
     }
 
+    // getting all the chats
+
+    async fetchChats(userId:string){
+        console.log("inside chat==>")
+        try {
+           let data=  chatModel.find({ users: { $elemMatch: { $eq:userId } } })
+              .populate("users")
+              .populate("latestMessage")
+              .sort({ updatedAt: -1 })
+           
+               let results = await usersModel.populate(data, {
+                  path: "latestMessage.sender",
+                  select: "firstName image email",
+                });
+             return results
+             
+          } catch(error:any){
+            throw new Error(error)
+        }
+    }
+
 }
