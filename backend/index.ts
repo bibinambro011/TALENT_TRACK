@@ -20,7 +20,7 @@ app.use(errorHandlingMidleware)
 app.use('/users', router);
 app.use("/agents",agentRouter);
 app.use("/admin",adminRouter)
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 5000;
 connectToDatabase();
 app.listen(PORT, () => {
   console.log(`port is running at port number ${PORT}`);
