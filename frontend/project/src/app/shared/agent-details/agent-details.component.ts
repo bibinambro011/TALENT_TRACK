@@ -6,6 +6,7 @@ import { ToasterService } from 'src/app/Services/toaster.service';
 import { UserService } from 'src/app/Services/user.service';
 import { WindowRefService } from 'src/app/Services/window-ref.service';
 import { getUserInfo } from '../../store/userStore/userSelector'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-agent-details',
@@ -22,7 +23,7 @@ export class AgentDetailsComponent {
   bookingdata:any;
  
   
-  constructor(private agentservice:AgentService,private store:Store,private userservice:UserService,private toastr:ToasterService,private winRef: WindowRefService){}
+  constructor(private agentservice:AgentService,private store:Store,private userservice:UserService,private toastr:ToasterService,private winRef: WindowRefService,private router:Router){}
 
   availableslots(id:string){
    
@@ -153,6 +154,10 @@ getUserId(){
 
     rzp.open();
 
+  }
+
+  startChat(agentId:string){
+    this.router.navigate(["user/chat",agentId])
   }
 
   ngOnInit(){
