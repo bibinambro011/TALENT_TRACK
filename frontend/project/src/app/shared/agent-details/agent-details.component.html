@@ -5,9 +5,10 @@
         <h1 class="text-4xl font-semibold text-white text-center mb-4">Hi, I'm {{searchagentdata.firstName}} {{searchagentdata.lastName}}</h1>
         <p class="text-white text-lg text-center " *ngIf="searchagentdata.experience">I have {{searchagentdata.experience}} years of experience as a {{searchagentdata.category}} agent and have secured the careers of more than 100 players.</p>
         <p class="text-white text-lg text-center mb-8" *ngIf="searchagentdata.clubConnections">I directly have connections with clubs such as  {{searchagentdata.clubConnections}} </p>
-        <button class="bg-white text-black py-2 px-6 rounded-lg font-semibold hover:bg-gray-200 transition duration-300 ease-in-out" (click)="availableslots(searchagentdata.id)">Book Appointment</button>
+        <button class="bg-white text-black mb-1 py-2 px-6 rounded-lg font-semibold hover:bg-gray-200 transition duration-300 ease-in-out" (click)="availableslots(searchagentdata.id)">Book Appointment</button>
+        <button class="bg-white text-black py-2 px-6 rounded-lg font-semibold hover:bg-gray-200 transition duration-300 ease-in-out" (click)="startChat(searchagentdata.id)" >start a chat</button>
     </div>
-
+    
     <!-- Right Column - Available Slots -->
     <div class="bg-white p-8 rounded-lg">
         <h2 class="text-3xl font-semibold mb-6">Available Slots</h2>

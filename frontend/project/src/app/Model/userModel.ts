@@ -39,3 +39,8 @@ export interface dateandtime {
   time: string;
 }
 
+export interface chatusermodel{
+  userId:string;
+  agentId:string
+}
+

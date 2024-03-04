@@ -34,6 +34,7 @@ export class LoginComponent {
       this.store.dispatch(loginuser({ userCredentails }));
       this.store.select(getUserInfo).subscribe((res) => {
         console.log('this is a response from selector', res);
+        localStorage.setItem("userId",res._id)
       });
     }
   }

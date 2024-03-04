@@ -14,10 +14,15 @@ const chatSchema = new Schema(
         chatName:{
             type: String
         },
-        users: [{
+        users:{
             type: Schema.Types.ObjectId,
             ref: "userSchema"
-        }],
+        },
+        agent:{
+            type: Schema.Types.ObjectId,
+            ref: "agentSchema"
+        },
+      
         latestMessage: {
             type: Schema.Types.ObjectId,
             ref: "Message",
