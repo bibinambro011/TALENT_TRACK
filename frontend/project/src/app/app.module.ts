@@ -14,6 +14,8 @@ import { StoreModule } from '@ngrx/store';
 import { UserhomeComponent } from './Components/userhome/userhome.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+
+
 import { ToastNoAnimationModule, ToastrModule } from 'ngx-toastr';
 import { OtpenterComponent } from './Components/otpenter/otpenter.component';
 import { ErrorInterceptor } from './Interceptors/error.interceptor';
@@ -34,6 +36,10 @@ import { CalendarModule } from 'primeng/calendar';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { PaginationComponent } from './shared/pagination/pagination.component';
+import { ChatComponent } from './Components/chat/chat.component';
+import { SocketIoModule ,SocketIoConfig} from 'ngx-socket-io';
+const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
+
 
 @NgModule({
   declarations: [
@@ -48,6 +54,7 @@ import { PaginationComponent } from './shared/pagination/pagination.component';
     SearchAgentComponent,
     AgentDetailsComponent,
     PaginationComponent,
+    ChatComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,6 +68,7 @@ import { PaginationComponent } from './shared/pagination/pagination.component';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     SharedModule,
+    SocketIoModule.forRoot(config),
     ToastNoAnimationModule.forRoot(),
     SweetAlert2Module.forRoot(),
     ToastrModule.forRoot({

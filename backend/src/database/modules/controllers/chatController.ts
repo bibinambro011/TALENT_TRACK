@@ -48,5 +48,31 @@ async fetchChats(req:Request,res:Response){
     }
 }
    
+// adding messages
+
+async sendMessage(req:Request,res:Response){
+    console.log("inside controller sendmessage")
+    console.log(req.body)
+    try{
+       let {content,chatId,userId}=req.body;
+       console.log(req.body)
+       let data=await chatservice.sendMessage(content,chatId,userId);
+       res.status(200).json(data)
+
+    }catch(error:any){
+        throw new Error(error)
+    }
+}
+
+// getting all messages
+async allMessages(req:Request,res:Response){
+    try{
+        let chatId:string=req.query.id as string
+        let data=await chatservice.allMessages(chatId);
+        res.status(200).json(data)
+    }catch(error:any){
+        throw new Error(error)
+    }
+}
 
 }

@@ -1,14 +1,15 @@
-<nav class="parent fixed top-0 left-0 w-full bg-gray-800 z-50">
-    <div class="flex justify-between items-center mx-auto max-w-screen-xl px-4 py-3">
-        <a href="#" class="flex items-center space-x-3">
-            <img src="https://res.cloudinary.com/drw2l8hx6/image/upload/v1707480642/Talent%20Track/d5avtgegenvb14hrnjtv.jpg" class="h-12" alt="Logo" />
-            <span class="text-2xl font-semibold text-white">Talent Track</span>
+<nav class="parent" style="position: sticky; top: 0; z-index: 1000;">
+    <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
+        <a  class="flex items-center space-x-3 rtl:space-x-reverse">
+            <img src="https://res.cloudinary.com/drw2l8hx6/image/upload/v1707480642/Talent%20Track/d5avtgegenvb14hrnjtv.jpg" class="h-12" alt=" Logo" />
+            <span class="self-center text-2xl font-semibold whitespace-nowrap text-white">Talent Track</span>
         </a>
-        <div class="flex items-center space-x-3">
-            <button type="button" class="btn"><a href="/agent/agent-home"><i class="pi pi-home"></i> Home</a></button>  
-            <button type="button" class="btn"><a href="/user/home"><i class="pi pi-home"></i> Home</a></button>            
-            <button type="button" class="btn"><a href="/agent/agent-login"><i class="pi pi-sign-in"></i> Sign in</a></button>
-            <button type="button" class="btn"><a href="/agent/agent-profile"><span class="pi pi-user"></span></a></button>
+        <div class="flex items-center space-x-6 rtl:space-x-reverse">
+            <button type="button" class="btn" *ngIf=" authenticated"><a routerLink="/agent/agent-home"><i class="pi pi-home"></i>  Home</a></button>  
+            <button type="button" class="btn" *ngIf="! authenticated"><a routerLink="/user/home"><i class="pi pi-home"></i>  Home</a></button>  
+            <button type="button" class="btn" *ngIf="! authenticated"><a routerLink="/agent/agent-login"><i class="pi pi-sign-in"></i> sign in</a></button>
+            <button type="button" class="btn" *ngIf=" authenticated"><a routerLink="/agent/agent-profile"><span class="pi pi-user"></span></a></button>
         </div>
     </div>
 </nav>
+<!-- <app-profile (eventdata)="authenicateddata($event)" ></app-profile> -->

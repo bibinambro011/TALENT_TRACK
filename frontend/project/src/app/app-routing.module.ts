@@ -11,6 +11,7 @@ import { userauthGuard } from './guards/userauth.guard';
 import { AgentSearchComponent } from './agents/agent-search/agent-search.component';
 import { SearchAgentComponent } from './Components/search-agent/search-agent.component';
 import { AgentDetailsComponent } from './shared/agent-details/agent-details.component';
+import { ChatComponent } from './Components/chat/chat.component';
 
 const routes: Routes = [
   {path:"",component:UserhomeComponent},
@@ -21,6 +22,7 @@ const routes: Routes = [
   {path:"register",component:RegisterComponent},
   {path:"agentsearch",component:SearchAgentComponent,canActivate:[userauthGuard]},
   {path:"mailverify",component:OtpenterComponent},
+  {path:"chat/:id",component:ChatComponent},
   {path:"agentprofile",component:AgentDetailsComponent}]},
   
  

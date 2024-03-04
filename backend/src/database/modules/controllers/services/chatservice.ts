@@ -29,6 +29,27 @@ export class chatService{
 
     }
    }
+
+   // adding message
+
+   async sendMessage(content:string,chatId:string,userId:string){
+    try{
+        return await chatrepository.sendMessage(content,chatId,userId)
+    }catch(error:any){
+        throw new Error(error)
+    }
+   }
+
+   // fetching all of the messages
+
+   async allMessages(chatId:string){
+    try{
+        return await chatrepository.allMessages(chatId)
+    }catch(error:any){
+        throw new Error(error)
+    }
+   }
+
 }
 
 
