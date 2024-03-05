@@ -50,6 +50,22 @@ export class chatService{
     }
    }
 
+   async agentAccessChat(agentId:string){
+    try{
+        return await chatrepository.agentAccessChat(agentId)
+    }catch(error:any){
+        throw new Error(error)
+    }
+   }
+// agent chats
+
+async agentsendMessage(content:string, chatId:string,agentId:string){
+    try{
+        return await chatrepository.agentsendMessage(content,chatId,agentId)
+    }catch(error:any){
+        throw new Error(error)
+    }
+}
 }
 
 

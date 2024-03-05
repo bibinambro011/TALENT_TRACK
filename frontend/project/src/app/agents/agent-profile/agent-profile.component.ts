@@ -39,4 +39,7 @@ export class AgentProfileComponent {
     this.showappointments=true;
     
   }
+  chat(){
+    this.router.navigate(["/agent/agent-chat"])
+  }
 }

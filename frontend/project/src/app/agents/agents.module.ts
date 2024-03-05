@@ -25,6 +25,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { AgentProfilePageComponent } from './agent-profile-page/agent-profile-page.component';
 import { DialogModule } from 'primeng/dialog';
 import { AgentAppointmentsComponent } from './agent-appointments/agent-appointments.component';
+import { ChatComponent } from './chat/chat.component';
 
 
 
@@ -43,6 +44,7 @@ import { AgentAppointmentsComponent } from './agent-appointments/agent-appointme
     AddSlotComponent,
     AgentProfilePageComponent,
     AgentAppointmentsComponent,
+    ChatComponent,
    
   ],
   imports: [

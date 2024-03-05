@@ -1,0 +1,85 @@
+/* chat-page.component.css */
+
+.container {
+    margin-top: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 100%;
+}
+
+.user-list {
+    flex: 1;
+    padding: 20px;
+    background-color: #f1f1f1;
+    border-right: 1px solid #ccc;
+}
+
+.user-list h2 {
+    margin-bottom: 10px;
+}
+
+.user {
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.user:hover {
+    background-color: #e3e3e3;
+}
+
+.chat-window {
+    flex: 3;
+    padding: 20px;
+}
+
+.messages {
+    height: 300px;
+    overflow-y: scroll;
+}
+
+.message {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.sender {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.content {
+    margin-left: 20px;
+}
+
+.input-area {
+    margin-top: 20px;
+}
+
+.input-area input {
+    width: calc(100% - 70px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.input-area button {
+    width: 60px;
+    padding: 10px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+
+.input-area button:hover {
+    background-color: #0056b3;
+}

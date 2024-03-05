@@ -11,6 +11,7 @@ import { agentauthGuard } from '../guards/agentauth.guard';
 
 import { AgentProfilePageComponent } from './agent-profile-page/agent-profile-page.component';
 import { AgentAppointmentsComponent } from './agent-appointments/agent-appointments.component';
+import { ChatComponent } from './chat/chat.component';
 
 const routes: Routes = [
   {
@@ -42,6 +43,7 @@ const routes: Routes = [
         component: AgentProfilePageComponent,
         canActivate: [agentauthGuard],
       },
+      {path:'agent-chat',component:ChatComponent}
     ],
   },
 ];

@@ -1,0 +1,25 @@
+
+
+<app-agent-navbar></app-agent-navbar>
+<div class="container">
+    <div class="user-list">
+        <h2>Users</h2>
+        <ul>
+            <li *ngFor="let user of users">
+                <div class="user" (click)="openChatRoom(user._id)">{{ user.users.firstName }}</div>
+            </li>
+        </ul>
+    </div>
+    <div class="chat-window">
+        <div class="messages">
+            <div class="message" *ngFor="let message of chats">
+             
+                <div class="content">{{ message.content }}</div>
+            </div>
+        </div>
+        <div class="input-area">
+            <input type="text" placeholder="Type a message..." #inputdata="ngModel" [(ngModel)]="messageText">
+            <button (click)="onSubmit(inputdata.value)">Send</button>
+        </div>
+    </div>
+</div>

@@ -4,6 +4,8 @@ import agentModel from "../../../models/agentmodels";
 import { userlog } from "../dtos/userDto";
 import { chatModel } from "../../../models/chatmodel";
 import { messageModel } from "../../../models/messagemodel";
+import { Error } from "mongoose";
+import { ErrorCode } from "multer";
 
 export class chatRepository{
 
@@ -114,5 +116,53 @@ export class chatRepository{
             throw new Error(error)
           }
     }
+
+    //agentaccesschat 
+
+    async agentAccessChat(agentId:string){
+      try{
+        let isChat = await chatModel.find({
+         
+              
+              agent: agentId 
+        
+      }).populate([
+          { path: "users", model: "userSchema" },  // Populate userSchema
+           // Populate agentSchema
+      ]).populate("latestMessage");
+    return isChat
+      }catch(error:any){
+        throw new Error(error)
+      }
+    }
+
+    // agent messages
+
+ async agentsendMessage(content:string,chatId:string,agentId:string){
+      var newMessage = {
+        sender: agentId,
+        content: content,
+        chat: chatId,
+      };
+  console.log("message is ==>",newMessage)
+      try {
+        var message: any = await messageModel.create(newMessage);
+  
+        message = await message.populate("sender", "firstName image")
+        message = await message.populate("chat")
+        message = await usersModel.populate(message, {
+          path: "chat.agent",
+          select: "username profilePicture email",
+        });
+  
+        await chatModel.findByIdAndUpdate(chatId, { latestMessage: message });
+  
+        return message
+      } catch (error:any) {
+        console.log(error);
+  
+        throw new Error(error)
+      }
+}
 
 }
