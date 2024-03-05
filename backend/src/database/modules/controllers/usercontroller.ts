@@ -365,4 +365,20 @@ export class UserController {
     }
     
   }
+
+  // fetching and sending transaction details
+  // method get
+  async userTransactionHistory(req:Request,res:Response){
+    let userId:string=req.query.userId as string
+    try{
+      let data=await userService.userTransactionHistory(userId)
+      if(data){
+        res.status(200).json(data)
+      }else{
+        res.status(400).json("error fetching transactions")
+      }
+    }catch(error:any){
+      throw new Error(error)
+    }
+  }
 }

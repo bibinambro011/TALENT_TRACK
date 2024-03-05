@@ -33,5 +33,6 @@ router.get("/fetchChats",chatcontroller.fetchChats)
 router.post("/sendMessage",chatcontroller.sendMessage)
 router.get("/allMessages",chatcontroller.allMessages)
 
-
+// transaction details
+router.get("/userTransactionHistory",userController.userTransactionHistory)
 export default router;
