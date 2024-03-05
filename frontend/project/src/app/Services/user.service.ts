@@ -92,4 +92,8 @@ export class UserService {
     console.log("booking data from service==>",data)
     return this.http.post<string>(`${this.api}/users/paymentVerification`,data)
   }
+
+  userTransactionHistory(userId:string):Observable<any>{
+    return this.http.get<any>(`${this.api}/users/userTransactionHistory?userId=${userId}`)
+  }
 }

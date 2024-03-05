@@ -28,6 +28,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   editMode: boolean = false;
   uploadForm!: FormGroup;
   filedvalue: string = 'bibin';
+  transactions:any=[]
   eventdata: EventEmitter<string> = new EventEmitter<string>();
   logoutSubscription: Subscription = new Subscription();
   userInfoSubscription: Subscription = new Subscription();
@@ -48,8 +49,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   dashboard() {
+    this.transactions=[]
     this.visibilityhandle();
     this.showdashboard = true;
+    this.userservice.userTransactionHistory(this.id).subscribe((data)=>{
+      if(data instanceof Array){
+        data.forEach((res)=>{
+          this.transactions.push(res)
+        })
+      }
+    })
   }
 
   Appointments() {
@@ -193,6 +202,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         });
       }
     });
+    
   }
 
 // unsubscribing all the observables while leaving the component 

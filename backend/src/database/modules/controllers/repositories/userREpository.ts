@@ -7,6 +7,7 @@ import { comparePass } from "../../../../../Helper/passwordhash";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import { Secret } from "jsonwebtoken";
+import transactionmodel from "../../../models/transactionmodel";
 
 dotenv.config();
 
@@ -210,6 +211,7 @@ export class UserRepository {
 
 async cancelbooking(id: string, userid: string, status: string, amountrefund: string,slotId:string) {
   try {
+    await transactionmodel.create({userId:userid,agentId:id,refundamount:amountrefund})
     let datas = await userBookingModel.findOne({ _id: id });
 
     // Ensure datas?.bookingamount is properly cast to a number
@@ -269,6 +271,7 @@ async paymentSuccess(data:any,razorpay_payment_id:string){
       );
       data.paymentId=razorpay_payment_id
       data.bookingamount=data.bookingamount
+      await transactionmodel.create({userId:data.userId,agentId:data.agentId,paidamount:data.bookingamount})
      await userBookingModel.create(data);
      return addagentslot.find({agentId:data.agentId,booked:false})
      
@@ -297,6 +300,17 @@ async paymentfailure(data:any){
     }
   }catch{
     throw new Error("error adding payment")
+  }
+}
+
+// getting transaction history
+
+async userTransactionHistory(userId:string){
+  try{
+    let data=await transactionmodel.find({userId:userId}).populate("agentId")
+    return data
+  }catch(error:any){
+    throw new Error(error)
   }
 }
 }

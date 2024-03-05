@@ -156,4 +156,13 @@ export class UserService {
       throw new Error(error)
     }
   }
+
+  // fetching transaction history 
+  async userTransactionHistory(userId:string){
+    try{
+      return await userRepository.userTransactionHistory(userId)
+    }catch(error:any){
+      throw new Error(error)
+    }
+  }
 }
