@@ -38,8 +38,20 @@ export class ChatService {
     // this.socket.emit('message', message);
   }
 
+  // message sended from agent
+  agentsendMessage(data: any): Observable<any> {
+    return this.http.post<any>(`${this.api}/agents/agentsendMessage`,data)
+    
+    // Emit the message through the socket
+    // this.socket.emit('message', message);
+  }
+
   allMessages(chatId:string):Observable<allMessage>{
     return this.http.get<allMessage>(`${this.api}/users/allMessages?id=${chatId}`)
  
+  }
+
+  agentAccessChat(agentId:string){
+    return this.http.get<any>(`${this.api}/agents/agentAccessChat?agentId=${agentId}`)
   }
 }

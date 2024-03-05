@@ -75,4 +75,35 @@ async allMessages(req:Request,res:Response){
     }
 }
 
+async agentAccessChat(req:Request,res:Response){
+    try{
+        console.log("agent access chat==>",req.query.agentId)
+        let agentId :string =req.query.agentId as string
+        let data=await chatservice.agentAccessChat(agentId)
+        if(data){
+            res.status(200).json(data)
+        }else{
+            res.status(400).json("error fetching data")
+        }
+    }catch(error:any){
+        throw new Error(error)
+    }
+}
+
+// adding agent messages
+async agentsendMessage(req:Request,res:Response){
+    try{
+        let {content,chatId,agentId}=req.body;
+        let data=await chatservice.agentsendMessage(content,chatId,agentId);
+        if(data){
+            res.status(200).json(data)
+        }else{
+            res.status(400).json("error sending message")
+        }
+
+    }catch(error:any){
+        throw new Error(error)
+    }
+}
+
 }

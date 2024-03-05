@@ -33,4 +33,5 @@ router.get("/fetchChats",chatcontroller.fetchChats)
 router.post("/sendMessage",chatcontroller.sendMessage)
 router.get("/allMessages",chatcontroller.allMessages)
 
+
 export default router;
