@@ -9,6 +9,7 @@ import router from '../backend/src/database/modules/controllers/routes/userRoute
 import agentRouter from '../backend/src/database/modules/controllers/routes/agentRoute';
 import adminRouter from '../backend/src/database/modules/controllers/routes/adminRoute';
 import errorHandlingMiddleware from './midlewares/errorhandling';
+import connection from '../backend/src/database/connection';
 
 dotenv.config();
 
@@ -34,28 +35,19 @@ app.use('/users', router);
 app.use('/agents', agentRouter);
 app.use('/admin', adminRouter);
 
-// Socket.io connection handling
-// io.on('connection', (socket: Socket) => {
-//   console.log('A user connected');
+io.on('connection', (socket) => {
+  console.log('A user connected');
 
-  // socket.on('message', (message:any) => {
+  socket.on("newMessage",(data)=>{
+    io.emit("messageReceived", data);
+  })
+  {
 
-  //   io.emit("message", message);
-  // });
-
-  // Add your socket.io event listeners here
+  }
 
   
-  // socket.on("setup",(userdata:any)=>{
-  //   socket.join(userdata.userId)
-  //   console.log('socket user id is==>',userdata.userId)
-  //   socket.emit("connected")
-  // })
-  // socket.on("join chat",(room:any)=>{
-  //   socket.join(room)
-  //   console.log("user joined room ", room)
-  // })
-// });
+});
+
 
 // Server
 const PORT = process.env.PORT || 5000;

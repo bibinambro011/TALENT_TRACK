@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
 import { AgentService } from 'src/app/Services/agent.service';
@@ -14,7 +15,8 @@ export class AddSlotComponent {
   constructor(
     private store: Store,
     private service: AgentService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router:Router
   ) {}
   
   showavailableslots: boolean = true;
@@ -78,5 +80,8 @@ export class AddSlotComponent {
         this.toastr.error('failure deleting slot');
       }
     });
+  }
+  addDefaultSlot(){
+    this.router.navigate(['/agent/agent-defaultslotadd'])
   }
 }

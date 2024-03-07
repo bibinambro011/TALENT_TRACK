@@ -8,14 +8,14 @@ import { allMessage } from '../Model/chatModel';
   providedIn: 'root'
 })
 export class ChatService {
-  // private socket: Socket;
+  
   private api:string='http://localhost:4000'
   constructor(private http: HttpClient) { // Inject HttpClient instead of ChatService
-    // this.socket = io('http://localhost:4000'); // Adjust port as per your server configuration
+    // Adjust port as per your server configuration
   }
 
   accessChat(data: any): Observable<any> {
-    // this.socket.emit("setup",data)
+    
     // Send HTTP POST request to the server
    return this.http.post<any>('http://localhost:4000/users/accessChat', data)
   // .subscribe(response => {
@@ -35,7 +35,7 @@ export class ChatService {
     return this.http.post<any>(`${this.api}/users/sendMessage`,data)
     
     // Emit the message through the socket
-    // this.socket.emit('message', message);
+     
   }
 
   // message sended from agent
@@ -49,6 +49,9 @@ export class ChatService {
   allMessages(chatId:string):Observable<allMessage>{
     return this.http.get<allMessage>(`${this.api}/users/allMessages?id=${chatId}`)
  
+  }
+  agentallMessages(chatId:string):Observable<any>{
+    return this.http.get<allMessage>(`${this.api}/agents/allMessages?id=${chatId}`)
   }
 
   agentAccessChat(agentId:string){

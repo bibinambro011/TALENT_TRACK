@@ -66,6 +66,16 @@ async agentsendMessage(content:string, chatId:string,agentId:string){
         throw new Error(error)
     }
 }
+
+async agentallMessages(chatId:string){
+    try{
+        return await chatrepository.agentallMessages(chatId)
+    }catch(error:any){
+        throw new Error(error)
+    }
+   }
+
+   
 }
 
 
