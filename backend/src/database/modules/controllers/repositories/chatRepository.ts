@@ -96,7 +96,7 @@ export class chatRepository{
             });
       
             await chatModel.findByIdAndUpdate(chatId, { latestMessage: message });
-      
+      console.log("user send message is==>",message)
             return message
           } catch (error:any) {
             console.log(error);
@@ -109,7 +109,7 @@ export class chatRepository{
     async allMessages(chatId:string){
         try {
             const messages = await messageModel.find({ chat:chatId })
-              .populate("sender", "username profilePicture email")
+              .populate("sender", "firstName image email")
               .populate("chat");
           return messages
           } catch (error:any) {
@@ -152,17 +152,28 @@ export class chatRepository{
         message = await message.populate("chat")
         message = await usersModel.populate(message, {
           path: "chat.agent",
-          select: "username profilePicture email",
+          select: "firstName image email",
         });
   
         await chatModel.findByIdAndUpdate(chatId, { latestMessage: message });
-  
+        console.log("agent send message is ===>",message)
         return message
       } catch (error:any) {
         console.log(error);
   
         throw new Error(error)
       }
+}
+
+async agentallMessages(chatId:string){
+  try {
+      const messages = await messageModel.find({ chat:chatId })
+        .populate("sender", "firstName image email")
+        .populate("chat");
+    return messages
+    } catch (error:any) {
+      throw new Error(error)
+    }
 }
 
 }

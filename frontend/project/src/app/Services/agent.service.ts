@@ -55,4 +55,5 @@ editAgent(data:any):Observable<any>{
   
   return this.http.put<any>(`${this.api}/agents/editAgent`,data)
 }
+
 }

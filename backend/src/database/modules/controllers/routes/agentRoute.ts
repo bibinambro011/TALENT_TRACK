@@ -23,6 +23,7 @@ agentRouter.put("/editAgent",upload.single('image'),agentController.editAgent)
 
 //chat routes
 agentRouter.get("/agentAccessChat",chatcontroller.agentAccessChat)
+agentRouter.get("/allMessages",chatcontroller.agentallMessages)
 agentRouter.post("/agentsendMessage",chatcontroller.agentsendMessage)
 
 export default agentRouter

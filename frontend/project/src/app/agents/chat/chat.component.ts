@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { catchError, throwError } from 'rxjs';
 import { ChatService } from 'src/app/Services/chat.service';
+import { SocketService } from 'src/app/Services/socket.service';
 import { getAgentInfo } from 'src/app/store/userStore/agentStore/agectSelector';
 
 @Component({
@@ -19,19 +21,18 @@ export class ChatComponent {
   chats:any= [
     
   ];
-
-  constructor(private service:ChatService,private store:Store) { }
+  @ViewChild('messageContainer') private messageContainer!: ElementRef;
+  constructor(private service:ChatService,private store:Store,private socketservice:SocketService) { }
 
   ngOnInit(): void {
    this.agentId =localStorage.getItem("agentId") as string
-   console.log("agentId is==>",this.agentId)
     this.service.agentAccessChat(this.agentId).subscribe((res)=>{
       if(res instanceof Array)
       res.forEach((data)=>{
-    console.log("agentdata is ==>",data)
     this.users.push(data)
     })
     })
+  
   }
 
   openChatRoom(chatId:string){
@@ -41,11 +42,18 @@ export class ChatComponent {
     this.service.allMessages(chatId).subscribe((data)=>{
       if(data instanceof Array){
         data.forEach((res)=>{
-          console.log("response data is==>", res)
           this.chats.push(res)
         })
       }
     })
+    this.socketservice.onMessage().subscribe((res:any)=>{
+      if(res.chat._id==this.chatId){
+        console.log("res-->",res)
+        this.chats.push(res)
+      }
+     
+    })
+    
   }
 
   onSubmit(data:any){
@@ -54,16 +62,21 @@ export class ChatComponent {
       chatId:this.chatId,
       agentId:this.agentId
     }
-    console.log("input val is===>", data)
     this.service.agentsendMessage(info).subscribe((data)=>{
-      if(data instanceof Array){
-        data.forEach((res)=>{
-          console.log("agents message send response==>", res)
-          this.chats.push(res)
-        })
-      }
+      this.socketservice.messageSendfromAgent(data)
+    
+     
     })
     
     this.messageText = '';
+  }
+  ngAfterViewChecked() {
+    this.scrollToBottom();
+  }
+
+  scrollToBottom(): void {
+    try {
+      this.messageContainer.nativeElement.scrollTop = this.messageContainer.nativeElement.scrollHeight;
+    } catch(err) { }
   }
 }

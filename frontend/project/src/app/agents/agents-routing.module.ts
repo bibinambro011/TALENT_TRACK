@@ -12,6 +12,7 @@ import { agentauthGuard } from '../guards/agentauth.guard';
 import { AgentProfilePageComponent } from './agent-profile-page/agent-profile-page.component';
 import { AgentAppointmentsComponent } from './agent-appointments/agent-appointments.component';
 import { ChatComponent } from './chat/chat.component';
+import { DefaultsloatComponent } from './defaultsloat/defaultsloat.component';
 
 const routes: Routes = [
   {
@@ -38,6 +39,7 @@ const routes: Routes = [
       },
 
       { path: 'agent-appointments', component: AgentAppointmentsComponent },
+      { path: 'agent-defaultslotadd', component: DefaultsloatComponent },
       {
         path: 'agent-profile-page',
         component: AgentProfilePageComponent,

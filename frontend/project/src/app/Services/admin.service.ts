@@ -28,6 +28,9 @@ export class AdminService {
   agentVerify(data:any):Observable<any>{
     return this.http.post<any>(`${this.api}/admin/agentVerify`,data)
   }
+  adddefaultslot(data:any):Observable<any>{
+    return this.http.post<any>(`${this.api}/admin/adddefaultslot`,data)
+  }
   
   }
 

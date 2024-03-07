@@ -101,7 +101,11 @@ async addpost(data:any){
 //slot add 
 async addslot(data:any){
   try{
-   await addagentslot.create(data);
+    let slot=await addagentslot.find({agentId:data.agentId})
+   
+      await addagentslot.create(data);
+    
+  
    let total=await addagentslot.find({agentId:data.agentId,booked:false})
     return total
   }catch{

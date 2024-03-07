@@ -94,6 +94,7 @@ async agentAccessChat(req:Request,res:Response){
 async agentsendMessage(req:Request,res:Response){
     try{
         let {content,chatId,agentId}=req.body;
+        console.log("req.body is==>", req.body)
         let data=await chatservice.agentsendMessage(content,chatId,agentId);
         if(data){
             res.status(200).json(data)
@@ -101,6 +102,16 @@ async agentsendMessage(req:Request,res:Response){
             res.status(400).json("error sending message")
         }
 
+    }catch(error:any){
+        throw new Error(error)
+    }
+}
+
+async agentallMessages(req:Request,res:Response){
+    try{
+        let chatId:string=req.query.id as string
+        let data=await chatservice.agentallMessages(chatId);
+        res.status(200).json(data)
     }catch(error:any){
         throw new Error(error)
     }
