@@ -26,6 +26,7 @@ export class chatRepository{
       ]).populate("latestMessage");
 
         if (isChat) {
+          console.log("isChat is==>",isChat)
             return isChat;
         } else {
             // If no chat exists, create a new one
@@ -44,7 +45,7 @@ export class chatRepository{
                   { path: "agent", model: "agentSchema" },  // Populate userSchema
                   // Populate agentSchema
               );
-
+                  console.log("full chat is==>",fullChat)
             return fullChat;
         }
     } catch (error:any) {
@@ -68,7 +69,7 @@ export class chatRepository{
                   path: "latestMessage.sender",
                   select: "firstName image email",
                 });
-                console.log(results)
+                console.log('fetch chat results are==>',results)
              return results
              
           } catch(error:any){

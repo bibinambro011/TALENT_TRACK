@@ -28,6 +28,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
   editMode: boolean = false;
   uploadForm!: FormGroup;
   filedvalue: string = 'bibin';
+<<<<<<< Updated upstream
+=======
+  transactions:any=[]
+  username!:string
+  userlastname!:string
+>>>>>>> Stashed changes
   eventdata: EventEmitter<string> = new EventEmitter<string>();
   logoutSubscription: Subscription = new Subscription();
   userInfoSubscription: Subscription = new Subscription();
@@ -67,6 +73,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   editprofile() {
+    this.username=this.user[0].firstName
+    this.userlastname=this.user[0].lastName
+    console.log("edited clicked==>",this.user)
     this.visibilityhandle;
     this.editMode = true;
     this.showprofile = true;
@@ -132,6 +141,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   initForm(): void {
+    console.log("user profile=>", this.user)
     this.uploadForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],

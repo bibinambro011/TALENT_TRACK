@@ -10,13 +10,13 @@
     </div>
     <div class="chat-window">
         <div class="messages" #messageContainer>
-            <div class="message" *ngFor="let message of chats">
-                <div class="content">{{ message.content }}</div>
+            <div class="message" *ngFor="let message of chats" [ngClass]="{'sent': message.sender !== null}">
+                {{ message.content }}
             </div>
         </div>
         <div class="input-area">
             <input type="text" placeholder="Type a message..." [(ngModel)]="messageText">
-            <button (click)="onSubmit(messageText)">Send</button>
+            <button (click)="onSubmit(messageText)" style="background-color: rgb(21, 2, 38); color:white">Send</button>
         </div>
     </div>
 </div>

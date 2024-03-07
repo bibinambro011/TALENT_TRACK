@@ -117,7 +117,8 @@ async addslot(data:any){
 //fetching avilable slots to display in the agent side tro showvase for cancelling;
 async availableslots(id:string){
   try{
-    let availableslots=await addagentslot.find({agentId:id,booked:false})
+    let availableslots=await addagentslot.find({agentId:id,booked:false,date:{$gt:new Date()}})
+    console.log("available slots are==>", availableslots)
     return availableslots
 
   }catch{
