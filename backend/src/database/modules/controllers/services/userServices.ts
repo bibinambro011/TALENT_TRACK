@@ -157,6 +157,7 @@ export class UserService {
       throw new Error(error)
     }
   }
+
   async userTransactionHistory(userId:string){
     try{
       return await userRepository.userTransactionHistory(userId)

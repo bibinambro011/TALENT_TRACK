@@ -29,8 +29,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   uploadForm!: FormGroup;
   filedvalue: string = 'bibin';
   
-   transactions:any=[]
-  
+  transactions:any=[]
   eventdata: EventEmitter<string> = new EventEmitter<string>();
   logoutSubscription: Subscription = new Subscription();
   userInfoSubscription: Subscription = new Subscription();
@@ -61,7 +60,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
         })
       }
     })
-
 
   }
 
@@ -209,6 +207,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         });
       }
     });
+    
   }
 
 // unsubscribing all the observables while leaving the component 

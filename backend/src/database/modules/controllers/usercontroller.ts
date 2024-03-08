@@ -370,8 +370,7 @@ export class UserController {
     }
     
   }
-// <<<<<<< Updated upstream
-// =======
+
 
   // fetching and sending transaction details
   // method get
@@ -380,7 +379,9 @@ export class UserController {
     try{
       let data=await userService.userTransactionHistory(userId)
       if(data){
+
         console.log("transaction history=>", data)
+
         res.status(200).json(data)
       }else{
         res.status(400).json("error fetching transactions")
@@ -389,5 +390,5 @@ export class UserController {
       throw new Error(error)
     }
   }
-// >>>>>>> Stashed changes
+
 }

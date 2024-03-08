@@ -313,5 +313,6 @@ async userTransactionHistory(userId:string){
   }catch(error:any){
     throw new Error(error)
   }
+
 }
 }

@@ -34,4 +34,6 @@ const transactionmodel: Model<walletTransaction> = mongoose.model(
   "transactionmodel",
   transactioSchema
 );
+
 export default transactionmodel;
+

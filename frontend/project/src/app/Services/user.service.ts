@@ -86,10 +86,10 @@ export class UserService {
     return this.http.post<string>(`${this.api}/users/paymentVerification`,data)
   }
 
-// =======
+
 
   userTransactionHistory(userId:string):Observable<Transaction[]>{
     return this.http.get<Transaction[]>(`${this.api}/users/userTransactionHistory?userId=${userId}`)
   }
 
-}
+
