@@ -48,7 +48,6 @@ export class AgentService {
     return this.http.delete<any>(`${this.api}/agents/agentslotcancell?slotId=${slotId}&agentId=${agentId}`)
   }
   slotbookingchangeStatus(slotId:string,status:string,agentId:string):Observable<any>{
-    console.log("service get called===========>",status,'slot id is==>',slotId, agentId)
     return this.http.get<any>(`${this.api}/agents/slotbookingchangeStatus?status=${status}&slotId=${slotId}&agentId=${agentId}`)
 }
 editAgent(data:any):Observable<any>{

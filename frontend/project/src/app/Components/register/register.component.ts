@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit, OnDestroy {
+  submitbattonhandle:boolean=false
   profileForm!: FormGroup;
   errorMessage: string = '';
   private subscriptions: Subscription[] = [];
@@ -23,6 +24,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.submitbattonhandle=false
     this.initForm();
   }
 
@@ -43,6 +45,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
       this.errorMessage = 'Please fill in all required fields.';
       return;
     }
+    this.submitbattonhandle=true
+    this.toastr.success("please wait for the OTP")
 
     const formData = new FormData();
     formData.append(

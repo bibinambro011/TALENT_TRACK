@@ -85,11 +85,11 @@ export class UserService {
     console.log("booking data from service==>",data)
     return this.http.post<string>(`${this.api}/users/paymentVerification`,data)
   }
-<<<<<<< Updated upstream
-=======
+
+// =======
 
   userTransactionHistory(userId:string):Observable<Transaction[]>{
     return this.http.get<Transaction[]>(`${this.api}/users/userTransactionHistory?userId=${userId}`)
   }
->>>>>>> Stashed changes
+
 }

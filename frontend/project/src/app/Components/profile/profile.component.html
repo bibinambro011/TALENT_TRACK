@@ -30,16 +30,38 @@
 </div>
 
 <!-- dashboard showing code -->
-
-<div class="dashboard" *ngIf="showdashboard">
-  <div class="flex justify-center items-center h-full">
-    <div
-      class="wallet w-60 h-28 border-2 border-red bg-yellow-100 flex items-center justify-center mt-20"
-    >
-      <p>Wallet balance is {{user[0].wallet}}</p>
+<div class="dashboard grid grid-cols-2 gap-6 ml-30" *ngIf="showdashboard">
+  <!-- Wallet Balance Section -->
+  <div class="wallet-section bg-blue-400 border border-red rounded-lg p-4 ml-30">
+    <p class="text-lg font-bold mb-2 text-white">Wallet Balance</p>
+    <div class="wallet flex items-center justify-center">
+      <p class="text-4xl font-bold text-white">{{ user[0].wallet }}</p>
+    </div>
+  </div>
+  
+  <!-- Transaction History Section -->
+  <div class="transaction-history bg-blue-100 border border-green rounded-lg p-4 mr-30">
+    <p class="text-lg font-bold mb-2">Transaction History</p>
+    <div class="history" style="max-height: 200px; overflow-y: auto;">
+      <ul *ngFor="let amount of transactions">
+        <li  class="mb-2">
+          <div *ngIf="amount.paidamount">
+            <span class="text-blue-700 font-bold">Rupees {{ amount.paidamount }}</span> paid to 
+            <span *ngIf="amount.agentId" class="font-bold">{{ amount.agentId.firstName }} {{ amount.agentId.lastName }}</span>
+            on <span>{{ amount.createdAt | date }}</span>
+          </div>
+        
+          <div *ngIf="amount.refundamount" class="mt-2">
+            <span class="text-green-700 font-bold">Rupees {{ amount.refundamount }}</span> refunded by 
+            <span *ngIf="amount.agentId" class="font-bold">{{ amount.agentId.firstName }} {{ amount.agentId.lastName }}</span>
+            on <span>{{ amount.createdAt | date }}</span>
+          </div>
+        </li>
+      </ul>
     </div>
   </div>
 </div>
+
 
 <!-- profile displaying code-->
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mr-3 ml-3 mt-5">
@@ -82,7 +104,7 @@
           <input
           type="text"
           class="border border-gray-400 px-4 py-2 w-full mt-1"
-          value="{{user[0].firstName}}"
+          value="{{filedvalue}}"
           formControlName="firstName"
         />
         

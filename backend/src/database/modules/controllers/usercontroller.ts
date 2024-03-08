@@ -370,8 +370,8 @@ export class UserController {
     }
     
   }
-<<<<<<< Updated upstream
-=======
+// <<<<<<< Updated upstream
+// =======
 
   // fetching and sending transaction details
   // method get
@@ -389,5 +389,5 @@ export class UserController {
       throw new Error(error)
     }
   }
->>>>>>> Stashed changes
+// >>>>>>> Stashed changes
 }

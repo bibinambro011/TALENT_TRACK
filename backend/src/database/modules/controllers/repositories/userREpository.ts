@@ -7,6 +7,8 @@ import { comparePass } from "../../../../../Helper/passwordhash";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import { Secret } from "jsonwebtoken";
+import transactionmodel from "../../../models/transactionmodel";
+
 
 dotenv.config();
 
@@ -26,6 +28,7 @@ export class UserRepository {
   //  getting user
 
   async getUser(data: any): Promise<any> {
+    console.log("get user=====>")
     try {
       let info: any = await usersModel.findOne({ email: data.email });
       if (!info) {
@@ -39,6 +42,7 @@ export class UserRepository {
         if (info.is_blocked) {
           return "you are blocked by the admin";
         }
+        console.log("inside repo========================>")
         email=info.email
         const refreshtoken=jwt.sign({email:info.email}, jwtrefreshtoken,{expiresIn:'1d'})
         const token = jwt.sign({email:info.email}, jwtSecretToken,{expiresIn:'20s'});
@@ -57,6 +61,7 @@ export class UserRepository {
         return accesseduser;
       }
     } catch (error: any) {
+      console.log("inside catch error===")
       throw new Error("Could not find user");
     }
   }
@@ -131,9 +136,7 @@ export class UserRepository {
   // sending all the available slots to the user
   async agentAvailableSlots(id: any) {
     try {
-     let data= await addagentslot.find({ agentId: id });
-     console.log("availabale slots are==>", data)
-     return data
+      return await addagentslot.find({ agentId: id });
     } catch {
       throw new Error("error fetching data");
     }
@@ -150,7 +153,7 @@ export class UserRepository {
       );
       
      await userBookingModel.create(data);
-     return addagentslot.find({agentId:data.agentId,booked:false})
+     return addagentslot.find({agentId:data.agentId,booked:false,date:{$gt:new Date()}})
      
     } catch {
       throw new Error("failed to add booking details");
@@ -209,6 +212,7 @@ export class UserRepository {
 
 async cancelbooking(id: string, userid: string, status: string, amountrefund: string,slotId:string) {
   try {
+    await transactionmodel.create({userId:userid,agentId:id,refundamount:amountrefund})
     let datas = await userBookingModel.findOne({ _id: id });
 
     // Ensure datas?.bookingamount is properly cast to a number
@@ -268,8 +272,9 @@ async paymentSuccess(data:any,razorpay_payment_id:string){
       );
       data.paymentId=razorpay_payment_id
       data.bookingamount=data.bookingamount
+      await transactionmodel.create({userId:data.userId,agentId:data.agentId,paidamount:data.bookingamount})
      await userBookingModel.create(data);
-     return addagentslot.find({agentId:data.agentId,booked:false})
+     return addagentslot.find({agentId:data.agentId,booked:false,date:{$gt:new Date()}})
      
     } catch(error:any) {
       throw new Error(error);
@@ -289,13 +294,24 @@ async paymentfailure(data:any){
       );
       
      await userBookingModel.create(data);
-     return addagentslot.find({agentId:data.agentId,booked:false})
+     return addagentslot.find({agentId:data.agentId,booked:false,date:{$gt:new Date()}})
      
     } catch {
       throw new Error("failed to add booking details");
     }
   }catch{
     throw new Error("error adding payment")
+  }
+}
+
+// getting transaction history
+
+async userTransactionHistory(userId:string){
+  try{
+    let data=await transactionmodel.find({userId:userId}).populate("agentId")
+    return data
+  }catch(error:any){
+    throw new Error(error)
   }
 }
 }

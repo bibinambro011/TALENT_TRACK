@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -10,7 +10,8 @@ import { UserService } from 'src/app/Services/user.service';
   templateUrl: './agent-register.component.html',
   styleUrls: ['./agent-register.component.css']
 })
-export class AgentRegisterComponent implements OnDestroy {
+export class AgentRegisterComponent implements OnDestroy,OnInit {
+  submitbuttonHandle:boolean=false
   profileForm!: FormGroup;
   errorMessage!: string;
   private subscription: Subscription = new Subscription();
@@ -39,6 +40,8 @@ export class AgentRegisterComponent implements OnDestroy {
       this.errorMessage = 'Please fill in all required fields.';
       return;
     }
+    this.submitbuttonHandle=true
+    this.toastr.success("please wait untill you get OTP")
 
     const formData = new FormData();
     formData.append('firstName', this.profileForm.get('firstName')?.value.toLowerCase());
@@ -72,6 +75,9 @@ export class AgentRegisterComponent implements OnDestroy {
       const file = event.target.files[0];
       this.profileForm.get('image')?.setValue(file);
     }
+  }
+  ngOnInit(){
+    this.submitbuttonHandle=false
   }
 
   ngOnDestroy(): void {
