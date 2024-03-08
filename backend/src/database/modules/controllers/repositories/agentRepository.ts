@@ -9,6 +9,8 @@ import dotenv from "dotenv"
 dotenv.config()
 import { UserDto } from "../dtos/userDto";
 import upload from '../../../../../Helper/multer';
+import transactionmodel from "../../../models/transactionmodel";
+import usersModel from "../../../models/usermodel";
 
 
 export class agentRepository{
@@ -117,7 +119,8 @@ async addslot(data:any){
 //fetching avilable slots to display in the agent side tro showvase for cancelling;
 async availableslots(id:string){
   try{
-    let availableslots=await addagentslot.find({agentId:id,booked:false})
+    let availableslots=await addagentslot.find({agentId:id,booked:false,date:{$gt:new Date()}})
+    console.log("available slots are==>", availableslots)
     return availableslots
 
   }catch{
@@ -201,6 +204,16 @@ async agentslotcancell(slotid:string,agentId:string){
 
 async  slotbookingchangeStatus(slotId:string,status:string,agentId:string){
 try{
+ 
+  let datas:any= await userBookingModel.findOne({slotId:slotId});
+  let {userId,bookingamount}=datas
+  if(status=='agent cancelled'){
+    await transactionmodel.create({userId:userId,agentId:agentId,refundamount:bookingamount})
+    let user:any=await usersModel.findOne({_id:userId})
+    let updatedamount=user.wallet+Number(bookingamount)
+    await usersModel.updateOne({_id:userId},{$set:{wallet:updatedamount}})
+  }
+  console.log("slot cancel datas are",datas)
   await userBookingModel.updateOne({slotId:slotId},{$set:{status:status}});
   await addagentslot.updateOne({_id:slotId},{$set:{status:status}})
   let data=await addagentslot.find({agentId:agentId});

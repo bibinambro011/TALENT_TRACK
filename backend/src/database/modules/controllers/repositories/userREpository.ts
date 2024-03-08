@@ -9,6 +9,7 @@ import dotenv from "dotenv";
 import { Secret } from "jsonwebtoken";
 import transactionmodel from "../../../models/transactionmodel";
 
+
 dotenv.config();
 
 const jwtSecretToken: Secret = process.env.jwtsecrettoken as string;
@@ -152,7 +153,7 @@ export class UserRepository {
       );
       
      await userBookingModel.create(data);
-     return addagentslot.find({agentId:data.agentId,booked:false})
+     return addagentslot.find({agentId:data.agentId,booked:false,date:{$gt:new Date()}})
      
     } catch {
       throw new Error("failed to add booking details");
@@ -273,7 +274,7 @@ async paymentSuccess(data:any,razorpay_payment_id:string){
       data.bookingamount=data.bookingamount
       await transactionmodel.create({userId:data.userId,agentId:data.agentId,paidamount:data.bookingamount})
      await userBookingModel.create(data);
-     return addagentslot.find({agentId:data.agentId,booked:false})
+     return addagentslot.find({agentId:data.agentId,booked:false,date:{$gt:new Date()}})
      
     } catch(error:any) {
       throw new Error(error);
@@ -293,7 +294,7 @@ async paymentfailure(data:any){
       );
       
      await userBookingModel.create(data);
-     return addagentslot.find({agentId:data.agentId,booked:false})
+     return addagentslot.find({agentId:data.agentId,booked:false,date:{$gt:new Date()}})
      
     } catch {
       throw new Error("failed to add booking details");
@@ -312,5 +313,6 @@ async userTransactionHistory(userId:string){
   }catch(error:any){
     throw new Error(error)
   }
+
 }
 }

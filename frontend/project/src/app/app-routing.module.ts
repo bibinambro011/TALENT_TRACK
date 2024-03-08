@@ -24,17 +24,10 @@ const routes: Routes = [
   {path:"mailverify",component:OtpenterComponent},
   {path:"chat/:id",component:ChatComponent},
   {path:"agentprofile",component:AgentDetailsComponent}]},
-  
- 
-  // {path:"agents",children:[
-  //   {path:"register",component:AgentRegisterComponent}
-  // ]}
   {
     path: 'agents',
     loadChildren: () => import('./agents/agents.module').then(m => m.AgentsModule)
   },
- 
- 
 ];
 
 @NgModule({

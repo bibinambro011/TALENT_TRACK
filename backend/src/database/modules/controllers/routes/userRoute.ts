@@ -35,4 +35,5 @@ router.get("/allMessages",chatcontroller.allMessages)
 
 // transaction details
 router.get("/userTransactionHistory",userController.userTransactionHistory)
+
 export default router;

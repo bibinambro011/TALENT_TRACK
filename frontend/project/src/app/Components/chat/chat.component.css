@@ -1,49 +1,46 @@
+
 .container {
-    height: 100vh; /* Adjust as needed */
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
+  
+    max-width: 800px; /* adjust as needed */
+    margin: auto;
 }
 
-#listOfMessages {
+.messages {
+    margin-top: 60px;
     list-style-type: none;
     padding: 0;
-    margin: 0;
-    flex-grow: 1;
-    overflow-y: auto; /* Enable scrolling */
+    height: 600px; /* adjust height as needed */
+    overflow-y: auto; /* enable vertical scrollbar */
 }
 
 .singleMessage {
-    background-color: #dcf8c6; /* Light green for user messages */
-    border-radius: 10px;
-    padding: 8px 12px;
-    margin: 4px 0;
-    max-width: 70%; /* Adjust as needed */
-    align-self: flex-start; /* Align user messages to the left */
+    margin-bottom: 10px;
+    clear: both;
 }
 
-.singleMessage.sent {
-    background-color: #e2e2e2; /* Light grey for recipient messages */
-    align-self: flex-end; /* Align recipient messages to the right */
+.sent {
+    float: left;
+    background-color: #DCF8C6; /* adjust as needed */
+    border-radius: 15px 15px 0 15px;
+    padding: 10px 15px;
 }
 
-.form-group {
-    display: flex;
-    margin-top: auto;
-    background-color: #f0f0f0; /* Light grey background for input area */
-    padding: 8px;
+.received {
+    float: right;
+    background-color: #E5E5EA; /* adjust as needed */
+    border-radius: 15px 15px 15px 0;
+    padding: 10px 15px;
+}
+
+.input-group {
+    margin-top: 20px;
 }
 
 .input {
-    flex-grow: 1;
     border-radius: 20px;
-    border: none;
-    padding: 10px;
-    margin-right: 10px;
-    outline: none;
 }
 
 .button-css {
     border-radius: 20px;
-    padding: 10px 20px;
+    margin-left: 10px;
 }

@@ -28,6 +28,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   editMode: boolean = false;
   uploadForm!: FormGroup;
   filedvalue: string = 'bibin';
+  
   transactions:any=[]
   eventdata: EventEmitter<string> = new EventEmitter<string>();
   logoutSubscription: Subscription = new Subscription();
@@ -59,6 +60,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         })
       }
     })
+
   }
 
   Appointments() {
@@ -76,6 +78,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   editprofile() {
+    
+    console.log("edited clicked==>",this.user)
     this.visibilityhandle;
     this.editMode = true;
     this.showprofile = true;
@@ -141,6 +145,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   initForm(): void {
+    console.log("user profile=>", this.user)
     this.uploadForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],

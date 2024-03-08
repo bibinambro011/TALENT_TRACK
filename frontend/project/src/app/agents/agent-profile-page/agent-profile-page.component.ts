@@ -26,13 +26,14 @@ export class AgentProfilePageComponent implements OnDestroy {
     private router: Router
   ) {}
   initeditprofile() {
+    console.log("inside edit function and details are==>",this.agentdetails)
     this.profileForm = this.fb.group({
       firstName: [this.agentdetails.firstName, Validators.required],
       lastName: [this.agentdetails.lastName, Validators.required],
       image: [''],
       category: [this.agentdetails.category],
-      experience: [''],
-      clubConnections: [''],
+      experience: [this.agentdetails.experience],
+      clubConnections: [this.agentdetails.clubConnections,],
     });
     console.log('agent details are===>', this.agentdetails);
   }
@@ -120,6 +121,9 @@ export class AgentProfilePageComponent implements OnDestroy {
         }
       });
     this.initeditprofile();
+  }
+  editfunction(){
+    this.initeditprofile()
   }
   ngOnDestroy() {
     if (this.agentInfoSubscription) {

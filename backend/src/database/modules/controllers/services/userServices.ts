@@ -91,6 +91,7 @@ export class UserService {
     }catch{
       throw new Error("error fetching data")
     }
+    
   }
   
   //fetching userbooking information from userRepository 
@@ -157,7 +158,6 @@ export class UserService {
     }
   }
 
-  // fetching transaction history 
   async userTransactionHistory(userId:string){
     try{
       return await userRepository.userTransactionHistory(userId)

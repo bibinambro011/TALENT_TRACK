@@ -48,8 +48,8 @@ export class UserController {
         });
         userData.image = result.secure_url;
       }
-      console.log("userdata is==>", userData);
       const newUser = await userService.registerUser(userData);
+      console.log("user registerd user is==>",newUser)
       res.status(201).json(newUser);
     } catch (error) {
       next(error);
@@ -66,6 +66,7 @@ export class UserController {
       if (!userdata) {
         return res.status(401).json("invalid credentials");
       } else {
+        console.log("userlogin details are==>",userdata)
         res.status(200).json(userdata);
       }
     } catch (error) {
@@ -93,6 +94,7 @@ export class UserController {
   async getVerifiedagents(req: Request, res: Response, next: NextFunction) {
     try {
       const data = await userService.getVerifiedagents();
+      console.log("verified agents are==>",data)
       res.status(200).json(data);
     } catch (error) {
       next(error);
@@ -132,18 +134,15 @@ export class UserController {
       let data: userBookingDocument = req.body;
       orderdata = req.body;
 
-      console.log("payment details are===>", req.body);
       const { bookingamount } = req.body;
-      console.log("===>", bookingamount);
       const options = {
         amount: Number(bookingamount * 100),
         currency: "INR",
       };
       console.log("options are===>", options);
       const order = await RazorpayInstance.orders.create(options);
-      console.log("orderssss==>", order);
       if (order) {
-        console.log("order==>", order);
+        console.log("order is==>", order);
         res.status(200).json(order);
       }
     } catch (error) {
@@ -207,6 +206,7 @@ export class UserController {
       let category: string = req.query.category as string;
       let data = await userService.agentCategory(category);
       if (data) {
+        console.log("agentCategory", data)
         res.status(200).json(data);
       } else {
         res.status(401).json("error fetching data");
@@ -226,6 +226,7 @@ export class UserController {
       console.log(req.query);
       let data = await userService.getagentByName(name);
       if (data) {
+        console.log("by name==>", data)
         res.status(200).json(data);
       } else {
         res.status(401).json("error fetching data");
@@ -243,6 +244,7 @@ export class UserController {
       console.log("id is =>", id);
       const data = await userService.getUserById(id);
       if (data) {
+        console.log("===>",data)
         res.status(200).json(data);
       } else {
         res.status(401).json("error sendinig data");
@@ -261,6 +263,7 @@ export class UserController {
       let id = req.query.id as string;
       let data = await userService.userbookings(status, id);
       if (data) {
+        console.log("userbookings are==>",data)
         res.status(200).json(data);
       } else {
         res.status(401).json("error fetching data");
@@ -300,6 +303,7 @@ export class UserController {
 
             let data = await userService.cancelbooking(id, userid, status,amountrefund,slotId);
             if (data) {
+              console.log("cancerlbooking==>",data)
               res.status(200).json(data);
             } else {
               res.status(401).json("error fetching data");
@@ -341,7 +345,7 @@ export class UserController {
 
       let userdata = await userService.editUser(data);
       if (userdata) {
-        console.log("User data updated successfully");
+        console.log("User data updated successfully",userdata);
         return res.status(200).json(userdata);
       } else {
         console.log("Error updating data");
@@ -358,6 +362,7 @@ export class UserController {
     try{
     let data:any=await  userService.refreshtoken(req.body)
     if(data){
+      console.log("refreshToken data is==>", data)
       return res.status(200).json(data)
     }
     }catch(error:any){
@@ -366,6 +371,7 @@ export class UserController {
     
   }
 
+
   // fetching and sending transaction details
   // method get
   async userTransactionHistory(req:Request,res:Response){
@@ -373,6 +379,9 @@ export class UserController {
     try{
       let data=await userService.userTransactionHistory(userId)
       if(data){
+
+        console.log("transaction history=>", data)
+
         res.status(200).json(data)
       }else{
         res.status(400).json("error fetching transactions")
@@ -381,4 +390,5 @@ export class UserController {
       throw new Error(error)
     }
   }
+
 }
