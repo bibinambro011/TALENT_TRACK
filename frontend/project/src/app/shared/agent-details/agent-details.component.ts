@@ -46,8 +46,33 @@ getUserId(){
    })
    return userId
 }
+//walletPayment
+walletpayment(paymetdetails:any){
+  this.visible=false
+    let userid=this.getUserId()
+    const obj={
+      slotId:paymetdetails._id,
+      agentId:paymetdetails.agentId,
+      userId:localStorage.getItem("userId"),
+      time:paymetdetails.time,
+      date:paymetdetails.date,
+      bookingamount:paymetdetails.bookingAmount
+    }
+    this.bookingdata=obj
+    this.userservice.walletpayment(obj).subscribe((res:any)=>{
+      if(res instanceof Array){
+        this.availableslots(res[0].agentId);
+        this.toastr.success("your slot has been booked")
+      }else{
+        this.toastr.error("there is not enough wallet balance for this transaction")
+      }
+   
+    
+    })
+}
   //slot book
   userslotbook(data:any){
+    this.visible=false
     let userid=this.getUserId()
     const obj={
       slotId:data._id,
@@ -163,4 +188,9 @@ getUserId(){
   ngOnInit(){
    
   }
+  visible: boolean = false;
+
+    showDialog() {
+        this.visible = true;
+    }
 }

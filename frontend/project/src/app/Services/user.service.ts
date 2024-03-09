@@ -52,6 +52,10 @@ export class UserService {
   getAllverifiedAgents():Observable<VerifiedAgentsI[]>{
     return this.http.get<VerifiedAgentsI[]>(`${this.api}/users/getVerifiedagents`)
   }
+  walletpayment(paymentdetails:any):Observable<UserBookingOrderI>{
+    console.log("inside service of wallet")
+    return this.http.post<UserBookingOrderI>(`${this.api}/users/walletpayment`,paymentdetails)
+  }
   userbookingslot(data:any):Observable<UserBookingOrderI>{
     return this.http.post<UserBookingOrderI>(`${this.api}/users/userslotbooking`,data)
   }
@@ -93,3 +97,4 @@ export class UserService {
   }
 
 
+}

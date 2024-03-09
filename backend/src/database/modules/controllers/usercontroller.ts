@@ -272,6 +272,21 @@ export class UserController {
       next(error);
     }
   }
+
+  //walletpayment
+  async walletpayment(req: Request, res: Response, next: NextFunction) {
+    try {
+      let data: userBookingDocument = req.body;
+    let paymentdata:any= await userService.walletpayment(data)
+      if (paymentdata) {
+        console.log("payment data==>",paymentdata)
+        res.status(200).json(paymentdata);
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
+  
 //finding slot to cancel 
 
 

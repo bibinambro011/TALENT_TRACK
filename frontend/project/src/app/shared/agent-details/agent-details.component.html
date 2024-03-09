@@ -17,7 +17,15 @@
                 <div class="bg-gray-100 p-4 rounded-lg shadow-md">
                     <p class="text-lg font-semibold">{{ item.date | date }}</p>
                     <p class="text-gray-600">{{ item.time }}</p>
-                    <button class="bg-blue-900 text-white py-2 px-4 rounded-lg mt-4 block w-full text-center font-semibold hover:bg-blue-600 transition duration-300 ease-in-out" (click)="userslotbook(item)">Book</button>
+
+<div class="card flex justify-content-center">
+    <p-button (click)="showDialog()"  label="Book"></p-button>
+    <p-dialog header="Payment Method" [(visible)]="visible" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+        <button class="bg-blue-900 text-white py-2 px-4 rounded-lg mt-4 block w-full text-center font-semibold hover:bg-blue-600 transition duration-300 ease-in-out" (click)="userslotbook(item)">online payment</button>
+        <button class="bg-blue-900 text-white py-2 px-4 rounded-lg mt-4 block w-full text-center font-semibold hover:bg-blue-600 transition duration-300 ease-in-out" (click)="walletpayment(item)">wallet payment</button>
+       
+    </p-dialog>
+</div>
                 </div>
             </ng-container>
         </div>

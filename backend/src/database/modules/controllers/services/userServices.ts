@@ -93,6 +93,14 @@ export class UserService {
     }
     
   }
+  //walletpayment
+  async walletpayment(paymentdetail:userBookingDocument){
+    try{
+      return await userRepository.walletpayment(paymentdetail)
+    }catch(error:any){
+      throw new Error(error)
+    }
+  }
   
   //fetching userbooking information from userRepository 
   async userbookings(status:string,id:string){

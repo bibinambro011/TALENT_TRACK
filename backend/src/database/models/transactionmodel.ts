@@ -4,7 +4,8 @@ export interface walletTransaction  {
   agentId: mongoose.Types.ObjectId;
   date: Date;
   refundamount:string;
-  paidamount:string 
+  paidamount:string ;
+  paymentMode:string
 }
 
 const transactioSchema = new mongoose.Schema<walletTransaction>({
@@ -25,6 +26,10 @@ agentId: {
   refundamount:{
     type:String
   },
+  paymentMode:{
+    type:String,
+    defaulst:"online"
+  }
   
 },
 {timestamps: true})

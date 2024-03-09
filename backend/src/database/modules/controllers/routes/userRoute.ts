@@ -35,5 +35,6 @@ router.get("/allMessages",chatcontroller.allMessages)
 
 // transaction details
 router.get("/userTransactionHistory",userController.userTransactionHistory)
+router.post("/walletpayment",userController.walletpayment)
 
 export default router;

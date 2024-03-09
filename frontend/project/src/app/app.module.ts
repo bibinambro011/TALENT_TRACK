@@ -15,7 +15,7 @@ import { UserhomeComponent } from './Components/userhome/userhome.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
-
+import { DialogModule } from 'primeng/dialog';
 import { ToastNoAnimationModule, ToastrModule } from 'ngx-toastr';
 import { OtpenterComponent } from './Components/otpenter/otpenter.component';
 import { ErrorInterceptor } from './Interceptors/error.interceptor';
@@ -60,6 +60,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    DialogModule,
     NgxPaginationModule,
     CalendarModule,
     SidebarModule,

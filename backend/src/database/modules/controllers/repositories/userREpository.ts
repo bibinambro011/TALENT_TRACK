@@ -141,12 +141,14 @@ export class UserRepository {
       throw new Error("error fetching data");
     }
   }
+  // wallet booking by wallet payment
+ 
 
   // adding user booking details
 
   async userslotbooking(data: userBookingDocument) {
     try {
-      
+     
       await addagentslot.updateOne(
         { _id: data.slotId },
         { $set: { bookedUserId: data.userId,booked:true,status:'Confirmed' } } 
@@ -188,6 +190,7 @@ export class UserRepository {
     }
    
   }
+  
 
   //fetching bookings based on status
 
@@ -284,9 +287,36 @@ async paymentSuccess(data:any,razorpay_payment_id:string){
   }
 }
 
+async walletpayment(data:userBookingDocument){
+  console.log("wallet data is==>", data)
+  try{
+    let userdata:any=await usersModel.findOne({_id:data.userId})
+    if(userdata.wallet < data.bookingamount){
+      return {" failure":"there is not enough wallet balance"}
+    }
+  
+ 
+    await transactionmodel.create({userId:data.userId,agentId:data.agentId,paidamount:data.bookingamount, paymentMode:'wallet payment'})
+    await addagentslot.updateOne(
+      { _id: data.slotId },
+      { $set: { bookedUserId: data.userId,booked:true,status:'Confirmed',paymentstatus:'paid' } } 
+    );
+    let balance:any=await usersModel.findOne({_id:data.userId})
+    let balanceamount=Number(balance.wallet)-Number(data.bookingamount)
+    await usersModel.updateOne({_id:data.userId},{$set:{wallet:balanceamount}})
+   await userBookingModel.create(data);
+   return addagentslot.find({agentId:data.agentId,booked:false,date:{$gt:new Date()}})
+    
+    
+  }catch(error:any){
+    throw new Error(error)
+  }
+}
+
 async paymentfailure(data:any){
   try{
     try {
+
       
       await addagentslot.updateOne(
         { _id: data.slotId },
