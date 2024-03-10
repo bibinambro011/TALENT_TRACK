@@ -76,5 +76,36 @@ export class adminRepository{
             throw new Error("invalid")
         }
     }
+
+    async  searchAgents(name: string) {
+        try {
+            // Construct the regular expression using the name parameter
+            const nameRegex = new RegExp(`^${name}`);
+    
+            // Use the regular expression to find agents
+            const agents = await agentModel.find({ firstName: nameRegex });
+            
+            return agents;
+        } catch (error:any) {
+            throw new Error(error);
+        }
+    }
+
+    async searchUser(name:string){
+        try {
+            // Construct the regular expression using the name parameter
+            const nameRegex = new RegExp(`^${name}`);
+    
+            // Use the regular expression to find agents
+            const agents = await usersModel.find({ firstName: nameRegex });
+            console.log("agents are==>", agents)
+            
+            return agents;
+        } catch (error:any) {
+            throw new Error(error);
+        }
+    }
+    
+   
     
 }

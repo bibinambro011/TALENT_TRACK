@@ -19,6 +19,10 @@ export class AdminService {
   getAllAgents():Observable<any>{
     return this.http.get<any>(`${this.api}/admin/getagentdata`)
   }
+  getAllAgentsByCount(count:number,page:number):Observable<any>{
+    return this.http.get<any>(`${this.api}/admin/getAllAgentsByCount?count=${count}&page=${page}`)
+  }
+
   userBlock(data:any):Observable<any>{
     return this.http.post<any>(`${this.api}/admin/blokUser`,data)
   }
@@ -31,6 +35,12 @@ export class AdminService {
   adddefaultslot(data:any):Observable<any>{
     return this.http.post<any>(`${this.api}/admin/adddefaultslot`,data)
   }
-  
+  searchAgents(name:string):Observable<any>{
+    console.log("inside service",name)
+    return this.http.get<any>(`${this.api}/admin/searchAgents?name=${name}`)
+  }
+  searchUser(name:string):Observable<any>{
+    return this.http.get<any>(`${this.api}/admin/searchUser?name=${name}`)
+  }
   }
 

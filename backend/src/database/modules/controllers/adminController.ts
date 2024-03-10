@@ -4,6 +4,7 @@ import { userlog } from "./dtos/userDto";
 import jwt from "jsonwebtoken"
 import { Secret } from "jsonwebtoken";
 import { config } from "dotenv";
+import { agentService } from "./services/agentService";
 
 const secret=process.env.jwtsecrettoken as string
 // creating an instance of the adminservice class
@@ -102,5 +103,31 @@ export class adminController {
     } catch (error) {
       throw new Error("invalid");
     }
+  }
+
+  async searchAgents(req:Request,res:Response){
+    console.log("serch controller==>", req.query.name)
+    try{
+      let name=req.query.name as string
+      let agentdata=await adminservice.searchAgents(name)
+      if(agentdata){
+        res.status(200).json(agentdata)
+      }
+    }catch(error:any){
+      throw new Error(error)
+    }
+   
+  }
+  async searchUser(req:Request,res:Response){
+    try{
+      let name=req.query.name as string
+      let agentdata=await adminservice.searchUser(name)
+      if(agentdata){
+        res.status(200).json(agentdata)
+      }
+    }catch(error:any){
+      throw new Error(error)
+    }
+   
   }
 }
