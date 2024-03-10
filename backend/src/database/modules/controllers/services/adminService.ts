@@ -57,4 +57,20 @@ export class adminService{
             throw new Error("invalid")
         }
     }
+
+    async searchAgents(name:string){
+        try{
+            return  await  adminrepository.searchAgents(name)
+        }catch(error:any){
+            throw new Error(error)
+        }
+    }
+    async searchUser(name:string){
+        try{
+            return  await  adminrepository.searchUser(name)
+        }catch(error:any){
+            throw new Error(error)
+        }
+    }
+    
 }

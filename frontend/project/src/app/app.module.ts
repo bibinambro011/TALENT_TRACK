@@ -14,7 +14,7 @@ import { StoreModule } from '@ngrx/store';
 import { UserhomeComponent } from './Components/userhome/userhome.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-
+import { PaginatorModule } from 'primeng/paginator';
 import { DialogModule } from 'primeng/dialog';
 import { ToastNoAnimationModule, ToastrModule } from 'ngx-toastr';
 import { OtpenterComponent } from './Components/otpenter/otpenter.component';
@@ -61,6 +61,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
     AppRoutingModule,
     FormsModule,
     DialogModule,
+    PaginatorModule,
     NgxPaginationModule,
     CalendarModule,
     SidebarModule,

@@ -13,6 +13,9 @@ adminRouter.get("/getagentdata",adminAuth,admincontroller.getagentdata)
 adminRouter.post("/blokUser",adminAuth,admincontroller.blokUser);
 adminRouter.post("/blokagent",adminAuth,admincontroller.blokagent)
 adminRouter.post("/agentVerify",adminAuth,admincontroller.verifyagent)
+adminRouter.get("/searchAgents",admincontroller.searchAgents)
+adminRouter.get("/searchUser",admincontroller.searchUser)
+
 
 
 

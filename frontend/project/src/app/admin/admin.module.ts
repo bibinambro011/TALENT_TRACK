@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { PaginatorModule } from 'primeng/paginator';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin/admin.component';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
@@ -25,7 +26,7 @@ import { AdminShowallagentsComponent } from './admin-showallagents/admin-showall
     AdminShowallagentsComponent
   ],
   imports: [
-    CommonModule,
+    CommonModule,PaginatorModule,
     AdminRoutingModule,ReactiveFormsModule,FormsModule,HttpClientModule,SidebarModule,ButtonModule,
   ]
 })
