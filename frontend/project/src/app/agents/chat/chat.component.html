@@ -1,17 +1,17 @@
 <app-agent-navbar></app-agent-navbar>
 <div class="container">
-    <div class="user-list">
+    <div class="user-list" (scroll)="onScroll($event)">
         <h2>Users</h2>
         <ul>
-            <li *ngFor="let user of users">
-                <div class="user" (click)="openChatRoom(user._id)">{{ user.users.firstName }}</div>
+            <li *ngFor="let user of users; let i=index">
+                <div class="user" (click)="openChatRoom(user._id,user.users._id)">{{ user.users.firstName }} <span  *ngIf="user.users._id==senderId">  <span class="badge " style="background-color: red;">1</span></span></div>
             </li>
         </ul>
     </div>
-    <div class="chat-window">
-        <div class="messages" #messageContainer>
-            <div class="message" *ngFor="let message of chats" [ngClass]="{'sent': message.sender !== null}">
-                {{ message.content }}
+    <div class="chat-window" >
+        <div class="messages" #messageContainer  >
+            <div class="message"  *ngFor="let message of chats" [ngClass]="{'sent': message.sender !== null}">
+                {{ message.content }}  {{ message.createdAt | date: 'shortTime' }}
             </div>
         </div>
         <div class="input-area">

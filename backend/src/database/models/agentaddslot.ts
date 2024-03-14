@@ -13,7 +13,7 @@ interface slotaddinterface extends Document {
 const agentslotadd: Schema = new Schema({
   agentId: {
     type: Schema.Types.ObjectId,
-    ref: 'agentschema',
+    ref: 'agentSchema',
     required: true,
   },
   date: {

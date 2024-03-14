@@ -30,7 +30,7 @@
 </div>
 
 <!-- dashboard showing code -->
-<div class="dashboard grid grid-cols-2 gap-6 ml-30" *ngIf="showdashboard">
+<div class="dashboard " *ngIf="showdashboard">
   <!-- Wallet Balance Section -->
   <div class="wallet-section bg-blue-400 border border-red rounded-lg p-4 ml-30">
     <p class="text-lg font-bold mb-2 text-white">Wallet Balance</p>
@@ -40,26 +40,37 @@
   </div>
   
   <!-- Transaction History Section -->
-  <div class="transaction-history bg-blue-100 border border-green rounded-lg p-4 mr-30">
-    <p class="text-lg font-bold mb-2">Transaction History</p>
-    <div class="history" style="max-height: 200px; overflow-y: auto;">
-      <ul *ngFor="let amount of transactions">
-        <li  class="mb-2">
-          <div *ngIf="amount.paidamount">
-            <span class="text-blue-700 font-bold">Rupees {{ amount.paidamount }}</span> paid to 
-            <span *ngIf="amount.agentId" class="font-bold">{{ amount.agentId.firstName }} {{ amount.agentId.lastName }}</span>
-            on <span>{{ amount.createdAt | date }}</span>
-          </div>
-        
-          <div *ngIf="amount.refundamount" class="mt-2">
-            <span class="text-green-700 font-bold">Rupees {{ amount.refundamount }}</span> refunded by 
-            <span *ngIf="amount.agentId" class="font-bold">{{ amount.agentId.firstName }} {{ amount.agentId.lastName }}</span>
-            on <span>{{ amount.createdAt | date }}</span>
-          </div>
-        </li>
-      </ul>
+  <div class="transaction-section bg-white shadow-md rounded-lg p-6">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-xl font-bold text-gray-800">Transaction History</h2>
+      <p-paginator [rows]="5" [totalRecords]="transactionCount"  (onPageChange)="transactionpaginate($event)" *ngIf="showdashboard"></p-paginator>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="table-auto w-full">
+        <thead>
+          <tr>
+            <th class="px-4 py-2">Sl:no</th>
+            <th class="px-4 py-2">Amount</th>
+            <th class="px-4 py-2">Agent Name</th>
+            <th class="px-4 py-2">Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of transactions; let i = index" [class.odd]="i % 2 !== 0">
+            <td class="border px-4 py-2">{{ i + 1 }}</td>
+            <td class="border px-4 py-2">
+              <ng-container *ngIf="data.paidamount; else refundAmount">{{ 'Rupees ' + data.paidamount }}</ng-container>
+              <ng-template #refundAmount>{{ 'Refunded Rupees ' + data.refundamount }}</ng-template>
+            </td>
+            <td class="border px-4 py-2">{{ data.agentId?.firstName + ' ' + data.agentId?.lastName }}</td>
+            <td class="border px-4 py-2">{{ data.createdAt | date }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
+
+
 </div>
 
 
@@ -142,83 +153,51 @@
 </div>
 
 <!-- show Appointments -->
-
 <div *ngIf="showappointments">
-  <!-- Search Field -->
+  <div class="container mx-auto p-4">
+    <h2 class="text-2xl font-semibold mb-4">Appointments</h2>
 
-  <div class="w-70 h-20 bg-red-50 p-8">
-    <div class="mb-4">
-      <select
-        class="border border-gray-300 p-2 rounded-md"
-        [(ngModel)]="selectedOption"
-        (change)="bookings(selectedOption)"
-      >
+
+    <div class="flex items-center mb-4">
+      <label for="statusSelect" class="mr-2">Filter by Status:</label>
+      <select id="statusSelect"
+              class="border border-gray-300 p-2 rounded-md"
+              [(ngModel)]="selectedOption"
+              (change)="bookings(selectedOption)">
         <option value="All" selected>All</option>
         <option value="pending">Pending</option>
         <option value="confirmed">Confirmed</option>
         <option value="consulted">Consulted</option>
         <option value="cancelled">Cancelled</option>
-        <option value="agent cancelled">agent cancelled</option>
+        <option value="agent cancelled">Agent Cancelled</option>
       </select>
     </div>
-    <!-- Table -->
+
     <div class="overflow-x-auto">
-      <table class="min-w-full">
+      <table class="w-full">
         <thead>
           <tr>
-            <th
-              class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
-            >
-              Date
-            </th>
-            <th
-              class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
-            >
-              Time
-            </th>
-            <th
-              class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
-            >
-              Agent Name
-            </th>
-            <th
-              class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
-            >
-              Category
-            </th>
-            <th
-              class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
-            >
-              Status
-            </th>
-            <th class="px-6 py-3 bg-gray-50"></th>
-            <!-- Empty header for Cancel button column -->
+            <th class="px-6 py-3 bg-gray-50 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Date</th>
+            <th class="px-6 py-3 bg-gray-50 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Time</th>
+            <th class="px-6 py-3 bg-gray-50 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Agent Name</th>
+            <th class="px-6 py-3 bg-gray-50 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Category</th>
+            <th class="px-6 py-3 bg-gray-50 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
+            <th class="px-6 py-3 bg-gray-50"></th><!-- Empty header for Cancel button column -->
           </tr>
         </thead>
         <tbody>
-          <ng-container *ngFor="let innerArray of userbookings">
-            <tr
-              *ngFor="let data of innerArray"
-              class="border-t border-gray-200"
-            >
-              <td class="px-6 py-4 whitespace-no-wrap">
-                {{ data.date | date }}
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap">{{ data.time }}</td>
-              <td class="px-6 py-4 whitespace-no-wrap">
-                {{ data.agentId.firstName }}
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap">
-                {{ data.agentId.category }}
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap">{{ data.status }}</td>
-              <td class="px-6 py-4 whitespace-no-wrap">
-                <button
-                  type="button"
-                  class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded-md"
-                  *ngIf="data.status === 'confirmed'"
-                  (click)="cancelbooking(data._id, data.userId, data.status,data.paymentId,data.slotId)"
-                >
+          <ng-container *ngFor="let data of userbookings">
+            <tr class="border-t border-gray-200">
+              <td class="px-6 py-4 whitespace-nowrap">{{ data.date | date }}</td>
+              <td class="px-6 py-4 whitespace-nowrap">{{ data.time }}</td>
+              <td class="px-6 py-4 whitespace-nowrap">{{ data.agentId.firstName }}</td>
+              <td class="px-6 py-4 whitespace-nowrap">{{ data.agentId.category }}</td>
+              <td class="px-6 py-4 whitespace-nowrap">{{ data.status }}</td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <button *ngIf="data.status === 'confirmed'"
+                        type="button"
+                        class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded-md"
+                        (click)="cancelbooking(data._id, data.userId, data.status, data.paymentId, data.slotId)">
                   Cancel
                 </button>
               </td>
@@ -226,10 +205,10 @@
           </ng-container>
         </tbody>
       </table>
+    <p-paginator [rows]="5" [totalRecords]="recordCount" (onPageChange)="paginate($event)" *ngIf="showappointments"></p-paginator>
+
     </div>
   </div>
-
-  
-
-
+ 
 </div>
+<app-footer  *ngIf="footervisible"></app-footer>

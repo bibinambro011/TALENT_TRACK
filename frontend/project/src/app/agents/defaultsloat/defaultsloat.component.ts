@@ -18,9 +18,21 @@ export class DefaultsloatComponent {
     private toastr: ToastrService,
     private adminservice:AdminService
   ) {}
-  
+  selectedTime!:string
+  addedslots: any[] = [];
+  hours: string[] = [ '9 am - 10am',
+  '10 am - 11 am',
+  '11 am - 12 pm',
+  '12 pm - 1 pm',
+  '1 pm - 2 pm',
+  '2 pm - 3 pm',
+  '3 pm - 4 pm',
+  '4 pm - 5 pm',
+  '5 pm - 6 pm',
+  '6 pm - 7 pm',
+  '7pm - 8 pm'];
   showavailableslots: boolean = true;
-  addedslots: any = [];
+  
   date: Date | undefined = new Date();
   selecteddetails: any = {};
   mindate = new Date();
@@ -28,19 +40,20 @@ export class DefaultsloatComponent {
   endDate:Date |undefined=new Date()
  
 
+  
   senddateandtime(date: any,enddate:any ) {
-    (this.selecteddetails.date = date),
+    this.selecteddetails.startdate = date,
     this.selecteddetails.enddate=enddate,
+    this.selecteddetails.time=this.selectedTime
+    this.selecteddetails.agentId=localStorage.getItem("agentId")
      
      
-      this.sendslot();
+      
+      console.log("=====>", this.selecteddetails)
 
     this.adminservice.adddefaultslot(this.selecteddetails).subscribe((result) => {
       if (result) {
-        this.addedslots = [];
-        result.forEach((data: any) => {
-          this.addedslots.push(data);
-        });
+        console.log("result is==>", result)
         this.toastr.success('slot added successfully');
       } else {
         this.toastr.error('failure adding slot');
@@ -49,11 +62,6 @@ export class DefaultsloatComponent {
   }
 
   //sending agent id to the object that we are going to send to the backend
-  sendslot() {
-    this.store.select(getAgentInfo).subscribe((res) => {
-      this.selecteddetails.id = res._id as string;
-      // return res._id as string
-    });
-  }
+ 
  
 }

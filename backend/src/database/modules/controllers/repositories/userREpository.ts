@@ -287,8 +287,22 @@ async paymentSuccess(data:any,razorpay_payment_id:string){
   }
 }
 
-async walletpayment(data:userBookingDocument){
+ generateRandomLetters(): string {
+  const letters = 'abcdefghijklmnopqrstuvwxyz'; // All letters of the alphabet
+  let randomString = '';
+  for (let i = 0; i < 12; i++) {
+      const randomIndex = Math.floor(Math.random() * letters.length); // Generate a random index
+      randomString += letters.charAt(randomIndex); // Append a random letter to the string
+  }
+  return randomString;
+}
+
+// Example usage:/ Output will be a random string of 12 letters
+
+async walletpayment(data:any){
+const randomPaymentId=this.generateRandomLetters()
   console.log("wallet data is==>", data)
+  data.paymentId=randomPaymentId
   try{
     let userdata:any=await usersModel.findOne({_id:data.userId})
     if(userdata.wallet < data.bookingamount){

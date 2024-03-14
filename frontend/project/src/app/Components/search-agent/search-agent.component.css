@@ -1,39 +1,43 @@
-#sidebar {
-    height: 100%;
-    width: 200px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    margin-top: 95px;
-    background-color: #054571;
-    padding-top: 20px;
-    
-  }
-  h1{
-    margin-left: 5px;
-  }
-  #sidebar a ,button {
-    padding: 10px;
-    font-size: 1.2em;
-    color: #818181;
-    display: block;
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-  
-  #sidebar a:hover,button:hover {
-    color: #f8f9fa;
-  }
-  
-  .sidebar-header {
-    text-align: start;
-    padding: 20px;
-   
-  }
-  
-  #sidebar h1{
-   color: #ffffff; 
-  }
-  a,button{
-    margin-left: 10px;
-  }
+.main-content {
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+.sidebar-container {
+  margin-bottom: 20px;
+}
+
+.card {
+  display: flex;
+  justify-content: center;
+}
+
+.search-results {
+  background-color: #1a202c;
+  padding: 20px;
+}
+
+.search-bar {
+  margin-bottom: 20px;
+}
+
+.agent-cards {
+  margin-left: 10px;
+}
+
+.agent-card {
+  width: 100%;
+}
+
+.agent-card img {
+  width: 6rem;
+  height: 6rem;
+}
+
+.agent-card .flex {
+  justify-content: center;
+}
+
+.agent-card .mb-3 {
+  margin-bottom: 0.75
+}

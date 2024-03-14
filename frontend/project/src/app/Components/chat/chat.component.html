@@ -1,9 +1,10 @@
 
 <app-navbar></app-navbar>
+
 <div class="container">
     <ul id="listOfMessages" #messageContainer class="messages">
         <li class="singleMessage" *ngFor="let message of messages" [ngClass]="{'sent': message.sender !== null, 'received': message.sender === null}">
-            <span>{{ message.content }}</span>
+            <span>{{ message.content }}   {{ message.createdAt | date: 'shortTime' }}</span>
         </li>
     </ul>
   
@@ -14,3 +15,5 @@
         </div>
     </form>
 </div>
+
+<app-footer></app-footer>

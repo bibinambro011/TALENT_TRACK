@@ -1,8 +1,9 @@
 
 .container {
   
-    max-width: 800px; /* adjust as needed */
+    max-width: 1200px; /* adjust as needed */
     margin: auto;
+    background-image: url("https://qph.cf2.quoracdn.net/main-qimg-8b585fb4a5c9fedbb899cfb0cf0331a7-lq");
 }
 
 .messages {

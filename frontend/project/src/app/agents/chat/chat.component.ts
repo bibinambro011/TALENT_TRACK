@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { catchError, throwError } from 'rxjs';
@@ -16,7 +16,11 @@ export class ChatComponent implements OnDestroy {
   messageText:string='';
   chatId:string='';
   users:any = [];
-  chats:any= [];
+  chats:any= []; 
+  senderId:any
+  
+  currentPage = 1;
+  pageSize = 10; 
   @ViewChild('messageContainer') private messageContainer!: ElementRef;
   // Subscriptions
   private agentAccessChatSubscription: Subscription | undefined;
@@ -24,8 +28,10 @@ export class ChatComponent implements OnDestroy {
   private onMessageSubscription: Subscription | undefined;
 
   constructor(private service: ChatService, private store: Store, private socketservice: SocketService) { }
+  @Input() loginSuccess!: boolean;
 
   ngOnInit(): void {
+    console.log("inside onInit")
    this.agentId = localStorage.getItem("agentId") as string;
     this.agentAccessChatSubscription = this.service.agentAccessChat(this.agentId).subscribe((res)=>{
       if(res instanceof Array)
@@ -33,9 +39,28 @@ export class ChatComponent implements OnDestroy {
           this.users.push(data)
         })
     });
+
+this.messageSubscription()
+   
+  }
+  
+
+  messageSubscription(){
+    console.log("function get called...")
+    this.onMessageSubscription = this.socketservice.onMessage().subscribe((res:any)=>{
+      if(res.chat._id==this.chatId){
+       
+        this.chats.push(res);
+      }
+      this.senderId=res?.sender?._id
+    });
   }
 
-  openChatRoom(chatId:string){
+  onScroll(event:any){
+    console.log("evenyt is ==>", event)
+  }
+  openChatRoom(chatId:string,userid:string){
+    
     this.chats=[];
    
     this.chatId=chatId;
@@ -47,14 +72,23 @@ export class ChatComponent implements OnDestroy {
         });
       }
     });
+if(this.senderId==userid){
+  console.log("unread message block")
+  this.senderId='65eb24beb07854016be47028'
+}
+   
 
-    this.onMessageSubscription = this.socketservice.onMessage().subscribe((res:any)=>{
-      if(res.chat._id==this.chatId){
-        console.log("res-->",res);
-        this.chats.push(res);
-      }
-    });
   }
+
+
+
+
+  
+  
+  UnreadMessage(Id:string){
+    this.senderId=null
+  }
+
 
   onSubmit(data:any){
     let val=data.trim().length

@@ -1,7 +1,9 @@
 .container {
+    margin-top: 30px;
     display: flex;
     height: 70vh;
     font-family: Arial, sans-serif;
+    background-image: url("https://qph.cf2.quoracdn.net/main-qimg-8b585fb4a5c9fedbb899cfb0cf0331a7-lq");
 }
 
 .user-list {

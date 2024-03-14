@@ -12,7 +12,7 @@ export class AdminHomeComponent {
   dashboardvisibility !:boolean;
   uservisibility!:boolean;
   agentvisibility!:boolean
-
+  appointement:boolean=false
 
   
   userdata:any=[]
@@ -25,13 +25,23 @@ export class AdminHomeComponent {
     this.uservisibility=false;
     this.agentvisibility=false
     this.sidebarVisible = false;
+    this.appointement=false
    
+  }
+  Appointments(){
+    this.dashboardvisibility=false
+    this.uservisibility=false;
+    this.agentvisibility=false
+    this.sidebarVisible=false
+    this.appointement=true
   }
   userdetails(){
     this.dashboardvisibility=false
     this.uservisibility=true;
     this.agentvisibility=false
     this.sidebarVisible=false
+    this.appointement=false
+
   
   }
   agentdetails(){
@@ -39,6 +49,8 @@ export class AdminHomeComponent {
     this.uservisibility=false;
     this.agentvisibility=true
     this.sidebarVisible=false
+    this.appointement=false
+
 }
 logout(){
   localStorage.removeItem("admintoken")

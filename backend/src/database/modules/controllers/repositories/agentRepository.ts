@@ -102,6 +102,7 @@ async addpost(data:any){
 
 //slot add 
 async addslot(data:any){
+  console.log("slot data is==>", data)
   try{
     let slot=await addagentslot.find({agentId:data.agentId})
    
@@ -191,7 +192,7 @@ async slotDetailsByOption(id:string,status:string){
 async agentslotcancell(slotid:string,agentId:string){
   try{
     await addagentslot.deleteOne({_id:slotid})
-  let dta= await addagentslot.find({ agentId: agentId }).populate('bookedUserId').exec();
+  let dta= await addagentslot.find({ agentId: agentId , status:'pending'}).populate('bookedUserId').exec();
   return dta
   }catch{
     throw new Error("error fetching data")
@@ -212,11 +213,15 @@ try{
     let user:any=await usersModel.findOne({_id:userId})
     let updatedamount=user.wallet+Number(bookingamount)
     await usersModel.updateOne({_id:userId},{$set:{wallet:updatedamount}})
+    let data=await addagentslot.find({agentId:agentId,status:'Confirmed'});
+
+    console.log("confirmed data are===>", data)
+  return data
   }
   console.log("slot cancel datas are",datas)
   await userBookingModel.updateOne({slotId:slotId},{$set:{status:status}});
   await addagentslot.updateOne({_id:slotId},{$set:{status:status}})
-  let data=await addagentslot.find({agentId:agentId});
+  let data=await addagentslot.find({agentId:agentId,status:"Consult"});
   return data
 
 }catch{
@@ -247,4 +252,7 @@ async editAgent(data:any){
   }
  
 }
+
+// admin side listing appointments
+
 }

@@ -33,6 +33,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.routeSubscription = this.route.params.subscribe(params => {
       this.agentId = params['id'];
+      console.log("messages are===>", this.messages)
     });
 
     let data = {

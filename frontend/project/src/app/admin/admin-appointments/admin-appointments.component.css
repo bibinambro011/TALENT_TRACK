@@ -1,9 +1,9 @@
-.container {
+.table-container {
     max-width: 90%;
     margin: 0 auto;
   }
   
-  .page-title {
+  .table-heading {
     background-color: #e0eff9;
     border: 2px solid black;
     padding: 20px;
@@ -11,19 +11,6 @@
     font-size: 3vh;
     text-align: center;
     margin-bottom: 20px;
-  }
-  
-  .search-container {
-    margin-bottom: 20px;
-  }
-  
-  .search-input {
-    width: 100%;
-    padding: 10px;
-  }
-  
-  .table-container {
-    overflow-x: auto;
   }
   
   .table {
@@ -36,19 +23,13 @@
     padding: 10px;
   }
   
-  .paginator-container {
+  .p-paginator {
     text-align: center;
     margin-top: 20px;
   }
   
-  .btn {
-    padding: 8px 20px;
-    margin: 5px;
-    font-size: 1rem;
-  }
-  
   @media (max-width: 768px) {
-    .page-title {
+    .table-heading {
       font-size: 2.5vh;
     }
   }

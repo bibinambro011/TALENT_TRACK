@@ -13,6 +13,7 @@ import { ButtonModule } from 'primeng/button';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { AdminShowalluserComponent } from './admin-showalluser/admin-showalluser.component';
 import { AdminShowallagentsComponent } from './admin-showallagents/admin-showallagents.component';
+import { AdminAppointmentsComponent } from './admin-appointments/admin-appointments.component';
 
 
 
@@ -23,7 +24,8 @@ import { AdminShowallagentsComponent } from './admin-showallagents/admin-showall
     AdminHomeComponent,
     AdminDashboardComponent,
     AdminShowalluserComponent,
-    AdminShowallagentsComponent
+    AdminShowallagentsComponent,
+    AdminAppointmentsComponent
   ],
   imports: [
     CommonModule,PaginatorModule,
