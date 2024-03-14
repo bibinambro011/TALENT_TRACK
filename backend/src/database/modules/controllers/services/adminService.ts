@@ -72,5 +72,22 @@ export class adminService{
             throw new Error(error)
         }
     }
-    
+
+    async AllSlots(){
+        try{
+             return await adminrepository.AllSlots()
+
+        }catch(error:any){
+            throw new Error(error)
+    }
+}
+
+async addDefaultSlots(data:any){
+    try{
+        return await adminrepository.addDefaultSlots(data)
+
+   }catch(error:any){
+       throw new Error(error)
+}
+}
 }

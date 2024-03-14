@@ -1,75 +1,47 @@
-<h1
-  style="
-    background-color: #e0eff9;
-    border: 2px dolid-black;
-    padding: 10px;
-    font-family: Geneva, sans-serif;
-    font-size: 6vh;
-    text-align: center;
-  "
-  class="container"
->
-  AGENT MANAGEMT
-</h1>
-<!-- search.component.html -->
-<input type="text" placeholder="Search agents..." (keyup)="searchAgents($event)"/>
+<div class="container">
+  <h1 class="page-title">AGENT MANAGEMENT</h1>
 
-<table class="table table-striped table-dark container mt-10">
-  <thead>
-    <tr>
-      <th scope="col" style="color: black">sl no</th>
-      <th scope="col" style="color: black">FirstName</th>
-      <th scope="col" style="color: black">LastName</th>
-      <th scope="col" style="color: black">Email</th>
-      <th scope="col" style="color: black">Category</th>
-      <th scope="col" style="color: black">Verify</th>
-      <th scope="col" style="color: black">Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let agent of agents; let i = index">
-      <td>{{ i + 1 }}</td>
-      <td>{{ agent.firstName }}</td>
-      <td>{{ agent.lastName }}</td>
-      <td>{{ agent.email }}</td>
-      <td>{{ agent.category }}</td>
-      <td>
-        <button
-          *ngIf="!agent.is_verified"
-          class="btn btn-danger"
-          (click)="verify(agent)"
-        >
-          Not Approved
-        </button>
-        <button
-          *ngIf="agent.is_verified"
-          class="btn btn-success"
-          (click)="verify(agent)"
-          [disabled]="agent.is_verified"
-        >
-          Approved
-        </button>
-      </td>
+  <!-- Search input -->
+  <div class="search-container">
+    <input type="text" placeholder="Search agents..." (keyup)="searchAgents($event)" class="search-input"/>
+  </div>
 
-      <td>
-        <button
-          *ngIf="!agent.is_blocked"
-          class="btn btn-success"
-          (click)="block(agent)"
-        >
-          Block
-        </button>
-        <button
-          *ngIf="agent.is_blocked"
-          class="btn btn-danger"
-          (click)="block(agent)"
-        >
-          Unblock
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+  <!-- Agents table -->
+  <div class="table-container">
+    <table class="table table-striped table-dark">
+      <thead>
+        <tr>
+          <th scope="col">Sl No</th>
+          <th scope="col">First Name</th>
+          <th scope="col">Last Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Category</th>
+          <th scope="col">Verify</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let agent of agents; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ agent.firstName }}</td>
+          <td>{{ agent.lastName }}</td>
+          <td>{{ agent.email }}</td>
+          <td>{{ agent.category }}</td>
+          <td>
+            <button *ngIf="!agent.is_verified" class="btn btn-danger" (click)="verify(agent)">Not Approved</button>
+            <button *ngIf="agent.is_verified" class="btn btn-success" [disabled]="agent.is_verified">Approved</button>
+          </td>
+          <td>
+            <button *ngIf="!agent.is_blocked" class="btn btn-success" (click)="block(agent)">Block</button>
+            <button *ngIf="agent.is_blocked" class="btn btn-danger" (click)="block(agent)">Unblock</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-
-<p-paginator [rows]="5" [totalRecords]="10"  (onPageChange)="paginate($event)"></p-paginator>
+  <!-- Paginator -->
+  <div class="paginator-container">
+    <p-paginator [rows]="5" [totalRecords]="10" (onPageChange)="paginate($event)"></p-paginator>
+  </div>
+</div>

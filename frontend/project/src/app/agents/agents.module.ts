@@ -19,6 +19,7 @@ import { AgentProfileComponent } from './agent-profile/agent-profile.component';
 import { SidebarModule } from 'primeng/sidebar';
 import { ButtonModule } from 'primeng/button';
 
+import { PaginatorModule } from 'primeng/paginator';
 import { AddSlotComponent } from './add-slot/add-slot.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarModule } from 'primeng/calendar';
@@ -60,6 +61,7 @@ import { DefaultsloatComponent } from './defaultsloat/defaultsloat.component';
     SidebarModule,
     ButtonModule,
     DialogModule,
+    PaginatorModule
    
    
 

@@ -130,4 +130,29 @@ export class adminController {
     }
    
   }
+
+  async AllSlots(req:Request,res:Response){
+    try{
+      
+      let slots=await adminservice.AllSlots()
+      if(slots){
+        res.status(200).json(slots)
+      }
+    }catch(error:any){
+      throw new Error(error)
+    }
+   
+  }
+  async addDefaultSlots(req:Request,res:Response){
+    try{
+      let data=req.body
+      let successMessage:string=await adminservice.addDefaultSlots(data)
+      if(successMessage){
+        res.status(200).json(successMessage)
+      }
+    }catch(error:any){
+      throw new Error(error)
+    }
+   
+  }
 }

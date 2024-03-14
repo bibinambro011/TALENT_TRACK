@@ -2,6 +2,7 @@ import adminModel from "../../../models/adminmodel";
 import usersModel from "../../../models/usermodel";
 import agentModel from "../../../models/agentmodels";
 import { userlog } from "../dtos/userDto";
+import addagentslot from "../../../models/agentaddslot";
 export class adminRepository{
     async adminlogin(data:userlog){
         try{
@@ -106,6 +107,51 @@ export class adminRepository{
         }
     }
     
+    async  AllSlots() {
+        try {
+            let data= await addagentslot.find().populate('bookedUserId').populate("agentId")
+            console.log(data)
+            return data
+        } catch (error: any) {
+            throw new Error(error);
+        }
+    }
+
    
+    
+    async  addDefaultSlots(data: any) {
+        try {
+            const { startdate, enddate, time, agentId } = data;
+            console.log("data is ==>", data);
+            
+            // Convert startdate and enddate to Date objects
+            const startDate = new Date(startdate);
+            const endDate = new Date(enddate);
+    
+            // Loop through each date within the provided range
+            for (let currentDate = new Date(startDate); currentDate.getTime() <= endDate.getTime(); currentDate.setDate(currentDate.getDate() + 1)) {
+                console.log("inside loop");
+    
+                // Construct data for the current date
+                const dataForCurrentDate = {
+                    agentId: agentId,
+                    date: new Date(currentDate), // Create a new Date object to avoid mutation
+                    time: time,
+                    booked: false,
+                    bookedUserId: null, // Assuming no booking initially
+                    // Add any other properties to the data object as needed
+                };
+    
+                // Create a document for the current date
+                let res = await addagentslot.create(dataForCurrentDate);
+                console.log("result is ==>", res);
+            }
+    
+            return "successfully added";
+        } catch (error:any) {
+            throw new Error(error);
+        }
+    }
+    
     
 }

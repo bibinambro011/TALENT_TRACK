@@ -9,6 +9,11 @@
             <button type="button" class="btn" *ngIf="! authenticated"><a routerLink="/user/home"><i class="pi pi-home"></i>  Home</a></button>  
             <button type="button" class="btn" *ngIf="! authenticated"><a routerLink="/agent/agent-login"><i class="pi pi-sign-in"></i> sign in</a></button>
             <button type="button" class="btn" *ngIf=" authenticated"><a routerLink="/agent/agent-profile"><span class="pi pi-user"></span></a></button>
+            <button (click)="messageread()" *ngIf="!messageRead && authenticated" class="btn btn-danger">
+                <i class="bi bi-envelope"></i> 1
+              </button>
+              
+
         </div>
     </div>
 </nav>

@@ -18,6 +18,7 @@ import { Subscription } from 'rxjs';
 export class ProfileComponent implements OnInit, OnDestroy {
   sidebarVisible: boolean = true;
   showdashboard: boolean = false;
+  footervisible:boolean=false
   showprofile: boolean = false;
   showappointments: boolean = false;
   id: any;
@@ -29,6 +30,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
   uploadForm!: FormGroup;
   filedvalue: string = 'bibin';
   
+  recordCount!:number
+  totalrecords:any
+  totalusers!:string
+
+  transactionCount!:number;
+  totaltransactions:any;
+
+
   transactions:any=[]
   eventdata: EventEmitter<string> = new EventEmitter<string>();
   logoutSubscription: Subscription = new Subscription();
@@ -49,23 +58,68 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.router.navigate(['/user/login']);
   }
 
-  dashboard() {
+ async dashboard() {
     this.transactions=[]
     this.visibilityhandle();
     this.showdashboard = true;
-    this.userservice.userTransactionHistory(this.id).subscribe((data)=>{
-      if(data instanceof Array){
-        data.forEach((res)=>{
-          this.transactions.push(res)
-        })
-      }
+  await  this.userservice.userTransactionHistory(this.id)
+    .toPromise()
+    .then((data) => {
+      this.transactions = data;
     })
+    .catch((error) => {
+      // Handle error if needed
+      console.error("Error occurred:", error);
+    });
+    this.totaltransactions=[...this.transactions]
+    this.transactionCount=this.totaltransactions.length
+  this.defaulttransactionPaginate()
 
   }
+// transaction paginate 
+transactionpaginate(event:any){
+    this.transactions=[]
+    let currenpage=event.page 
+    let count=event.first 
+    let currentPageData:any= this.totaltransactions.slice(count, (currenpage + 1) * 5);
+    console.log("paginate",currentPageData)
+    currentPageData.forEach((data:any)=>{
+      this.transactions.push(data)
+    })
+}
+defaulttransactionPaginate(){
+  this.transactions=[]
+  let currenpage=1
+  let count=0
+  let currentPageData:any= this.totaltransactions.slice(0,5);
+  console.log("paginate",currentPageData)
+   currentPageData.forEach((data:any)=>{
+    this.transactions.push(data)
+  })
+}
 
-  Appointments() {
+ async Appointments() {
     this.visibilityhandle();
     this.showappointments = true;
+    this.visibilityhandle();
+    this.showappointments = true;
+    this.userbookings = [];
+    await this.userservice
+      .userbookings('All', this.id)
+      .toPromise().then((res:any)=>{
+        this.userbookings = [...res]
+      })
+      this.totalrecords = this.userbookings.flat()
+       this.recordCount = this.totalrecords.length;
+      // .subscribe((res) => {
+      //   if (res) {
+      //     this.userbookings=res;
+      //   }
+      //   this.totalrecords = this.userbookings.flat()
+      //   this.recordCount = this.totalrecords.length;
+
+      // });
+    this.defaultPaginate()
   }
 
   profile() {
@@ -94,44 +148,52 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.sidebarVisible = false;
     this.showprofile = false;
     this.showappointments = false;
+    this.footervisible=true
   }
-  bookings(data: string) {
+ async bookings(data: string) {
     this.visibilityhandle();
     this.showappointments = true;
     this.userbookings = [];
-    this.userBookingsSubscription = this.userservice
+ await  this.userservice
       .userbookings(data, this.id)
-      .subscribe((res) => {
-        if (res) {
-          this.userbookings.push(res);
-        }
-      });
+      .toPromise().then((res:any)=>{
+        console.log("inside promise response data is==>", res)
+        this.userbookings = [...res]
+
+      })
+      this.totalrecords = this.userbookings
+     this.recordCount=this.totalrecords.length
+      this.defaultPaginate()
   }
 
   // booking cancellation from the user side
 
-  cancelbooking(data: string, userId: string, status: string,paymentId:string,slotId:string): void {
+  async cancelbooking(data: string, userId: string, status: string, paymentId: string, slotId: string) {
     let details = {
       id: data,
       userid: userId,
       status: status,
-      paymentId:paymentId,
-      slotId:slotId
+      paymentId: paymentId,
+      slotId: slotId
     };
-
+  
     // Show the custom alert
-    this.showCustomAlert().then((result) => {
+    try {
+      const result = await this.showCustomAlert(); // Assuming showCustomAlert returns a promise
+  
       if (result.isConfirmed) {
         this.userbookings = [];
-        this.userservice.cancelbooking(details).subscribe((res) => {
-          if (res) {
-            this.userbookings.push(res);
-          }
-        });
+        const result:any = await this.userservice.cancelbooking(details).toPromise();
+        this.userbookings = [...result];
       }
-    });
+    } catch (error) {
+      console.error('Error occurred:', error);
+    }
+    this.totalrecords=this.userbookings
+    this.defaultPaginate()
   }
-
+  
+  
   showCustomAlert(): Promise<any> {
     return Swal.fire({
       title: 'Are you sure?',
@@ -217,4 +279,31 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.userInfoSubscription.unsubscribe();
     this.userBookingsSubscription.unsubscribe();
   }
+  paginate(event:any) {
+    this.userbookings=[]
+    let currenpage=event.page 
+    let count=event.first 
+    let currentPageData:any= this.totalrecords.slice(count, (currenpage + 1) * 5);
+    console.log("paginate",currentPageData)
+     currentPageData.forEach((data:any)=>{
+      this.userbookings.push(data)
+    })
+   
+    //event.first = Index of the first record
+    //event.rows = Number of rows to display in new page
+    //event.page = Index of the new page
+    //event.pageCount = Total number of pages
+}
+defaultPaginate(){
+  this.userbookings=[]
+    let currenpage=1;
+    let count=5
+    console.log("total records are==>", this.totalrecords.length)
+    let currentPageData:any= this.totalrecords.slice(0,5);
+console.log("default paginate==>",currentPageData)
+     currentPageData.forEach((data:any)=>{
+      this.userbookings.push(data)
+    })
+   
+}
 }

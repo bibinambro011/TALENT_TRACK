@@ -15,6 +15,13 @@ export class AgentAppointmentsComponent implements OnDestroy {
   agentId: string = '';
   slots: any = [];
   rejectedOption: any;
+
+  recordCount!:number
+  totalrecords:any
+  totalusers!:string
+
+
+
   agentInfoSubscription: Subscription = new Subscription();
   bookingDetailsSubscription: Subscription = new Subscription();
   slotDetailsSubscription: Subscription = new Subscription();
@@ -23,14 +30,24 @@ export class AgentAppointmentsComponent implements OnDestroy {
 
   constructor(private store: Store, private service: AgentService) {}
 
-  bookings() {
-    this.bookingDetailsSubscription = this.service.bookingdetails(this.agentId).subscribe((data) => {
-      if (data) {
-        data.forEach((res: any) => {
-          this.slots.push(res);
-        });
-      }
-    });
+  async bookings() {
+    this.service.bookingdetails(this.agentId)
+  .toPromise()
+  .then((data) => {
+    if (data) {
+      this.slots = data;
+    }
+    console.log("slots are--->", this.slots);
+    this.totalrecords = [...this.slots];
+    console.log("records are==>", this.totalrecords);
+    this.recordCount = this.totalrecords.length;
+    this.defaultpaginate();
+  })
+  .catch((error) => {
+    // Handle error if needed
+    console.error("Error occurred:", error);
+  });
+
   }
 
   selector() {
@@ -41,37 +58,58 @@ export class AgentAppointmentsComponent implements OnDestroy {
     });
   }
 
-  bookingsStatus(data: string) {
+async  bookingsStatus(data: string) {
     this.slots = [];
-    this.slotDetailsSubscription = this.service.slotDetailsByOption(this.agentId, data).subscribe((res) => {
-      if (res) {
-        res.forEach((data: any) => {
-          this.slots.push(data);
-        });
-      }
+   await this.service.slotDetailsByOption(this.agentId, data)
+    .toPromise()
+    .then((res) => {
+      this.slots = res;
+      console.log("this.slots from inside bookingstatus==>", this.slots);
+    })
+    .catch((error) => {
+      // Handle error if needed
+      console.error("Error occurred:", error);
     });
+    console.log("slots are--->", this.slots);
+    this.totalrecords = [...this.slots];
+    console.log("records are==>", this.totalrecords);
+    this.recordCount = this.totalrecords.length;
+    this.defaultpaginate()
+  }
+  defaultpaginate(){
+    this.slots=[]
+    let currenpage=1;
+    let count=5
+    console.log("total records are==>", this.totalrecords)
+    let currentPageData:any= this.totalrecords.slice(0,  5);
+console.log("default paginate==>",currentPageData)
+     currentPageData.forEach((data:any)=>{
+      this.slots.push(data)
+    })
+   
   }
 
-  cancelSlot(slotid: string) {
-    this.agentSlotCancelSubscription = this.service.agentslotcancell(slotid, this.agentId).subscribe((res) => {
-      if (res) {
-        this.slots = [];
-        res.forEach((data: any) => {
-          this.slots.push(data);
-        });
-      }
-    });
+  async cancelSlot(slotid: string) {
+    await this.service.agentslotcancell(slotid, this.agentId)
+    .toPromise().then((res)=>{
+      this.slots=[...res]
+      this.totalrecords=this.slots
+      this.defaultpaginate()
+    })
+    
+    this.defaultpaginate()
   }
 
-  onRejectConsultChange(status: string, slotId: string) {
-    this.slotBookingChangeStatusSubscription = this.service.slotbookingchangeStatus(slotId, status, this.agentId).subscribe((data) => {
-      if (data) {
-        this.slots = [];
-        data.forEach((res: any) => {
-          this.slots.push(res);
-        });
-      }
-    });
+  async onRejectConsultChange(status: string, slotId: string) {
+  await  this.service.slotbookingchangeStatus(slotId, status, this.agentId).
+    toPromise().then((res)=>{
+      console.log("res data is==<>", res)
+      this.slots=[...res]
+      this.totalrecords=this.slots
+      
+    })
+    
+    this.defaultpaginate()
   }
 
   ngOnDestroy(): void {
@@ -86,5 +124,15 @@ export class AgentAppointmentsComponent implements OnDestroy {
     this.slots = [];
     this.selector();
     this.bookings();
+  }
+  paginate(event:any){
+    this.slots=[]
+    let currenpage=event.page 
+    let count=event.first 
+    let currentPageData:any= this.totalrecords.slice(count, (currenpage + 1) * 5);
+    console.log("paginate",currentPageData)
+     currentPageData.forEach((data:any)=>{
+      this.slots.push(data)
+    })
   }
 }

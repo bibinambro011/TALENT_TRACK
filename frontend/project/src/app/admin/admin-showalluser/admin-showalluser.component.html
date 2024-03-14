@@ -1,16 +1,16 @@
-<h1 style="background-color:#e0eff9; border:2px dolid-black;padding:10px;font-family: Geneva, sans-serif;
-font-size: 6vh; text-align: center;" class="container">USER MANAGEMT</h1>
-<input type="text" placeholder="Search users..." (keyup)="searchUsers($event)"/>
+<div class="container">
+  <h1 class="header">USER MANAGEMENT</h1>
+  <input type="text" placeholder="Search users..." (keyup)="searchUsers($event)" class="search-input"/>
 
-<table class="table table-striped table-dark  container mt-10">
+  <table class="table table-striped table-dark user-table">
     <thead>
       <tr>
-        <th scope="col" style="color:black">sl no</th>
-        <th scope="col" style="color:black">FirstName</th>
-        <th scope="col" style="color:black">LastName</th>
-        <th scope="col" style="color:black">Email</th>
-        <th scope="col" style="color:black">Category</th>
-        <th scope="col" style="color:black">Action</th>
+        <th scope="col">Sl No</th>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Category</th>
+        <th scope="col">Action</th>
       </tr>
     </thead>
     <tbody>
@@ -20,27 +20,13 @@ font-size: 6vh; text-align: center;" class="container">USER MANAGEMT</h1>
         <td>{{ user.lastName }}</td>
         <td>{{ user.email }}</td>
         <td>{{ user.category }}</td>
-     
-       
-  
         <td>
-          <button
-            *ngIf="!user.is_blocked"
-            class="btn btn-success"
-            (click)="block(user)"
-          >
-            Block
-          </button>
-          <button
-            *ngIf="user.is_blocked"
-            class="btn btn-danger"
-            (click)="block(user)"
-          >
-            Unblock
-          </button>
+          <button *ngIf="!user.is_blocked" class="btn btn-block btn-success" (click)="block(user)">Block</button>
+          <button *ngIf="user.is_blocked" class="btn btn-block btn-danger" (click)="block(user)">Unblock</button>
         </td>
       </tr>
     </tbody>
   </table>
   
   <p-paginator [rows]="5" [totalRecords]="totalrecords"  (onPageChange)="paginate($event)"></p-paginator>
+</div>

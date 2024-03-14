@@ -15,8 +15,8 @@ adminRouter.post("/blokagent",adminAuth,admincontroller.blokagent)
 adminRouter.post("/agentVerify",adminAuth,admincontroller.verifyagent)
 adminRouter.get("/searchAgents",admincontroller.searchAgents)
 adminRouter.get("/searchUser",admincontroller.searchUser)
-
-
+ adminRouter.post("/adddefaultslot",admincontroller.addDefaultSlots)
+adminRouter.get("/AllSlots",admincontroller.AllSlots)
 
 
 export default adminRouter

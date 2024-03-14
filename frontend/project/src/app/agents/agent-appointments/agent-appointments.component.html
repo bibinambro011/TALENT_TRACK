@@ -1,77 +1,59 @@
-<div >
-    <!-- Search Field -->
-  
-    <div class="w-70 h-20 bg-red-50 p-8">
-      <div class="mb-4">
-        <select
-          class="border border-gray-300 p-2 rounded-md"
-          [(ngModel)]="selectedOption"
-          (change)="bookingsStatus(selectedOption)"
-        
-        >
-          <option value="All" selected>All</option>
-          <option value="pending">Pending</option>
-          <option value="Confirmed">Confirmed</option>
-          <option value="consulted">Consulted</option>
-          <option value="agent cancelled">agent cancelled</option>
-          <option value="cancelled">user cancelled</option>
-        </select>
-      </div>
-      <!-- Table -->
-      <div class="overflow-x-auto">
-        <table class="min-w-full">
-          <thead>
-            <tr>
-              <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                Date
-              </th>
-              <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                Time
-              </th>
-              <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                User Name
-              </th>
-              <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                Email
-              </th>
-              <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                Status
-              </th>
-              <th class="px-6 py-3 bg-gray-50"></th><!-- Empty header for Cancel button column -->
-            </tr>
-          </thead>
-          <tbody>
-            <ng-container *ngFor="let item of slots">
-              <tr class="border-t border-gray-200">
-                <td class="px-6 py-4 whitespace-no-wrap">{{ item.date | date }}</td>
-                <td class="px-6 py-4 whitespace-no-wrap">{{ item.time }}</td>
-                <td class="px-6 py-4 whitespace-no-wrap">{{ item?.bookedUserId?.firstName }}</td>
-                <td class="px-6 py-4 whitespace-no-wrap">{{ item?.bookedUserId?.email }}</td>
-                <td class="px-6 py-4 whitespace-no-wrap">
-                  {{ item.status }}
-                  <div *ngIf="item.status=='Confirmed'">
-                    <select class="bg-yellow-500 hover:bg-yellow-700 text-white px-4 py-2 rounded-md"
-                            [(ngModel)]="selectedOptions[item._id]"
-                            (change)="onRejectConsultChange(selectedOptions[item._id], item._id)">
-                      <option value="agent cancelled">Reject</option>
-                      <option value="consulted">Consult</option>
-                    </select>
-                  </div>
-                </td>
-                <td class="px-6 py-4 whitespace-no-wrap">
-                  <button *ngIf="item.status=='pending'"
-                          type="button"
-                          class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded-md"
-                          (click)="cancelSlot(item._id)">
-                    Cancel
-                  </button>
-                </td>
-              </tr>
-            </ng-container>
-          </tbody>
-        </table>
-      </div>
-      
-    </div>
+<div class="container">
+  <h2 class="heading">Appointment Details</h2>
+
+  <div class="search-field">
+    <select class="status-select" [(ngModel)]="selectedOption" (change)="bookingsStatus(selectedOption)">
+      <option value="All" selected>All</option>
+      <option value="pending">Pending</option>
+      <option value="Confirmed">Confirmed</option>
+      <option value="consulted">Consulted</option>
+      <option value="agent cancelled">Agent Cancelled</option>
+      <option value="cancelled">User Cancelled</option>
+    </select>
   </div>
-  
+
+  <div class="table-container">
+    <table class="appointment-table">
+      <!-- Table headers -->
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Time</th>
+          <th>User Name</th>
+          <th>Email</th>
+          <th>Status</th>
+          <th></th><!-- Empty header for Cancel button column -->
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Table rows -->
+        <tr *ngFor="let item of slots">
+          <td>{{ item.date | date }}</td>
+          <td>{{ item.time }}</td>
+          <td>{{ item?.bookedUserId?.firstName }}</td>
+          <td>{{ item?.bookedUserId?.email }}</td>
+          <td>
+            {{ item.status }}
+            <div *ngIf="item.status == 'Confirmed'">
+              <select class="status-select"
+                      [(ngModel)]="selectedOptions[item._id]"
+                      (change)="onRejectConsultChange(selectedOptions[item._id], item._id)">
+                <option value="agent cancelled">Reject</option>
+                <option value="consulted">Consult</option>
+              </select>
+            </div>
+          </td>
+          <td>
+            <button *ngIf="item.status == 'pending'"
+                    type="button"
+                    class="cancel-button"
+                    (click)="cancelSlot(item._id)">
+              Cancel
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p-paginator [rows]="5" [totalRecords]="recordCount" (onPageChange)="paginate($event)"></p-paginator>
+  </div>
+</div>

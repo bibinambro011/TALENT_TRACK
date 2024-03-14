@@ -42,5 +42,8 @@ export class AdminService {
   searchUser(name:string):Observable<any>{
     return this.http.get<any>(`${this.api}/admin/searchUser?name=${name}`)
   }
+  adminslots():Observable<any>{
+    return this.http.get<any>(`${this.api}/admin/AllSlots`)
   }
 
+}

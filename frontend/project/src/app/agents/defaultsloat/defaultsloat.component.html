@@ -1,72 +1,55 @@
+<app-agent-navbar></app-agent-navbar>
 <div class="container mx-auto px-4 py-8">
-    <div class="max-w-md mx-auto">
-      <label for="date" class="block text-lg font-medium text-gray-700 mb-4">Select the start date</label>
-      <div class="flex items-center mb-6">
+  <h2 class="text-3xl font-bold mb-8 text-center">Default Slot Adding from Agent</h2>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div class="max-w-md">
+      <label for="start-date" class="block text-lg font-medium text-gray-700 mb-4">Select the start date</label>
+      <div class="flex items-center mb-6 ml-6">
         <p-calendar
           [(ngModel)]="date"
           #selecteddate
           [minDate]="mindate"
           dateFormat="dd/mm/yy"
           [readonlyInput]="true"
+          [inline]="true"
           dataType="string"
-          class="w-full"
+          class="w-full bg-gray-100 rounded-md p-2"
         ></p-calendar>
       </div>
     </div>
-    <div class="max-w-md mx-auto">
-        <label for="date" class="block text-lg font-medium text-gray-700 mb-4">Select the ending date</label>
-        <div class="flex items-center mb-6">
-          <p-calendar
-            [(ngModel)]="endDate"
-            #enddate
-            [minDate]="mindate"
-            dateFormat="dd/mm/yy"
-            [readonlyInput]="true"
-            dataType="string"
-            class="w-full"
-          ></p-calendar>
-        </div>
-      </div>
-  
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <h2>Select Time</h2>
-
-        <form id="timeForm">
-          <label for="hours">Hours:</label>
-          <select id="hours" name="hours">
-            <!-- Generate options for hours from 1 to 24 -->
-            <!-- You can also use JavaScript to generate these options dynamically -->
-            <option value="1">01</option>
-            <option value="2">02</option>
-            <!-- Add more options here -->
-            <option value="24">24</option>
-          </select>
-          
-          <label for="minutes">Minutes:</label>
-          <select id="minutes" name="minutes" >
-            <option value="00">00</option>
-            <option value="01">01</option>
-            <!-- Add more options here -->
-            <option value="59">59</option>
-          </select>
-          
-          <button type="submit">Submit</button>
-        </form>
-        
-        <button style="background-color:#09203F;"
-        class="block text-white px-4 py-2 rounded-md w-full text-center mb-10 mr-5 hover:bg-indigo-700 transition duration-300 ease-in-out"
-        (click)="senddateandtime(selecteddate.value,enddate.value )"
-      >
-        click
-      </button>
-      </div>
-      <div>
-        <div class="max-w-md mx-auto">
-          <div class="max-w-lg mx-auto">
-          
-        </div>
-        
+    <div class="max-w-md">
+      <label for="end-date" class="block text-lg font-medium text-gray-700 mb-4">Select the ending date</label>
+      <div class="flex items-center mb-6">
+        <p-calendar
+          [(ngModel)]="endDate"
+          #enddate
+          [minDate]="mindate"
+          dateFormat="dd/mm/yy"
+          [readonlyInput]="true"
+          [inline]="true"
+          dataType="string"
+          class="w-full bg-gray-100 rounded-md p-2"
+        ></p-calendar>
       </div>
     </div>
   </div>
-  
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <h2 class="text-lg font-medium text-gray-700 mb-4 md:col-span-full">Select Time</h2>
+
+    <form id="timeForm" class="max-w-xs md:max-w-none">
+      <label for="hours" class="text-gray-700 mb-2">Hours:</label>
+      <select id="hours" name="hours" [(ngModel)]="selectedTime" class="border border-gray-300 rounded-md p-2 mb-4">
+        <!-- Generate options for hours from 1 to 24 -->
+        <option *ngFor="let hour of hours" [value]="hour">{{ hour }}</option>
+      </select>
+
+     
+    </form>
+
+    <button style="background-color:#09203F;" class="block text-white rounded-md w-full text-center mb-10 md:mb-0 hover:bg-indigo-700 hover:text-white transition duration-300 ease-in-out cursor-pointer" (click)="senddateandtime(selecteddate.value,enddate.value)">
+      Submit
+    </button>
+
+  </div>
+</div>
