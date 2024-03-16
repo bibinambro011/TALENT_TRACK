@@ -12,23 +12,23 @@ export class ChatService {
   private api:string='http://localhost:4000'
   constructor(private http: HttpClient) {}
 
-  accessChat(data: any): Observable<FullChatI | UserAccessChatI> {
+  accessChat(allchat: any): Observable<FullChatI | UserAccessChatI> {
     
     // Send HTTP POST request to the server
-   return this.http.post<FullChatI | UserAccessChatI>('http://localhost:4000/users/accessChat', data)
+   return this.http.post<FullChatI | UserAccessChatI>('http://localhost:4000/users/accessChat', allchat)
   
   }
 
-  sendMessage(data: any): Observable<usersendMessage> {
-    return this.http.post<usersendMessage>(`${this.api}/users/sendMessage`,data)
+  sendMessage(message: any): Observable<usersendMessage> {
+    return this.http.post<usersendMessage>(`${this.api}/users/sendMessage`,message)
     
     // Emit the message through the socket
      
   }
 
   // message sended from agent
-  agentsendMessage(data: any): Observable<agentSendMessageI> {
-    return this.http.post<agentSendMessageI>(`${this.api}/agents/agentsendMessage`,data)
+  agentsendMessage(message: any): Observable<agentSendMessageI> {
+    return this.http.post<agentSendMessageI>(`${this.api}/agents/agentsendMessage`,message)
     
    
   }

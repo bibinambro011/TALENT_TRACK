@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { userlog } from '../Model/userModel';
 import { Observable } from 'rxjs';
+import { Appointment, Booking, EditAgent, UserOtp, userAppointment } from '../Model/agentModel';
 
 @Injectable({
   providedIn: 'root'
@@ -10,34 +11,35 @@ export class AgentService {
   api = 'http://localhost:4000';
   constructor(private http:HttpClient) { }
 
-  agentlogin(data:userlog):Observable<any>{
+  agentlogin(userdetails:userlog):Observable<any>{
  
-    return this.http.post<any>(`${this.api}/agents/agentlogin`,data)
+    return this.http.post<any>(`${this.api}/agents/agentlogin`,userdetails)
   }
   
-  verifyUser(data:any):Observable<any>{
+  verifyUser(data:UserOtp):Observable<string>{
+    console.log("otp details", data)
   
-    return this.http.post<any>(`${this.api}/agents/agentverifyotp`,data)
+    return this.http.post<string>(`${this.api}/agents/agentverifyotp`,data)
   }
-  addSlot(data:any):Observable<any>{
-  
-    return this.http.post<any>(`${this.api}/agents/addslot`,data)
+  addSlot(addedslots:Appointment):Observable<userAppointment>{
+    console.log("added slots are==>", addedslots)
+    return this.http.post<userAppointment>(`${this.api}/agents/addslot`,addedslots)
   }
-  deletingslot(id:string,agentId:string):Observable<any>{
+  deletingslot(id:string,agentId:string):Observable<userAppointment>{
    
-    return this.http.delete<any>(`${this.api}/agents/deletingslot?id=${agentId}&slotid=${id}`)
+    return this.http.delete<userAppointment>(`${this.api}/agents/deletingslot?id=${agentId}&slotid=${id}`)
   }
-  getAgentdetails(id:string):Observable<any>{
+  getAgentdetails(id:string):Observable<EditAgent>{
    
-    return this.http.get<any>(`${this.api}/agents/agentDetails?id=${id}`)
+    return this.http.get<EditAgent>(`${this.api}/agents/agentDetails?id=${id}`)
   }
-  availableslots(id:any):Observable<any>{
+  availableslots(id:string):Observable<any>{
    
     return this.http.get<any>(`${this.api}/agents/availableslots/${id}`)
   }
-  bookingdetails(id:string):Observable<any>{
+  bookingdetails(id:string):Observable<Booking>{
   
-    return this.http.get<any>(`${this.api}/agents/getAllSlots?id=${id}`)
+    return this.http.get<Booking>(`${this.api}/agents/getAllSlots?id=${id}`)
   }
   slotDetailsByOption(agentId:string,status:string):Observable<any>{
     
@@ -50,9 +52,9 @@ export class AgentService {
   slotbookingchangeStatus(slotId:string,status:string,agentId:string):Observable<any>{
     return this.http.get<any>(`${this.api}/agents/slotbookingchangeStatus?status=${status}&slotId=${slotId}&agentId=${agentId}`)
 }
-editAgent(data:any):Observable<any>{
+editAgent(agentdata:any):Observable<EditAgent>{
   
-  return this.http.put<any>(`${this.api}/agents/editAgent`,data)
+  return this.http.put<EditAgent>(`${this.api}/agents/editAgent`,agentdata)
 }
 
 }

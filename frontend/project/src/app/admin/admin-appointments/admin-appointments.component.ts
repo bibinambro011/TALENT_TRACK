@@ -17,6 +17,7 @@ constructor(private service:AdminService){
   ngOnInit(){
     console.log("inside init")
     this.adminslots()
+    console.log("==> slots are=",this.addedslots)
   }
  async adminslots(){
     await this.service.adminslots().toPromise().then((res)=>{
@@ -31,7 +32,7 @@ constructor(private service:AdminService){
     this.addedslots=[]
     let currenpage=event.page 
     let count=event.first 
-    let currentPageData:any= this.totaladdedslots.slice(count, (currenpage + 1) * 5);
+    let currentPageData:any= this.totaladdedslots.slice(count, (currenpage + 1) * 10);
     console.log("paginate",currentPageData)
      currentPageData.forEach((data:any)=>{
       this.addedslots.push(data)
@@ -41,7 +42,7 @@ constructor(private service:AdminService){
     this.addedslots=[]
     let currenpage=1
     let count=0
-    let currentPageData:any= this.totaladdedslots.slice(0,5);
+    let currentPageData:any= this.totaladdedslots.slice(0,10);
     console.log("paginate",currentPageData)
      currentPageData.forEach((data:any)=>{
       this.addedslots.push(data)

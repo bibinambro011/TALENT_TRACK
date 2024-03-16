@@ -15,12 +15,13 @@ export class AgentotpComponent {
   onSubmit(userForm: NgForm) {
     const email = localStorage.getItem('agentemail');
     const obj = {
-      email: email,
-      otp: this.userotp,
+      email: email as string,
+      otp: this.userotp ,
     };
     console.log('Form submitted:', obj);
     this.service.verifyUser(obj).subscribe(
       (result) => {
+        console.log("verified user details==>", result)
         this.toaster.success('verification successfull !!');
         this.router.navigate(["/agent/agent-login"])
       },

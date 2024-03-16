@@ -28,7 +28,6 @@ export class UserRepository {
   //  getting user
 
   async getUser(data: any): Promise<any> {
-    console.log("get user=====>")
     try {
       let info: any = await usersModel.findOne({ email: data.email });
       if (!info) {
@@ -42,7 +41,6 @@ export class UserRepository {
         if (info.is_blocked) {
           return "you are blocked by the admin";
         }
-        console.log("inside repo========================>")
         email=info.email
         const refreshtoken=jwt.sign({email:info.email}, jwtrefreshtoken,{expiresIn:'1d'})
         const token = jwt.sign({email:info.email}, jwtSecretToken,{expiresIn:'20s'});
@@ -61,7 +59,6 @@ export class UserRepository {
         return accesseduser;
       }
     } catch (error: any) {
-      console.log("inside catch error===")
       throw new Error("Could not find user");
     }
   }

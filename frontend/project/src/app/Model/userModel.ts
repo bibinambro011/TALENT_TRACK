@@ -14,6 +14,7 @@ export interface userlog {
   password: string;
 }
 export interface successresponsedata {
+  errorMessage: string;
   usertoken: string;
   userdetails: logsuccess;
 }

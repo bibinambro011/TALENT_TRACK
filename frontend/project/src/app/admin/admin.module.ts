@@ -14,6 +14,7 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
 import { AdminShowalluserComponent } from './admin-showalluser/admin-showalluser.component';
 import { AdminShowallagentsComponent } from './admin-showallagents/admin-showallagents.component';
 import { AdminAppointmentsComponent } from './admin-appointments/admin-appointments.component';
+import { AdminFooterComponent } from './admin-footer/admin-footer.component';
 
 
 
@@ -25,7 +26,8 @@ import { AdminAppointmentsComponent } from './admin-appointments/admin-appointme
     AdminDashboardComponent,
     AdminShowalluserComponent,
     AdminShowallagentsComponent,
-    AdminAppointmentsComponent
+    AdminAppointmentsComponent,
+    AdminFooterComponent
   ],
   imports: [
     CommonModule,PaginatorModule,
