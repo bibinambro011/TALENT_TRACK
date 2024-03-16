@@ -37,9 +37,7 @@ export class AgentAppointmentsComponent implements OnDestroy {
     if (data) {
       this.slots = data;
     }
-    console.log("slots are--->", this.slots);
     this.totalrecords = [...this.slots];
-    console.log("records are==>", this.totalrecords);
     this.recordCount = this.totalrecords.length;
     this.defaultpaginate();
   })
@@ -64,15 +62,12 @@ async  bookingsStatus(data: string) {
     .toPromise()
     .then((res) => {
       this.slots = res;
-      console.log("this.slots from inside bookingstatus==>", this.slots);
     })
     .catch((error) => {
       // Handle error if needed
       console.error("Error occurred:", error);
     });
-    console.log("slots are--->", this.slots);
     this.totalrecords = [...this.slots];
-    console.log("records are==>", this.totalrecords);
     this.recordCount = this.totalrecords.length;
     this.defaultpaginate()
   }
@@ -80,9 +75,7 @@ async  bookingsStatus(data: string) {
     this.slots=[]
     let currenpage=1;
     let count=5
-    console.log("total records are==>", this.totalrecords)
     let currentPageData:any= this.totalrecords.slice(0,  5);
-console.log("default paginate==>",currentPageData)
      currentPageData.forEach((data:any)=>{
       this.slots.push(data)
     })
@@ -94,7 +87,7 @@ console.log("default paginate==>",currentPageData)
     .toPromise().then((res)=>{
       this.slots=[...res]
       this.totalrecords=this.slots
-      this.defaultpaginate()
+      
     })
     
     this.defaultpaginate()
@@ -103,9 +96,11 @@ console.log("default paginate==>",currentPageData)
   async onRejectConsultChange(status: string, slotId: string) {
   await  this.service.slotbookingchangeStatus(slotId, status, this.agentId).
     toPromise().then((res)=>{
-      console.log("res data is==<>", res)
+      this.slots=[]
+      console.log("response data is -====>", res)
       this.slots=[...res]
-      this.totalrecords=this.slots
+      console.log("this. slotsis ==>", this.slots)
+      this.totalrecords=[...this.slots]
       
     })
     
@@ -130,7 +125,6 @@ console.log("default paginate==>",currentPageData)
     let currenpage=event.page 
     let count=event.first 
     let currentPageData:any= this.totalrecords.slice(count, (currenpage + 1) * 5);
-    console.log("paginate",currentPageData)
      currentPageData.forEach((data:any)=>{
       this.slots.push(data)
     })

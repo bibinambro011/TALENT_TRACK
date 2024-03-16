@@ -209,11 +209,13 @@ try{
   let datas:any= await userBookingModel.findOne({slotId:slotId});
   let {userId,bookingamount}=datas
   if(status=='agent cancelled'){
+  await userBookingModel.updateOne({slotId:slotId},{$set:{status:status}});
+  await addagentslot.updateOne({_id:slotId},{$set:{status:status}})
     await transactionmodel.create({userId:userId,agentId:agentId,refundamount:bookingamount})
     let user:any=await usersModel.findOne({_id:userId})
     let updatedamount=user.wallet+Number(bookingamount)
     await usersModel.updateOne({_id:userId},{$set:{wallet:updatedamount}})
-    let data=await addagentslot.find({agentId:agentId,status:'Confirmed'});
+    let data=await addagentslot.find({agentId:agentId,status:'Confirmed'}).populate("bookedUserId")
 
     console.log("confirmed data are===>", data)
   return data
@@ -221,7 +223,7 @@ try{
   console.log("slot cancel datas are",datas)
   await userBookingModel.updateOne({slotId:slotId},{$set:{status:status}});
   await addagentslot.updateOne({_id:slotId},{$set:{status:status}})
-  let data=await addagentslot.find({agentId:agentId,status:"Consult"});
+  let data=await addagentslot.find({agentId:agentId,status:"consulted"}).populate("bookedUserId")
   return data
 
 }catch{

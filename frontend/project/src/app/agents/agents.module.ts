@@ -28,6 +28,7 @@ import { DialogModule } from 'primeng/dialog';
 import { AgentAppointmentsComponent } from './agent-appointments/agent-appointments.component';
 import { ChatComponent } from './chat/chat.component';
 import { DefaultsloatComponent } from './defaultsloat/defaultsloat.component';
+import { AgentFooterComponent } from './agent-footer/agent-footer.component';
 
 
 
@@ -48,6 +49,7 @@ import { DefaultsloatComponent } from './defaultsloat/defaultsloat.component';
     AgentAppointmentsComponent,
     ChatComponent,
     DefaultsloatComponent,
+    AgentFooterComponent,
    
   ],
   imports: [

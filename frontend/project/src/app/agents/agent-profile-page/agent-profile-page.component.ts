@@ -66,7 +66,9 @@ export class AgentProfilePageComponent implements OnDestroy {
     console.log('form data is===>', formData);
     this.service.editAgent(formData).subscribe((result) => {
       if (result) {
+        console.log("edited details are===>", result)
         this.agentdetails = [];
+        if(result instanceof Array) 
         result.forEach((data: any) => {
           (this.agentdetails.firstName = data.firstName),
             (this.agentdetails.lastName = data.lastName),
@@ -94,7 +96,8 @@ export class AgentProfilePageComponent implements OnDestroy {
     this.agentDetailsSubscription = this.service
       .getAgentdetails(this.agentId)
       .subscribe((res) => {
-        if (res) {
+        console.log("Agent details 1", res)
+        if (res instanceof Array) {
           res.forEach((data: any) => {
             this.agentdetails.firstName = data.firstName;
             this.agentdetails.lastName = data.lastName;

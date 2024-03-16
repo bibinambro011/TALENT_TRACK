@@ -22,11 +22,12 @@
           <td>{{ slots.bookingAmount }}</td>
           <td>{{ slots.paymentstatus }}</td>
           <td>{{ slots.status }}</td>
+
         </tr>
       </tbody>
     </table>
   
-    <p-paginator [rows]="5" [totalRecords]="records" (onPageChange)="transactionpaginate($event)"></p-paginator>
+    <p-paginator [rows]="10" [totalRecords]="records" (onPageChange)="transactionpaginate($event)"></p-paginator>
   </div>
   
- 
+ <app-admin-footer></app-admin-footer>

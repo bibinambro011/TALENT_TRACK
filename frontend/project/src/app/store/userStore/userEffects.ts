@@ -22,7 +22,10 @@ export class UserEffect {
         return this.service.userlogin(action.userCredentails).pipe(
             
             map((data)=>{
-                console.log(data)
+                console.log("result is==>",data)
+                if(data as unknown as string=='password mismatch'){
+                    return this.toastr.error("password mismatch")
+                }
                 if(data.usertoken){
                     localStorage.setItem('token',JSON.parse(JSON.stringify(data)).usertoken)
                     localStorage.setItem('refreshtoken',JSON.parse(JSON.stringify(data)).refreshtoken)
@@ -31,7 +34,7 @@ export class UserEffect {
                    
                     return userloginsuccess({userdetails:data})
                 }else{
-                  return  this.toastr.error("invalid credentials")
+                  return  this.toastr.error("you are blocked by admin")
                 }
                
             }),

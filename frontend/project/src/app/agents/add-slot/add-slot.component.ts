@@ -47,7 +47,9 @@ export class AddSlotComponent {
 
     this.service.addSlot(this.selecteddetails).subscribe((result) => {
       if (result) {
+        console.log("slot details are==>", result)
         this.addedslots = [];
+        if(result instanceof Array)
         result.forEach((data: any) => {
           this.addedslots.push(data);
         });
@@ -70,8 +72,10 @@ export class AddSlotComponent {
     let agentId = this.selecteddetails.id;
 
     this.service.deletingslot(id, agentId).subscribe((res) => {
+      
       if (res) {
         this.addedslots = [];
+        if(res instanceof Array)
         res.forEach((data: any) => {
           this.addedslots.push(data);
         });
