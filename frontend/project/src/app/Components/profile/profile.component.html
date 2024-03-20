@@ -30,7 +30,7 @@
 </div>
 
 <!-- dashboard showing code -->
-<div class="dashboard " *ngIf="showdashboard">
+<div class="dashboard" *ngIf="showdashboard">
   <!-- Wallet Balance Section -->
   <div class="wallet-section bg-blue-400 border border-red rounded-lg p-4 ml-30">
     <p class="text-lg font-bold mb-2 text-white">Wallet Balance</p>
@@ -40,38 +40,39 @@
   </div>
   
   <!-- Transaction History Section -->
-  <div class="transaction-section bg-white shadow-md rounded-lg p-6">
+  <div class="transaction-section bg-black text-white shadow-md rounded-lg mt-8 mx-4 p-6">
     <div class="flex justify-between items-center mb-4">
-      <h2 class="text-xl font-bold text-gray-800">Transaction History</h2>
-      <p-paginator [rows]="5" [totalRecords]="transactionCount"  (onPageChange)="transactionpaginate($event)" *ngIf="showdashboard"></p-paginator>
+      <h2 class="text-xl font-bold">Transaction History</h2>
+      <p-paginator [rows]="5" [totalRecords]="transactionCount" (onPageChange)="transactionpaginate($event)" *ngIf="showdashboard"></p-paginator>
     </div>
     <div class="overflow-x-auto">
-      <table class="table-auto w-full">
+      <table class="w-full border-collapse border border-gray-800">
         <thead>
           <tr>
-            <th class="px-4 py-2">Sl:no</th>
-            <th class="px-4 py-2">Amount</th>
-            <th class="px-4 py-2">Agent Name</th>
-            <th class="px-4 py-2">Date</th>
+            <th class="px-4 py-2 bg-gray-800">Sl No</th>
+            <th class="px-4 py-2 bg-gray-800">Amount</th>
+            <th class="px-4 py-2 bg-gray-800">Agent Name</th>
+            <th class="px-4 py-2 bg-gray-800">Date</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let data of transactions; let i = index" [class.odd]="i % 2 !== 0">
-            <td class="border px-4 py-2">{{ i + 1 }}</td>
-            <td class="border px-4 py-2">
-              <ng-container *ngIf="data.paidamount; else refundAmount">{{ 'Rupees ' + data.paidamount }}</ng-container>
-              <ng-template #refundAmount>{{ 'Refunded Rupees ' + data.refundamount }}</ng-template>
-            </td>
-            <td class="border px-4 py-2">{{ data.agentId?.firstName + ' ' + data.agentId?.lastName }}</td>
-            <td class="border px-4 py-2">{{ data.createdAt | date }}</td>
-          </tr>
+          <ng-container *ngFor="let data of transactions; let i = index">
+            <tr class="{{ i % 2 === 0 ? 'bg-gray-700' : 'bg-gray-800' }}">
+              <td class="px-4 py-2 border border-gray-800">{{ i + 1 }}</td>
+              <td class="px-4 py-2 border border-gray-800">
+                <ng-container *ngIf="data.paidamount; else refundAmount">{{ 'Rupees ' + data.paidamount }}</ng-container>
+                <ng-template #refundAmount>{{ 'Refunded Rupees ' + data.refundamount }}</ng-template>
+              </td>
+              <td class="px-4 py-2 border border-gray-800">{{ data.agentId?.firstName + ' ' + data.agentId?.lastName }}</td>
+              <td class="px-4 py-2 border border-gray-800">{{ data.createdAt | date }}</td>
+            </tr>
+          </ng-container>
         </tbody>
       </table>
     </div>
   </div>
-
-
 </div>
+
 
 
 <!-- profile displaying code-->
@@ -153,62 +154,57 @@
 </div>
 
 <!-- show Appointments -->
-<div *ngIf="showappointments">
-  <div class="container mx-auto p-4">
-    <h2 class="text-2xl font-semibold mb-4">Appointments</h2>
+<div class="container" *ngIf="showappointments">
+  <h1 class="header">Appointments</h1>
 
-
-    <div class="flex items-center mb-4">
-      <label for="statusSelect" class="mr-2">Filter by Status:</label>
-      <select id="statusSelect"
-              class="border border-gray-300 p-2 rounded-md"
-              [(ngModel)]="selectedOption"
-              (change)="bookings(selectedOption)">
-        <option value="All" selected>All</option>
-        <option value="pending">Pending</option>
-        <option value="confirmed">Confirmed</option>
-        <option value="consulted">Consulted</option>
-        <option value="cancelled">Cancelled</option>
-        <option value="agent cancelled">Agent Cancelled</option>
-      </select>
-    </div>
-
-    <div class="overflow-x-auto">
-      <table class="w-full">
-        <thead>
-          <tr>
-            <th class="px-6 py-3 bg-gray-50 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Date</th>
-            <th class="px-6 py-3 bg-gray-50 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Time</th>
-            <th class="px-6 py-3 bg-gray-50 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Agent Name</th>
-            <th class="px-6 py-3 bg-gray-50 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Category</th>
-            <th class="px-6 py-3 bg-gray-50 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
-            <th class="px-6 py-3 bg-gray-50"></th><!-- Empty header for Cancel button column -->
-          </tr>
-        </thead>
-        <tbody>
-          <ng-container *ngFor="let data of userbookings">
-            <tr class="border-t border-gray-200">
-              <td class="px-6 py-4 whitespace-nowrap">{{ data.date | date }}</td>
-              <td class="px-6 py-4 whitespace-nowrap">{{ data.time }}</td>
-              <td class="px-6 py-4 whitespace-nowrap">{{ data.agentId.firstName }}</td>
-              <td class="px-6 py-4 whitespace-nowrap">{{ data.agentId.category }}</td>
-              <td class="px-6 py-4 whitespace-nowrap">{{ data.status }}</td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <button *ngIf="data.status === 'confirmed'"
-                        type="button"
-                        class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded-md"
-                        (click)="cancelbooking(data._id, data.userId, data.status, data.paymentId, data.slotId)">
-                  Cancel
-                </button>
-              </td>
-            </tr>
-          </ng-container>
-        </tbody>
-      </table>
-    <p-paginator [rows]="5" [totalRecords]="recordCount" (onPageChange)="paginate($event)" *ngIf="showappointments"></p-paginator>
-
-    </div>
+  <div class="flex items-center mb-4">
+    <label for="statusSelect" class="mr-2">Filter by Status:</label>
+    <select id="statusSelect"
+            class="border border-gray-300 p-2 rounded-md"
+            [(ngModel)]="selectedOption"
+            (change)="bookings(selectedOption)">
+      <option value="All" selected>All</option>
+      <option value="pending">Pending</option>
+      <option value="confirmed">Confirmed</option>
+      <option value="consulted">Consulted</option>
+      <option value="cancelled">Cancelled</option>
+      <option value="agent cancelled">Agent Cancelled</option>
+    </select>
   </div>
- 
+
+  <div class="user-table">
+    <table class="table table-striped table-dark">
+      <thead>
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col">Time</th>
+          <th scope="col">Agent Name</th>
+          <th scope="col">Category</th>
+          <th scope="col">Status</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let data of userbookings">
+          <tr>
+            <td>{{ data.date | date }}</td>
+            <td>{{ data.time }}</td>
+            <td>{{ data.agentId.firstName }}</td>
+            <td>{{ data.agentId.category }}</td>
+            <td>{{ data.status }}</td>
+            <td>
+              <button *ngIf="data.status === 'confirmed'"
+                      class="btn btn-danger"
+                      (click)="cancelbooking(data._id, data.userId, data.status, data.paymentId, data.slotId)">
+                Cancel
+              </button>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+    <p-paginator [rows]="5" [totalRecords]="recordCount" (onPageChange)="paginate($event)" *ngIf="showappointments"></p-paginator>
+  </div>
 </div>
+
 <app-footer  *ngIf="footervisible"></app-footer>

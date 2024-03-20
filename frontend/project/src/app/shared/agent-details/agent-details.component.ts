@@ -63,6 +63,7 @@ walletpayment(paymetdetails:any){
       if(res instanceof Array){
         this.availableslots(res[0].agentId);
         this.toastr.success("your slot has been booked")
+        this.paymentmsummaryvisible[this.selectedindex]=false
       }else{
         this.toastr.error("there is not enough wallet balance for this transaction")
       }
@@ -154,7 +155,10 @@ walletpayment(paymetdetails:any){
           data.payment.forEach((res:any)=>{
             this.slots.push(res)
           })
+          this.paymentmsummaryvisible[this.selectedindex]=false
           this.toastr.success("your slot has been confirmed")
+          
+
         }else{
           this.slots=[]
           data.payment.forEach((res:any)=>{
@@ -186,11 +190,31 @@ walletpayment(paymetdetails:any){
   }
 
   ngOnInit(){
+ 
    
   }
+  paymentmsummaryvisible: boolean[] = [];
   visible: boolean = false;
+  selectedindex!:number
+  // paymentmsummaryvisible:boolean=false
+ 
 
     showDialog() {
         this.visible = true;
+       
+       
+    }
+    showpaymentSummary(index:number){
+      this.selectedindex=index
+      console.log("items is==>",index)
+      this.paymentmsummaryvisible[index] = true;
+      for (let i = 0; i < this.slots.length; i++) {
+        if (i !== index) {
+            this.paymentmsummaryvisible[i] = false;
+        }
+    }
+     
+    
+      
     }
 }

@@ -1,92 +1,62 @@
-<!-- 
-
-<div class="grid grid-cols-3 gap-4 ml-5 mr-5 py-5" style="margin-bottom: 400px;">
-
-    <div class="bg-gradient-to-br from-gray-200 via-gray-300 to-white p-4 border-3 border-black items-center text-center shadow-xl hover:bg-gray-400 hover:shadow-2xl">Total users are {{usercount}}</div>
-
-    <div class="bg-gradient-to-br from-gray-200 via-gray-300 to-white p-4 border-3 border-black items-center text-center shadow-xl hover:bg-gray-400 hover:shadow-2xl">Total agents are {{agentcount}}</div>
-
-    <div class="bg-gradient-to-br from-gray-200 via-gray-300 to-white p-4 border-3 border-black items-center text-center shadow-xl hover:bg-gray-400 hover:shadow-2xl">Total earnings is {{totalAmount}} </div>
-  </div>
-   -->
-
-
-
-   <div class="ml-5 mt-6 mb-6">
+<div class="ml-5 mt-6 mb-6">
     <h1 style="padding: 5px;background-color:rgb(27, 27, 48); margin-bottom:30px;text-align:center;color:white;max-width:500px; font-weight: 900;   box-shadow: 10px 10px 5px 6px lightgrey;">DASHBOARD</h1>
    
     
     
-    <div class="grid grid-cols-12 gap-3 ml-5">
+    <div class="grid grid-cols-12 gap-4 ml-5">
       
       
-        <div class="col-span-3 sm:col-span-2 md:col-span-3 lg:col-span-3 xl:col-span-2... ">
+        <div class="col-span-3 sm:col-span-2 md:col-span-3 lg:col-span-4 xl:col-span-2... ">
             <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">
-                <h2 style=" font-weight: 900;"> number of users</h2><br><br>
+                <h2 style=" font-weight: 900;">Total Income</h2><br><br>
                 <svg class="w-7 h-7 text-gray-500 dark:text-gray-400 mb-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M18 5h-.7c.229-.467.349-.98.351-1.5a3.5 3.5 0 0 0-3.5-3.5c-1.717 0-3.215 1.2-4.331 2.481C8.4.842 6.949 0 5.5 0A3.5 3.5 0 0 0 2 3.5c.003.52.123 1.033.351 1.5H2a2 2 0 0 0-2 2v3a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V7a2 2 0 0 0-2-2ZM8.058 5H5.5a1.5 1.5 0 0 1 0-3c.9 0 2 .754 3.092 2.122-.219.337-.392.635-.534.878Zm6.1 0h-3.742c.933-1.368 2.371-3 3.739-3a1.5 1.5 0 0 1 0 3h.003ZM11 13H9v7h2v-7Zm-4 0H2v5a2 2 0 0 0 2 2h3v-7Zm6 0v7h3a2 2 0 0 0 2-2v-5h-5Z"/>
                 </svg>
                
-                    <h5 class="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white text-black">{{usercount}}</h5>
+                    <h5 class="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white text-black">Rs {{total}}</h5>
                 
                 
                
             </div>
         </div>
-      
-        <div class="col-span-3 sm:col-span-2 md:col-span-3 lg:col-span-3 xl:col-span-2...">
+        <div class="col-span-3 sm:col-span-2 md:col-span-3 lg:col-span-4 xl:col-span-2...">
             <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                <h2 style=" font-weight: 900;">number of agents</h2><br><br>
+                <h2 style=" font-weight: 900;">refundamount</h2><br><br>
                 <svg class="w-7 h-7 text-gray-500 dark:text-gray-400 mb-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M18 5h-.7c.229-.467.349-.98.351-1.5a3.5 3.5 0 0 0-3.5-3.5c-1.717 0-3.215 1.2-4.331 2.481C8.4.842 6.949 0 5.5 0A3.5 3.5 0 0 0 2 3.5c.003.52.123 1.033.351 1.5H2a2 2 0 0 0-2 2v3a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V7a2 2 0 0 0-2-2ZM8.058 5H5.5a1.5 1.5 0 0 1 0-3c.9 0 2 .754 3.092 2.122-.219.337-.392.635-.534.878Zm6.1 0h-3.742c.933-1.368 2.371-3 3.739-3a1.5 1.5 0 0 1 0 3h.003ZM11 13H9v7h2v-7Zm-4 0H2v5a2 2 0 0 0 2 2h3v-7Zm6 0v7h3a2 2 0 0 0 2-2v-5h-5Z"/>
                 </svg>
                
-                    <h5 class="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white text-black">{{agentcount}}</h5>
+                    <h5 class="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white text-black">Rs {{refundamount}}</h5>
                 
                 
                
             </div>
         </div>
-        <div class="col-span-3 sm:col-span-2 md:col-span-3 lg:col-span-3 xl:col-span-2...">
+        <div class="col-span-3 sm:col-span-2 md:col-span-3 lg:col-span-4 xl:col-span-2...">
             <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                <h2 style=" font-weight: 900;">number of appointments</h2><br><br>
+                <h2 style=" font-weight: 900;">Total sessions</h2><br><br>
                 <svg class="w-7 h-7 text-gray-500 dark:text-gray-400 mb-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M18 5h-.7c.229-.467.349-.98.351-1.5a3.5 3.5 0 0 0-3.5-3.5c-1.717 0-3.215 1.2-4.331 2.481C8.4.842 6.949 0 5.5 0A3.5 3.5 0 0 0 2 3.5c.003.52.123 1.033.351 1.5H2a2 2 0 0 0-2 2v3a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V7a2 2 0 0 0-2-2ZM8.058 5H5.5a1.5 1.5 0 0 1 0-3c.9 0 2 .754 3.092 2.122-.219.337-.392.635-.534.878Zm6.1 0h-3.742c.933-1.368 2.371-3 3.739-3a1.5 1.5 0 0 1 0 3h.003ZM11 13H9v7h2v-7Zm-4 0H2v5a2 2 0 0 0 2 2h3v-7Zm6 0v7h3a2 2 0 0 0 2-2v-5h-5Z"/>
                 </svg>
                
-                    <h5 class="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white text-black">{{totalcount}}</h5>
+                    <h5 class="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white text-black">{{totalsessions}}</h5>
                 
                 
                
             </div>
         </div>
-        <div class="col-span-3 sm:col-span-2 md:col-span-3 lg:col-span-3 xl:col-span-2... ">
-          <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">
-              <h2 style=" font-weight: 900;"> Total Income</h2><br><br>
-              <svg class="w-7 h-7 text-gray-500 dark:text-gray-400 mb-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M18 5h-.7c.229-.467.349-.98.351-1.5a3.5 3.5 0 0 0-3.5-3.5c-1.717 0-3.215 1.2-4.331 2.481C8.4.842 6.949 0 5.5 0A3.5 3.5 0 0 0 2 3.5c.003.52.123 1.033.351 1.5H2a2 2 0 0 0-2 2v3a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V7a2 2 0 0 0-2-2ZM8.058 5H5.5a1.5 1.5 0 0 1 0-3c.9 0 2 .754 3.092 2.122-.219.337-.392.635-.534.878Zm6.1 0h-3.742c.933-1.368 2.371-3 3.739-3a1.5 1.5 0 0 1 0 3h.003ZM11 13H9v7h2v-7Zm-4 0H2v5a2 2 0 0 0 2 2h3v-7Zm6 0v7h3a2 2 0 0 0 2-2v-5h-5Z"/>
-              </svg>
-             
-                  <h5 class="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white text-black">{{totalAmount}}</h5>
-              
-              
-             
-          </div>
-      </div>
        
       </div> <br><br>
-     
 
     <h1 style="padding: 5px;background-color:rgb(27, 27, 48); margin-bottom:30px;text-align:center;color:white;max-width:500px; font-weight: 900;  box-shadow: 10px 10px 5px 6px lightgrey; display:flex;justify-content:center">HISTORY OF ALL SESSIONS</h1>
       
-      <div class="table-container" >
+      <div class="table-container">
         <div class="row" style="color:black">
           <div class="col-md-6" *ngFor="let item of slots">
             <div class="p-3 mb-2 bg-light" style="font-weight: bold; font-size: 25px; box-shadow: 10px 10px 5px lightgrey; border-radius:20px; margin:20px;">
               <p>
                 <span class="badge badge-primary ">
                   <img [src]="item.bookedUserId.image" style="height: 70px; width: 70px; border-radius: 50%;" alt="Consulted Image">
-                  <span class="badge badge-primary" style="color:black">{{ item?.agentId?.firstName }}</span>
                 </span>
                 <span class="badge badge-primary" style="color:black">{{ item?.bookedUserId?.firstName }}</span>
                 <span class="badge badge-primary" style="color:black">{{ item?.bookedUserId?.email }}</span>
@@ -99,7 +69,6 @@
                   <ng-template #confirmedStatus>
                     <button class="btn btn-success">Confirmed</button>
                   </ng-template>
-                
                 </span>
               </p>
             </div>
@@ -108,9 +77,7 @@
       </div>
       
           
-        <p-paginator [rows]="6" [totalRecords]="totalcount" (onPageChange)="paginate($event)"></p-paginator>
+        <p-paginator [rows]="6" [totalRecords]="recordCount" (onPageChange)="paginate($event)"></p-paginator>
       </div>
 
-
-
-  <app-admin-footer></app-admin-footer>
+<app-agent-footer></app-agent-footer>

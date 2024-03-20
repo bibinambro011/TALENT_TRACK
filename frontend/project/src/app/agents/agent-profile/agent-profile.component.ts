@@ -11,21 +11,29 @@ export class AgentProfileComponent {
   sidebarVisible: boolean = true;
   profilepage:boolean=false;
   showappointments:boolean=false
+  dashboardshow:boolean=false
   constructor(private router: Router) {}
   logout() {
     localStorage.removeItem('agenttoken');
     this.router.navigate(['/agent/agent-login']);
   }
   dashboard() {
+    this.dashboardshow=true
+    this.showappointments=false;
+    this.sidebarVisible = false;
+    this.profilepage=false
+    this.addpost = false;
   }
   addSlot() {
     this.showappointments=false;
+    this.dashboardshow=false
     this.addpost = true;
     this.profilepage=false
     this.sidebarVisible = false;
   }
   
   profile(){
+    this.dashboardshow=false
     this.showappointments=false;
     this.sidebarVisible = false;
     this.profilepage=true
@@ -33,6 +41,7 @@ export class AgentProfileComponent {
     
   }
   Appontments(){
+    this.dashboardshow=false
     this.addpost = false;
     this.profilepage=false
     this.sidebarVisible = false;

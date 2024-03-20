@@ -29,6 +29,7 @@ import { AgentAppointmentsComponent } from './agent-appointments/agent-appointme
 import { ChatComponent } from './chat/chat.component';
 import { DefaultsloatComponent } from './defaultsloat/defaultsloat.component';
 import { AgentFooterComponent } from './agent-footer/agent-footer.component';
+import { AgentDashboardComponent } from './agent-dashboard/agent-dashboard.component';
 
 
 
@@ -50,6 +51,7 @@ import { AgentFooterComponent } from './agent-footer/agent-footer.component';
     ChatComponent,
     DefaultsloatComponent,
     AgentFooterComponent,
+    AgentDashboardComponent,
    
   ],
   imports: [

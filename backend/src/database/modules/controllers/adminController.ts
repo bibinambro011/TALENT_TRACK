@@ -155,4 +155,16 @@ export class adminController {
     }
    
   }
+  async confirmedslots(req:Request,res:Response){
+    try{
+      
+      let slots=await adminservice.confirmedslots()
+      if(slots){
+        res.status(200).json(slots)
+      }
+    }catch(error:any){
+      throw new Error(error)
+    }
+   
+  }
 }

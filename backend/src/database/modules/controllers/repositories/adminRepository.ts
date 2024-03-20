@@ -153,5 +153,16 @@ export class adminRepository{
         }
     }
     
+    // all confirmedslots
+
+    async  confirmedslots() {
+        try {
+            let data= await addagentslot.find({booked:true}).populate('bookedUserId').populate("agentId")
+            console.log(data)
+            return data
+        } catch (error: any) {
+            throw new Error(error);
+        }
+    }
     
 }

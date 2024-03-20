@@ -13,6 +13,7 @@ import { AgentProfilePageComponent } from './agent-profile-page/agent-profile-pa
 import { AgentAppointmentsComponent } from './agent-appointments/agent-appointments.component';
 import { ChatComponent } from './chat/chat.component';
 import { DefaultsloatComponent } from './defaultsloat/defaultsloat.component';
+import { AgentDashboardComponent } from './agent-dashboard/agent-dashboard.component';
 
 const routes: Routes = [
   {
@@ -40,6 +41,7 @@ const routes: Routes = [
 
       { path: 'agent-appointments', component: AgentAppointmentsComponent },
       { path: 'agent-defaultslotadd', component: DefaultsloatComponent },
+      { path: 'agent-dashboard', component: AgentDashboardComponent },
       {
         path: 'agent-profile-page',
         component: AgentProfilePageComponent,

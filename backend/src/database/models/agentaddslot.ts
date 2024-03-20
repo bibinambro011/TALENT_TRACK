@@ -6,6 +6,7 @@ interface slotaddinterface extends Document {
   time: string;
   booked:boolean;
   bookedUserId:mongoose.Types.ObjectId;
+  adminpaidAmount:string
 
 
 }
@@ -43,7 +44,11 @@ const agentslotadd: Schema = new Schema({
  bookingAmount:{
   type:String,
   default:'1500'
+ },
+ adminpaidAmount:{
+  type:String
  }
+
 });
 
 const addagentslot = mongoose.model<slotaddinterface>('agentslotadd', agentslotadd);
