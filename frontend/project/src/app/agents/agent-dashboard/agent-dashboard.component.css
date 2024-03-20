@@ -1,0 +1,11 @@
+.pending {
+    background-color: yellow;
+}
+
+.agent-cancelled {
+    background-color: red;
+}
+
+.cancelled {
+    background-color: orange;
+}

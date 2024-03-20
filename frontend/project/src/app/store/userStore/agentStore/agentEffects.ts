@@ -13,20 +13,17 @@ export class AgentEffect {
     private service:AgentService,
     private route:Router,
     private toastr:ToasterService){
-console.log("contructor function get called")
  }
  _loginuser=createEffect(()=>
  this.action$.pipe(
     ofType(loginagent),
     exhaustMap((action)=>{
-        console.log("agent credentials are==>",action.agentCredentails)
         return this.service.agentlogin(action.agentCredentails).pipe(
             
             map((data)=>{
                 console.log(data)
                 if(data.agenttoken){
                     localStorage.setItem('agenttoken',JSON.parse(JSON.stringify(data)).agenttoken)
-                    console.log("+++++++++++++++++++++",data)
                     localStorage.setItem("agentId",data.userdetails.id)
                     if(data.userdetails.verified){
                         this.route.navigate(['/agent/agent-home'])
@@ -43,7 +40,6 @@ console.log("contructor function get called")
                
             }),
             catchError((error)=>{
-                console.log('here')
                 return of(error.message)
             })
         )

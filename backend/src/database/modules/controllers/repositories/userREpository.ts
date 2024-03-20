@@ -220,8 +220,9 @@ async cancelbooking(id: string, userid: string, status: string, amountrefund: st
     let refundAmount = parseFloat(amountrefund);
 
     let finalamount: number = bookingAmount - refundAmount;
-    await addagentslot.updateOne({_id:slotId },{$set:{status:'cancelled'}})
-    await userBookingModel.updateOne({ _id: id }, { $set: { status: 'cancelled', refundamount: refundAmount,bookingamount:finalamount } });
+    let adminpaymentamounut=Number(finalamount)/100*10
+    await addagentslot.updateOne({_id:slotId },{$set:{status:'cancelled',adminpaidAmount:adminpaymentamounut}})
+    await userBookingModel.updateOne({ _id: id }, { $set: { status: 'cancelled', refundamount: refundAmount,bookingamount:Number(finalamount)-adminpaymentamounut} });
     let user=await usersModel.find({_id:userid})
     let updatedamount=user[0].wallet+Number(amountrefund)
     await usersModel.updateOne({_id:userid},{$set:{wallet:updatedamount}})
@@ -274,7 +275,7 @@ async paymentSuccess(data:any,razorpay_payment_id:string){
       data.bookingamount=data.bookingamount
       await transactionmodel.create({userId:data.userId,agentId:data.agentId,paidamount:data.bookingamount})
      await userBookingModel.create(data);
-     return addagentslot.find({agentId:data.agentId,booked:false,date:{$gt:new Date()}})
+     return addagentslot.find({agentId:data.agentId,booked:false,date:{$gt:new Date()}}).populate("agentId")
      
     } catch(error:any) {
       throw new Error(error);

@@ -39,7 +39,6 @@ export class UserEffect {
                
             }),
             catchError((error)=>{
-                console.log('here')
                 return of(error.message)
             })
         )

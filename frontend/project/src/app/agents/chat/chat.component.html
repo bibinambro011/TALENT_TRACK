@@ -11,7 +11,7 @@
     <div class="chat-window" >
         <div class="messages" #messageContainer  >
             <div class="message"  *ngFor="let message of chats" [ngClass]="{'sent': message.sender !== null}">
-                {{ message.content }}  {{ message.createdAt | date: 'shortTime' }}
+                {{ message.content }}  <span style="font-size:x-small;">{{ message.createdAt | date: 'shortTime' }}</span>
             </div>
         </div>
         <div class="input-area">

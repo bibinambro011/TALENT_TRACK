@@ -66,6 +66,14 @@ async verifyotp(email:string){
     }
   }
 
+  // fetching booked slots
+  async bookedslots(id:string){
+    try{
+      return await agentrepository.bookedslots(id)
+    }catch{
+      throw new Error("failure fetching data")
+    }
+  }
   //deleting a slot and sending back the remaining slot
 
   async deletingslot(slotid:string,id:string){
@@ -128,5 +136,14 @@ async verifyotp(email:string){
   }catch{
     throw new Error("error updatinf agent")
   }
+ }
+ // collecting userbooking details based on agent 
+ async getAllSlotDetails(id:string){
+  console.log("service id==>",id)
+  try{
+    return await agentrepository.getAllSlotDetails(id)
+   }catch{
+     throw new Error("error updatinf agent")
+   }
  }
 }

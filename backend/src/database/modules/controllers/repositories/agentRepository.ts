@@ -120,7 +120,7 @@ async addslot(data:any){
 //fetching avilable slots to display in the agent side tro showvase for cancelling;
 async availableslots(id:string){
   try{
-    let availableslots=await addagentslot.find({agentId:id,booked:false,date:{$gt:new Date()}})
+    let availableslots=await addagentslot.find({agentId:id,booked:false,date:{$gt:new Date()}}).populate("agentId")
     console.log("available slots are==>", availableslots)
     return availableslots
 
@@ -128,6 +128,27 @@ async availableslots(id:string){
     throw new Error("error fetching data")
   }
 }
+
+//fetching booked slots
+async bookedslots(id:string){
+  try{
+    let confirmedSlots = await addagentslot.find({ 
+      agentId: id,
+      booked: true,
+      $or: [
+          { status: 'Confirmed' },
+          { status: 'consulted' }
+      ]
+  }).populate("agentId").populate("bookedUserId");
+  
+    console.log("available slots are==>", confirmedSlots)
+    return confirmedSlots
+
+  }catch{
+    throw new Error("error fetching data")
+  }
+}
+
 
 // deleting a slot a  slot and sending back the remaining slot
 async deletingslot(slotid:string,id:string){
@@ -202,12 +223,13 @@ async agentslotcancell(slotid:string,agentId:string){
 }
 
 // updating booking status that is user is rejection or coonsulted option is clicking
-
+bookingamount:number=0
 async  slotbookingchangeStatus(slotId:string,status:string,agentId:string){
 try{
  
   let datas:any= await userBookingModel.findOne({slotId:slotId});
   let {userId,bookingamount}=datas
+  bookingamount=bookingamount
   if(status=='agent cancelled'){
   await userBookingModel.updateOne({slotId:slotId},{$set:{status:status}});
   await addagentslot.updateOne({_id:slotId},{$set:{status:status}})
@@ -220,9 +242,10 @@ try{
     console.log("confirmed data are===>", data)
   return data
   }
+  let amount=Number(bookingamount*2/100*10)
   console.log("slot cancel datas are",datas)
   await userBookingModel.updateOne({slotId:slotId},{$set:{status:status}});
-  await addagentslot.updateOne({_id:slotId},{$set:{status:status}})
+  await addagentslot.updateOne({_id:slotId},{$set:{status:status,adminpaidAmount:amount}})
   let data=await addagentslot.find({agentId:agentId,status:"consulted"}).populate("bookedUserId")
   return data
 
@@ -255,6 +278,16 @@ async editAgent(data:any){
  
 }
 
-// admin side listing appointments
+// get all slot details from userslotbooking 
+async getAllSlotDetails(id:string){
+  console.log("repoId is", id)
+  try{
+    let data=await userBookingModel.find({agentId:id}).populate('agentId')
+    console.log("total data are==>",data)
+    return data
+  }catch{
+    throw new Error("error fetching data")
+  }
+}
 
 }

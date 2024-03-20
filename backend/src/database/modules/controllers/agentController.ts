@@ -130,6 +130,21 @@ export class agetController {
     }
   }
 
+  // fetching booked slots 
+  async bookedslots(req: Request, res: Response, next: NextFunction) {
+    try {
+      let id = req.query.agentId as string;
+      let data = await agentservice.bookedslots(id);
+      if (data) {
+        res.status(200).json(data);
+      } else {
+        res.status(401).json("error fetching data");
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
+
   // deleting a slot and sending back the available slots
   // method delete
 
@@ -250,6 +265,21 @@ export class agetController {
         res.status(200).json(agent);
       } else {
         res.status(401).json("failed to fetch data");
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  // collecting userbookin details of specific agent 
+  //method get 
+  async getAllSlotDetails(req:Request,res:Response,next: NextFunction){
+    console.log("agentId is==>",req.query.agentId)
+    try {
+      let { agentId } = req.query as any;
+      let datas = await agentservice.getAllSlotDetails(agentId);
+      if (datas) {
+        res.status(200).json(datas);
       }
     } catch (error) {
       next(error);

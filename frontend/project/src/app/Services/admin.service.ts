@@ -45,5 +45,9 @@ export class AdminService {
   adminslots():Observable<any>{
     return this.http.get<any>(`${this.api}/admin/AllSlots`)
   }
+  
+  confirmedslots():Observable<any>{
+    return this.http.get<any>(`${this.api}/admin/confirmedslots`)
+  }
 
 }

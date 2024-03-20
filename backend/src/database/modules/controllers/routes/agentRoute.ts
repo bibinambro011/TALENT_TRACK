@@ -13,6 +13,7 @@ agentRouter.post("/agentverifyotp",agentController.agentverifyotp);
 agentRouter.post("/addpost",agentController.addpost);
 agentRouter.post("/addslot",agentController.addslot);
 agentRouter.get("/availableslots/:id",agentController.availableslots)
+agentRouter.get("/bookedslots",agentController.bookedslots)
 agentRouter.delete("/deletingslot",agentController.deletingslot)
 agentRouter.get("/agentDetails",agentController.agentDetails)
 agentRouter.get("/getAllSlots",agentController.getAllSlots)
@@ -20,6 +21,7 @@ agentRouter.get("/slotDetailsByOption",agentController.slotDetailsByOption)
 agentRouter.delete("/agentslotcancell",agentController.agentslotcancell);
 agentRouter.get("/slotbookingchangeStatus",agentController.slotbookingchangeStatus)
 agentRouter.put("/editAgent",upload.single('image'),agentController.editAgent)
+agentRouter.get("/getAllSlotDetails",agentController.getAllSlotDetails)
 
 //chat routes
 agentRouter.get("/agentAccessChat",chatcontroller.agentAccessChat)

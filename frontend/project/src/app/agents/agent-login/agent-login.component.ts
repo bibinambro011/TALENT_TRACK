@@ -33,14 +33,12 @@ export class AgentLoginComponent {
   }
   userlogin() {
     if (this.loginform.valid) {
-      console.log("inside userlogin function")
       const email = this.loginform.get('email')?.value as  string
       const password = this.loginform.get('password')?.value as string
       let userCredentails={
         email:email,
         password:password
       }
-      console.log("userCredentials==>",userCredentails)
 this.loginform.reset()
    this.store.dispatch(loginagent({agentCredentails:userCredentails}))  
    

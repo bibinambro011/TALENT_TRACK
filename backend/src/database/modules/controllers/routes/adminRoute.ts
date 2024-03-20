@@ -17,6 +17,7 @@ adminRouter.get("/searchAgents",admincontroller.searchAgents)
 adminRouter.get("/searchUser",admincontroller.searchUser)
  adminRouter.post("/adddefaultslot",admincontroller.addDefaultSlots)
 adminRouter.get("/AllSlots",admincontroller.AllSlots)
+adminRouter.get("/confirmedslots",admincontroller.confirmedslots)
 
 
 export default adminRouter

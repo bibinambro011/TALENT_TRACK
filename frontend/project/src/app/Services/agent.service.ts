@@ -37,6 +37,10 @@ export class AgentService {
    
     return this.http.get<any>(`${this.api}/agents/availableslots/${id}`)
   }
+  bookedslots(id:string):Observable<any>{
+   
+    return this.http.get<any>(`${this.api}/agents/bookedslots?agentId=${id}`)
+  }
   bookingdetails(id:string):Observable<Booking>{
   
     return this.http.get<Booking>(`${this.api}/agents/getAllSlots?id=${id}`)
@@ -55,6 +59,12 @@ export class AgentService {
 editAgent(agentdata:any):Observable<EditAgent>{
   
   return this.http.put<EditAgent>(`${this.api}/agents/editAgent`,agentdata)
+}
+
+getAllslotDetails(agentId:string):Observable<any>{
+  console.log("agent service with userbookig get called",agentId)
+  
+  return this.http.get<any>(`${this.api}/agents/getAllslotDetails?agentId=${agentId}`)
 }
 
 }

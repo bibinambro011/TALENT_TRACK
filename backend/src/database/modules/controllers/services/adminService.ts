@@ -90,4 +90,12 @@ async addDefaultSlots(data:any){
        throw new Error(error)
 }
 }
+async confirmedslots(){
+    try{
+         return await adminrepository.confirmedslots()
+
+    }catch(error:any){
+        throw new Error(error)
+}
+}
 }
