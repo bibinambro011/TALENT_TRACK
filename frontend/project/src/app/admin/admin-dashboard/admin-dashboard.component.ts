@@ -8,6 +8,7 @@ import { AdminService } from 'src/app/Services/admin.service';
   styleUrls: ['./admin-dashboard.component.css']
 })
 export class AdminDashboardComponent {
+  message="hello world"
   constructor(private service:AdminService){}
   usercount!:any
   agentcount:any
