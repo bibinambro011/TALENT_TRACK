@@ -7,6 +7,7 @@
             <button type="button" (click)="userdetails()"><i class="pi pi-user"></i> UserManagement</button><br>
             <button type="button" (click)="agentdetails()"> <i class="pi pi-users"></i> AgentManagement</button><br>
             <button type="button" (click)="Appointments()"><i class="pi pi-book"></i> Appointments</button><br>
+            <button type="button" (click)="Revenue()"><i class="pi pi-book"></i> Revenuemanagement</button><br>
             <button type="button" (click)="logout()"><i class="pi pi-sign-out"></i> Logout</button>
 
         </ng-template>
@@ -15,6 +16,7 @@
     <p-button (click)="sidebarVisible = true" icon="pi pi-arrow-right"></p-button>
 </div>
 
+<app-revenue-management *ngIf="revenuemanagement"></app-revenue-management>
 <app-admin-dashboard *ngIf="dashboardvisibility"></app-admin-dashboard>
 <app-admin-showalluser *ngIf="uservisibility"></app-admin-showalluser>
 <app-admin-showallagents *ngIf="agentvisibility"></app-admin-showallagents>

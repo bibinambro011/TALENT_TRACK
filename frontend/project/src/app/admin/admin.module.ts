@@ -15,6 +15,8 @@ import { AdminShowalluserComponent } from './admin-showalluser/admin-showalluser
 import { AdminShowallagentsComponent } from './admin-showallagents/admin-showallagents.component';
 import { AdminAppointmentsComponent } from './admin-appointments/admin-appointments.component';
 import { AdminFooterComponent } from './admin-footer/admin-footer.component';
+import { RevenueManagementComponent } from './revenue-management/revenue-management.component';
+import { ChartModule } from 'primeng/chart';
 
 
 
@@ -27,10 +29,11 @@ import { AdminFooterComponent } from './admin-footer/admin-footer.component';
     AdminShowalluserComponent,
     AdminShowallagentsComponent,
     AdminAppointmentsComponent,
-    AdminFooterComponent
+    AdminFooterComponent,
+    RevenueManagementComponent
   ],
   imports: [
-    CommonModule,PaginatorModule,
+    CommonModule,PaginatorModule,ChartModule,
     AdminRoutingModule,ReactiveFormsModule,FormsModule,HttpClientModule,SidebarModule,ButtonModule,
   ]
 })
