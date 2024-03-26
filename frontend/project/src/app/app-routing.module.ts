@@ -4,14 +4,12 @@ import { UserhomeComponent } from './Components/userhome/userhome.component';
 import { LoginComponent } from './Components/login/login.component';
 import { RegisterComponent } from './Components/register/register.component';
 import { OtpenterComponent } from './Components/otpenter/otpenter.component';
-import { AgentsComponent } from './agents/agents/agents.component';
-import { AgentRegisterComponent } from './agents/agent-register/agent-register.component';
 import { ProfileComponent } from './Components/profile/profile.component';
 import { userauthGuard } from './guards/userauth.guard';
-import { AgentSearchComponent } from './agents/agent-search/agent-search.component';
 import { SearchAgentComponent } from './Components/search-agent/search-agent.component';
 import { AgentDetailsComponent } from './shared/agent-details/agent-details.component';
 import { ChatComponent } from './Components/chat/chat.component';
+
 
 const routes: Routes = [
   {path:"",component:UserhomeComponent},

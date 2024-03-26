@@ -14,6 +14,7 @@ import { AgentAppointmentsComponent } from './agent-appointments/agent-appointme
 import { ChatComponent } from './chat/chat.component';
 import { DefaultsloatComponent } from './defaultsloat/defaultsloat.component';
 import { AgentDashboardComponent } from './agent-dashboard/agent-dashboard.component';
+import { VideochatComponent } from './videochat/videochat.component';
 
 const routes: Routes = [
   {
@@ -47,6 +48,7 @@ const routes: Routes = [
         component: AgentProfilePageComponent,
         canActivate: [agentauthGuard],
       },
+      {path:'agentvideocall/:roomId', component:VideochatComponent},
       {path:'agent-chat',component:ChatComponent}
     ],
   },

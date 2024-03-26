@@ -67,7 +67,7 @@ export class AdminShowalluserComponent {
       // Fetch agents based on the search term using regular expressions
       console.log("==>",data)
       let result :any= await this.service.searchUser(data).subscribe((res)=>{
-        this.users=[...res]
+        this.users=res
       })
       this.users=[...result]
      

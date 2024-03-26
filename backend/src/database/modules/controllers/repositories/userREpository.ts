@@ -125,7 +125,7 @@ export class UserRepository {
 
   async getVerifiedagents() {
     try {
-      return agentModel.find({ is_verified: true });
+      return agentModel.find({ is_verified: true ,is_blocked:false});
     } catch (error: any) {
       throw new Error(error.message);
     }
@@ -162,7 +162,8 @@ export class UserRepository {
   // fetching particuar agent category and sending the details
   async agentCategory(type:string){
     try{
-      return agentModel.find({category:type})
+      return agentModel.find({category:type,  "is_blocked":'false',
+      "is_verified":"true"})
     }catch{
       throw new Error("error fetching data")
     }
@@ -171,7 +172,11 @@ export class UserRepository {
   //fetching agents by name
   async getagentByName(name:string){
     try{
-      return await agentModel.find({ firstName: { $regex: `${name}` } });
+      return await agentModel.find({ firstName: { $regex: `${name}` },
+      "is_blocked":'false',
+      "is_verified":"true"
+      
+       });
       
     }catch{
       throw new Error("error fetching data")

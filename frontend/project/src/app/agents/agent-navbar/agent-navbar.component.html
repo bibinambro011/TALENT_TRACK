@@ -1,20 +1,25 @@
-<nav class="parent" style="position: sticky; top: 0; z-index: 1000;box-shadow: 10px 10px 5px lightgrey;">
-    <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
-        <a  class="flex items-center space-x-3 rtl:space-x-reverse">
-            <img src="https://res.cloudinary.com/drw2l8hx6/image/upload/v1707480642/Talent%20Track/d5avtgegenvb14hrnjtv.jpg" class="h-12" alt=" Logo" />
+<nav class="parent">
+    <div class="navbar-container flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
+        <a href="#" class="logo flex items-center space-x-3 rtl:space-x-reverse">
+            <img src="https://res.cloudinary.com/drw2l8hx6/image/upload/v1707480642/Talent%20Track/d5avtgegenvb14hrnjtv.jpg" class="h-12" alt="Logo" />
             <span class="self-center text-2xl font-semibold whitespace-nowrap text-white">Talent Track</span>
         </a>
-        <div class="flex items-center space-x-6 rtl:space-x-reverse">
-            <button type="button" class="btn" *ngIf=" authenticated"><a routerLink="/agent/agent-home"><i class="pi pi-home"></i>  Home</a></button>  
-            <button type="button" class="btn" *ngIf="! authenticated"><a routerLink="/user/home"><i class="pi pi-home"></i>  Home</a></button>  
-            <button type="button" class="btn" *ngIf="! authenticated"><a routerLink="/agent/agent-login"><i class="pi pi-sign-in"></i> sign in</a></button>
-            <button type="button" class="btn" *ngIf=" authenticated"><a routerLink="/agent/agent-profile"><span class="pi pi-user"></span></a></button>
+        <div class="navbar-links flex items-center space-x-6 rtl:space-x-reverse">
+            <button type="button" class="btn" *ngIf="authenticated">
+                <a routerLink="/agent/agent-home"><i class="pi pi-home"></i> Home</a>
+            </button>  
+            <button type="button" class="btn" *ngIf="!authenticated">
+                <a routerLink="/user/home"><i class="pi pi-home"></i> Home</a>
+            </button>  
+            <button type="button" class="btn signin-btn" *ngIf="!authenticated">
+                <a routerLink="/agent/agent-login"><i class="pi pi-sign-in"></i> Sign in</a>
+            </button>
+            <button type="button" class="btn" *ngIf="authenticated">
+                <a routerLink="/agent/agent-profile"><span class="pi pi-user"></span></a>
+            </button>
             <button (click)="messageread()" *ngIf="!messageRead && authenticated" class="btn btn-danger">
                 <i class="bi bi-envelope"></i> 1
-              </button>
-              
-
+            </button>
         </div>
     </div>
 </nav>
-<!-- <app-profile (eventdata)="authenicateddata($event)" ></app-profile> -->

@@ -21,12 +21,12 @@ export class AdminDashboardComponent {
   ngOnInit(){
     
     this.getAllUsers()
-    this.getAllUsers()
     this.getAllAgents()
     this.getallslots()
    
   }
   async getallslots(){
+    this.totalAmount=0
     await this.service.confirmedslots().toPromise().then((res)=>{
       this.slots=[...res]
       this.totalrecords=this.slots
@@ -56,7 +56,7 @@ export class AdminDashboardComponent {
         this.agentcount=result.length
       }
     })
-   this.getallslots()
+  //  this.getallslots()
   }
   
   paginate(event:any){

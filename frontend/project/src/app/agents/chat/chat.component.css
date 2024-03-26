@@ -8,7 +8,7 @@
 
 .user-list {
     flex: 1;
-    border-right: 1px solid #ccc;
+    border-right: 2px solid #ccc;
     padding: 20px;
     overflow-y: auto; /* Enable scrolling */
 }
@@ -29,6 +29,8 @@
     margin-bottom: 5px;
     background-color: #f3f3f3;
     border-radius: 5px;
+    max-width: 120px;
+    text-align: center;
 }
 
 .user-list .user:hover {
@@ -90,4 +92,21 @@ button {
     background-color: #007bff;
     color: #fff;
     cursor: pointer;
+}
+
+/* Responsive Styles */
+@media only screen and (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        height: auto;
+    }
+    .user-list {
+        border-right: none;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 20px;
+        overflow: visible;
+    }
+    .chat-window {
+        flex-grow: 1;
+    }
 }
