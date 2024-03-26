@@ -1,4 +1,5 @@
 import { Component, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { catchError, throwError } from 'rxjs';
@@ -18,6 +19,8 @@ export class ChatComponent implements OnDestroy {
   users:any = [];
   chats:any= []; 
   senderId:any
+  roomId:string='';
+  allmessages:any=[]
   
   currentPage = 1;
   pageSize = 10; 
@@ -27,7 +30,7 @@ export class ChatComponent implements OnDestroy {
   private allMessagesSubscription: Subscription | undefined;
   private onMessageSubscription: Subscription | undefined;
 
-  constructor(private service: ChatService, private store: Store, private socketservice: SocketService) { }
+  constructor(private service: ChatService, private store: Store, private socketservice: SocketService, private router:Router) { }
   @Input() loginSuccess!: boolean;
 
   ngOnInit(): void {
@@ -71,9 +74,10 @@ this.messageSubscription()
           this.chats.push(res);
         });
       }
+      this.allmessages=[...this.chats].flat()
     });
 if(this.senderId==userid){
-  console.log("unread message block")
+  
   this.senderId='65eb24beb07854016be47028'
 }
    
@@ -122,4 +126,11 @@ if(this.senderId==userid){
       this.messageContainer.nativeElement.scrollTop = this.messageContainer.nativeElement.scrollHeight;
     } catch(err) { }
   }
+  enterRoom(){
+    this.router.navigate([`agent/agentvideocall/${this.roomId}`])
+  }
+  
+
+ 
+
 }

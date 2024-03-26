@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { AdminService } from 'src/app/Services/admin.service';
 import { __await } from 'tslib';
 
@@ -51,7 +51,7 @@ async getAllagents(){
 }
 async totalappointments(){
  await this.service.adminslots().toPromise().then((res)=>{
-    this.allappointments=[...res]
+    this.allappointments=res
     console.log("all appointments are", this.allappointments)
    
   })
@@ -62,7 +62,7 @@ callChart(){
   const textColor = documentStyle.getPropertyValue('--text-color');
 console.log("before")
   this.data = {
-      labels: ['total users', 'total agents', 'confirmed appointments'],
+      labels: ['total users', 'total agents', 'total appointments'],
       datasets: [
           {
               data: [this.usercount, this.agentcount, this.appointmentcount],
@@ -115,13 +115,13 @@ piechart() {
         labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
         datasets: [
             {
-                label: 'Booking Amount',
+                label: 'Agent Income by Month',
                 backgroundColor: documentStyle.getPropertyValue('--blue-500'),
                 borderColor: documentStyle.getPropertyValue('--blue-500'),
                 data: monthlyBookingAmounts
             },
             {
-                label: 'Admin Payment Amount',
+                label: 'Admin Income by Month',
                 backgroundColor: documentStyle.getPropertyValue('--pink-500'),
                 borderColor: documentStyle.getPropertyValue('--pink-500'),
                 data: monthlyAdminPaymentAmounts

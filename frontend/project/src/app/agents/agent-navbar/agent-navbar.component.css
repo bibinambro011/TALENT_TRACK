@@ -1,9 +1,47 @@
-.parent{
+.parent {
     background-color: #09203F;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-.btn,.signinbtn{
-    border: 2px solid black;
-    color: white;
 
+.navbar-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    text-decoration: none;
+    color: white;
+}
+
+.navbar-links {
+    display: flex;
+    align-items: center;
+}
+
+.btn, .signin-btn {
+    border: 2px solid transparent;
+    color: white;
+    padding: 8px 16px;
     border-radius: 25px;
+    background-color: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn:hover, .signin-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.btn-danger {
+    background-color: #dc3545;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
 }

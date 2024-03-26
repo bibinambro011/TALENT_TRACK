@@ -84,4 +84,5 @@ export class SearchAgentComponent implements OnDestroy {
       this.agentSubscription.unsubscribe();
     }
   }
+ 
 }

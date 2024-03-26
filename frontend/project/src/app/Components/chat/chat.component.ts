@@ -102,4 +102,9 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.messageContainer.nativeElement.scrollTop = this.messageContainer.nativeElement.scrollHeight;
     } catch (err) { }
   }
+  startvideochat(link:any){
+    console.log("link is==>", link)
+    const url = `${link}`
+    window.location.href = url;
+  }
 }

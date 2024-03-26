@@ -5,3 +5,8 @@
 
 @import 'ngx-toastr/toastr';
 @import "primeicons/primeicons.css";
+
+body{
+    background:#e9ebee;
+    
+}

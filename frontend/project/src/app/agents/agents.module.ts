@@ -30,7 +30,9 @@ import { ChatComponent } from './chat/chat.component';
 import { DefaultsloatComponent } from './defaultsloat/defaultsloat.component';
 import { AgentFooterComponent } from './agent-footer/agent-footer.component';
 import { AgentDashboardComponent } from './agent-dashboard/agent-dashboard.component';
-
+import { VideochatComponent } from './videochat/videochat.component';
+import { RevenueComponent } from './revenue/revenue.component';
+import { ChartModule } from 'primeng/chart';
 
 
 
@@ -52,6 +54,8 @@ import { AgentDashboardComponent } from './agent-dashboard/agent-dashboard.compo
     DefaultsloatComponent,
     AgentFooterComponent,
     AgentDashboardComponent,
+    VideochatComponent,
+    RevenueComponent,
    
   ],
   imports: [
@@ -65,7 +69,8 @@ import { AgentDashboardComponent } from './agent-dashboard/agent-dashboard.compo
     SidebarModule,
     ButtonModule,
     DialogModule,
-    PaginatorModule
+    PaginatorModule,
+    ChartModule
    
    
 

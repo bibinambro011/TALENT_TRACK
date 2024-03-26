@@ -1,19 +1,36 @@
-
 <app-navbar></app-navbar>
+<br><br>
 
 <div class="container">
-    <ul id="listOfMessages" #messageContainer class="messages">
-        <li class="singleMessage" *ngFor="let message of messages" [ngClass]="{'sent': message.sender !== null, 'received': message.sender === null}">
-            <span>{{ message.content }}   {{ message.createdAt | date: 'shortTime' }}</span>
-        </li>
-    </ul>
-  
-    <form (ngSubmit)="onSubmit()" action=""> 
-        <div class="input-group mb-3">
-            <input class="form-control input" type="text" autocomplete="off" required [(ngModel)]="message" name="message">
-            <button type="submit" class="btn btn-outline-secondary button-css">Send</button>
+    <div class="row">
+        <!-- Chat Column -->
+        <div class="col-md-8">
+            <div class="messages-container" >
+                <ul id="listOfMessages" #messageContainer class="messages">
+                    <li class="singleMessage" *ngFor="let message of messages" [ngClass]="{'sent': message.sender !== null, 'received': message.sender === null}">
+                        <span>{{ message.content }}   {{ message.createdAt | date: 'shortTime' }}</span>
+                    </li>
+                </ul>
+                <!-- Add a loading indicator -->
+
+            </div>
+            <form (ngSubmit)="onSubmit()" action=""> 
+                <div class="input-group mb-3">
+                    <input class="form-control input" type="text" autocomplete="off" required [(ngModel)]="message" name="message">
+                    <button type="submit" class="btn btn-outline-secondary button-css">Send</button>
+                </div>
+            </form>
         </div>
-    </form>
+
+        <!-- Video Call Column -->
+        <div class="col-md-4">
+            <div class="video-call-container">
+                <input type="text" placeholder="Paste the video chat link" #link class="form-control mb-2">
+                <button (click)="startvideochat(link.value)" class="btn btn-primary btn-block">Start Video Call</button>
+            </div>
+        </div>
+    </div>
 </div>
+<br><br>
 
 <app-footer></app-footer>

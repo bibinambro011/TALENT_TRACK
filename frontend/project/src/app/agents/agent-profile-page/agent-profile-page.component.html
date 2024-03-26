@@ -1,33 +1,33 @@
 <div class="container mx-auto p-6 grid grid-cols-2">
     <div>
-      <div class= "shadow-md rounded-lg p-6" style="background-color: #09203F;">
-        <h1 class="text-2xl font-semibold text-gray-100">Agent Profile</h1>
+      <div class= "shadow-md rounded-lg p-6" style="background-color: white;">
+        <h1 class="text-2xl font-semibold text-gray-900">Agent Profile</h1>
         <div class="mt-4">
           <div class="grid grid-cols-2 gap-4">
             <div>
-              <label class="block text-gray-300 text-sm font-bold mb-2">Image</label>
+              <label class="block text-gray-900 text-sm font-bold mb-2">Image</label>
               <img [src]="agentdetails.image" class="w-40 h-40 rounded" alt="Agent Image">
             </div>
             <div>
               <div>
-                <label class="block text-gray-300 text-sm font-bold mb-2">Full Name:</label>
-                <p class="text-gray-100">{{ agentdetails.firstName }} {{ agentdetails.lastName }}</p>
+                <label class="block text-gray-900 text-sm font-bold mb-2">Full Name:</label>
+                <p class="text-gray-700">{{ agentdetails.firstName }} {{ agentdetails.lastName }}</p>
               </div>
               <div>
-                <label class="block text-gray-300 text-sm font-bold mb-2">Email:</label>
-                <p class="text-gray-100">{{ agentdetails.email }}</p>
+                <label class="block text-gray-900 text-sm font-bold mb-2">Email:</label>
+                <p class="text-gray-700">{{ agentdetails.email }}</p>
               </div>
               <div>
-                <label class="block text-gray-300 text-sm font-bold mb-2">Category:</label>
-                <p class="text-gray-100">{{ agentdetails.category }}</p>
+                <label class="block text-gray-900 text-sm font-bold mb-2">Category:</label>
+                <p class="text-gray-700">{{ agentdetails.category }}</p>
               </div>
               <div>
-                <label class="block text-gray-300 text-sm font-bold mb-2" *ngIf="agentdetails.experience">Experience:</label>
-                <p class="text-gray-100" *ngIf="agentdetails.experience">{{ agentdetails.experience }}</p>
+                <label class="block text-gray-900 text-sm font-bold mb-2" *ngIf="agentdetails.experience">Experience:</label>
+                <p class="text-gray-700" *ngIf="agentdetails.experience">{{ agentdetails.experience }}</p>
             </div>
             <div>
-                <label class="block text-gray-300 text-sm font-bold mb-2" *ngIf="agentdetails.clubConnections">Club Connections:</label>
-                <p class="text-gray-100" *ngIf="agentdetails.clubConnections">{{ agentdetails.clubConnections }}</p>
+                <label class="block text-gray-900 text-sm font-bold mb-2" *ngIf="agentdetails.clubConnections">Club Connections:</label>
+                <p class="text-gray-700" *ngIf="agentdetails.clubConnections">{{ agentdetails.clubConnections }}</p>
             </div>
             
             </div>

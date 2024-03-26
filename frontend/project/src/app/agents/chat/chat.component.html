@@ -1,6 +1,6 @@
 <app-agent-navbar></app-agent-navbar>
 <div class="container" style="margin-bottom: 20px;">
-    <div class="user-list" (scroll)="onScroll($event)">
+    <div class="user-list" >
         <h2>Users</h2>
         <ul>
             <li *ngFor="let user of users; let i=index">
@@ -16,8 +16,13 @@
         </div>
         <div class="input-area">
             <input type="text" placeholder="Type a message..." [(ngModel)]="messageText">
-            <button (click)="onSubmit(messageText)" style="background-color: rgb(21, 2, 38); color:white">Send</button>
+            <button (click)="onSubmit(messageText)" style="background-color: rgb(3, 106, 29); color:white">Send</button>
         </div>
+    </div>
+    <div style="margin-left: 30px;">
+        <label style="margin-top: 20px; color:white; font-size: x-large;">start a video chat</label><br><br>
+        <input type="text" [(ngModel)]="roomId" placeholder="enter random roomId">
+        <button (click)="enterRoom()" class="btn button-primary">submit </button>
     </div>
 </div>
 <app-agent-footer></app-agent-footer>

@@ -7,9 +7,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./userhome.component.css']
 })
 export class UserhomeComponent {
+  roomId:string=""
 constructor(private router:Router){}
 
   redirect(){
 this.router.navigate(["/user/agentsearch"])
   }
+ 
 }

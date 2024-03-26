@@ -74,7 +74,7 @@ async searchAgents(event: any) {
       // Fetch agents based on the search term using regular expressions
       console.log("==>",data)
       let result :any= await this.service.searchAgents(data).subscribe((res)=>{
-        this.agents=[...res]
+        this.agents=res
       })
       this.agents=[...result]
      

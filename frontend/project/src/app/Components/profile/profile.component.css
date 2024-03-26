@@ -28,7 +28,15 @@
     margin: 5px;
     font-size: 1rem;
   }
-  
+  .wallet-section {
+    margin: 20px;
+    max-width: 200px;
+    background-color: white;
+    border: 1px solid;
+    padding: 10px;
+    box-shadow: 5px 10px rgb(189, 185, 185);
+   
+  }
 
   /* transaction */
   

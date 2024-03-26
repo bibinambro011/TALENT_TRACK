@@ -22,7 +22,7 @@ constructor(private service:AdminService){
  async adminslots(){
     await this.service.adminslots().toPromise().then((res)=>{
       console.log(res)
-      this.addedslots=[...res]
+      this.addedslots=res
       this.totaladdedslots=this.addedslots
       this.records=this.totaladdedslots.length
     })
