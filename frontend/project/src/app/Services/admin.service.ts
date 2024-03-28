@@ -3,13 +3,15 @@ import { Injectable } from '@angular/core';
 import { userlog } from '../Model/userModel';
 import { Observable } from 'rxjs';
 import adminAgent, { adminBooking, adminUser } from '../Model/adminModel';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminService {
 
-  api = 'http://localhost:4000';
+  private api:string=environment.api
+
   constructor(private http:HttpClient) { }
   adminlogin(data:userlog):Observable<any>{
     return this.http.post<any>(`${this.api}/admin/adminlogin`,data)
