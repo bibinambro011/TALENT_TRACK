@@ -4,9 +4,7 @@ import { Secret } from "jsonwebtoken";
 import jwt from "jsonwebtoken"
 const secret:Secret=process.env.jwtsecrettoken as string
 const   adminAuth = async(req:Request,res:Response,next:NextFunction)=>{
-    console.log("inside middleware")
    const authHeader = req.headers['authorization'];
-   console.log("auth header is==>",authHeader)
    if(authHeader && authHeader.startsWith('Admin-Bearer')){
       const token = authHeader.split(' ')[1];    // Getting token from the header
 

@@ -2,8 +2,13 @@
     background-color: #09203F;
 }
 .btn,.signinbtn{
-    border: 2px solid black;
+   
     color: white;
 
     border-radius: 25px;
+}
+
+.btn:hover, .signinbtn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.4);
 }

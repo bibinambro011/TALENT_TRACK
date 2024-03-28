@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
@@ -6,18 +6,26 @@ import { allMessage } from 'src/app/Model/chatModel';
 import { ChatService } from 'src/app/Services/chat.service';
 import { SocketService } from 'src/app/Services/socket.service';
 
+
+
 @Component({
   selector: 'app-chat',
+  
   templateUrl: './chat.component.html',
+  
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit, OnDestroy {
 
   message!: string;
   messages: any = [];
+  copymessages:any=[]
   agentId: string = '';
   chatId = '';
+pagenumber:number=1
+  
   @ViewChild('messageContainer') private messageContainer!: ElementRef;
+  
 
   private routeSubscription: Subscription | undefined;
   private chatServiceSubscription: Subscription | undefined;
@@ -33,12 +41,12 @@ export class ChatComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.routeSubscription = this.route.params.subscribe(params => {
       this.agentId = params['id'];
-      console.log("messages are===>", this.messages)
     });
 
     let data = {
       userId: localStorage.getItem("userId"),
-      agentId: this.agentId
+      agentId: this.agentId,
+     
     };
 
     this.chatServiceSubscription = this.chatService.accessChat(data).subscribe((message: any) => {
@@ -49,15 +57,24 @@ export class ChatComponent implements OnInit, OnDestroy {
             this.messages.push(res);
           });
         }
+        this.messagetodisplay(this.pagenumber)
+       
       });
     });
 
     this.socketServiceSubscription = this.socketService.onMessage().subscribe((res: any) => {
       if (res.chat._id == this.chatId) {
-        console.log("send messages is==>",res)
         this.messages.push(res);
+       
+        this.messagetodisplay(this.pagenumber)
+        this.scrollToBottom()
+        
       }
+     
     });
+   
+
+   
   }
 
   ngOnDestroy() {
@@ -87,14 +104,16 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.socketService.messageSendfromClient(data);
     });
     this.message = '';
+   
   }
 
-  onSubmit() {
+  async onSubmit() {
     this.sendMessage();
+   
   }
 
   ngAfterViewChecked() {
-    this.scrollToBottom();
+    // this.scrollToBottom();
   }
 
   scrollToBottom(): void {
@@ -102,9 +121,38 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.messageContainer.nativeElement.scrollTop = this.messageContainer.nativeElement.scrollHeight;
     } catch (err) { }
   }
-  startvideochat(link:any){
-    console.log("link is==>", link)
+  startvideochat(link:string){
     const url = `${link}`
     window.location.href = url;
   }
+ 
+
+  // Your other component logic here...
+  @HostListener('scroll', ['$event'])
+  onScroll(event: Event) {
+  console.log("event called")
+    const element = this.messageContainer.nativeElement;
+    if (element.scrollTop === 0) {
+      this.onScrollBarTopReached();
+    }
+  }
+
+  onScrollBarTopReached() {
+    this.pagenumber+=1
+    this.messagetodisplay(this.pagenumber)
+    console.log('Scroll bar reached the top');
+    // Call your function here
+  }
+  
+
+  async messagetodisplay(pagenumber:number){
+  
+  setTimeout(()=>{
+   this.copymessages=    this.messages.slice(-(this.pagenumber*15),this.messages.length)
+
+  },500)
+ 
+   
+  }
+  
 }

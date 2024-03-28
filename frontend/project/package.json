@@ -27,6 +27,7 @@
     "@zegocloud/zego-uikit-prebuilt": "^2.0.0",
     "agora-rtc-sdk-ng": "^4.20.2",
     "chart.js": "^4.4.2",
+    "ngx-infinite-scroll": "^17.0.0",
     "ngx-pagination": "^6.0.3",
     "ngx-socket-io": "^4.5.0",
     "ngx-toastr": "^18.0.0",

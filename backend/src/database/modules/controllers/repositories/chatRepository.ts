@@ -23,10 +23,11 @@ export class chatRepository{
         ]).populate([
           { path: "agent", model: "agentSchema" },  // Populate userSchema
            // Populate agentSchema
-      ]).populate("latestMessage");
+      ]).populate("latestMessage")
+
+      console.log("isChat==>",isChat)
 
         if (isChat) {
-          console.log("isChat is==>",isChat)
             return isChat;
         } else {
             // If no chat exists, create a new one
@@ -45,7 +46,8 @@ export class chatRepository{
                   { path: "agent", model: "agentSchema" },  // Populate userSchema
                   // Populate agentSchema
               );
-                  console.log("full chat is==>",fullChat)
+
+              console.log("full chat is ==>", fullChat)
             return fullChat;
         }
     } catch (error:any) {
@@ -57,19 +59,16 @@ export class chatRepository{
     // getting all the chats
 
     async fetchChats(userId:string){
-        console.log("inside chat==>")
         try {
            let data= await chatModel.find({ users: userId } )
           
               .populate("users")
               .populate("latestMessage")
               .sort({ updatedAt: -1 })
-           console.log("data is==>",data)
                let results = await usersModel.populate(data, {
                   path: "latestMessage.sender",
                   select: "firstName image email",
                 });
-                console.log('fetch chat results are==>',results)
              return results
              
           } catch(error:any){
@@ -85,7 +84,6 @@ export class chatRepository{
             content: content,
             chat: chatId,
           };
-      console.log("message is ==>",newMessage)
           try {
             var message: any = await messageModel.create(newMessage);
       
@@ -97,10 +95,8 @@ export class chatRepository{
             });
       
             await chatModel.findByIdAndUpdate(chatId, { latestMessage: message });
-      console.log("user send message is==>",message)
             return message
           } catch (error:any) {
-            console.log(error);
       
             throw new Error(error)
           }
@@ -145,7 +141,6 @@ export class chatRepository{
         content: content,
         chat: chatId,
       };
-  console.log("message is ==>",newMessage)
       try {
         var message: any = await messageModel.create(newMessage);
   
@@ -157,10 +152,8 @@ export class chatRepository{
         });
   
         await chatModel.findByIdAndUpdate(chatId, { latestMessage: message });
-        console.log("agent send message is ===>",message)
         return message
       } catch (error:any) {
-        console.log(error);
   
         throw new Error(error)
       }

@@ -10,7 +10,6 @@ export class agentService{
 
  async  registeragent(agentData:any):Promise<any>{
     try{
-        console.log("agent service",agentData)
         return agentrepository.create(agentData)
     }catch (error:any){
         throw new Error ("could not register agent")
@@ -18,7 +17,6 @@ export class agentService{
 }
 async agentlogin(data:any){
     try{
-      console.log("ser5vice get called")
         return agentrepository.agentlogin(data)
 
     }catch(error){
@@ -28,7 +26,6 @@ async agentlogin(data:any){
 
 async agetDetails(agentData:UserDto):Promise<any>{
     try{
-        console.log("agent service",agentData)
         return agentrepository.agentDetails(agentData)
     }catch (error:any){
         throw new Error ("could not register agent")
@@ -36,7 +33,6 @@ async agetDetails(agentData:UserDto):Promise<any>{
 }
 async verifyotp(email:string){
     try{
-      console.log("inside mail verifyotp in service",)
       return await agentrepository.verifyotp(email)
     }catch(error){
       throw new Error('Could not get user');
@@ -139,7 +135,6 @@ async verifyotp(email:string){
  }
  // collecting userbooking details based on agent 
  async getAllSlotDetails(id:string){
-  console.log("service id==>",id)
   try{
     return await agentrepository.getAllSlotDetails(id)
    }catch{

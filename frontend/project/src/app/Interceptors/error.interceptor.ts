@@ -25,9 +25,7 @@ export class ErrorInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
-        console.log("error is==>", error);
         if (error.status === 401) {
-          console.log("inside 401 block===>");
       
           // Using refresh token
           return this.handleRefreshToken(request, next);

@@ -11,7 +11,6 @@ const   userAuth = async(req:Request,res:Response,next:NextFunction)=>{
 
       try {
          const decoded = jwt.verify(token,jwtSecretToken,(err,decoded)=>{
-            console.log("decoded data is ==>",decoded)
             if(err){
                res.status(401).json({message:'Unauthorized'});
             }else{
