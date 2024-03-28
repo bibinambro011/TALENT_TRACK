@@ -3,19 +3,20 @@ import { Socket, io } from 'socket.io-client';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http'; // Import HttpClient for making HTTP requests
 import { Chat, FullChatI, UserAccessChatI, agentSendMessageI, allMessage, usersendMessage } from '../Model/chatModel';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChatService {
   
-  private api:string='http://localhost:4000'
+  private api:string=environment.api
   constructor(private http: HttpClient) {}
 
   accessChat(allchat: any): Observable<FullChatI | UserAccessChatI> {
     
     // Send HTTP POST request to the server
-   return this.http.post<FullChatI | UserAccessChatI>('http://localhost:4000/users/accessChat', allchat)
+   return this.http.post<FullChatI | UserAccessChatI>(`${this.api}/users/accessChat`, allchat)
   
   }
 

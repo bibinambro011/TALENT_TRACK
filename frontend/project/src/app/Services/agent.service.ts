@@ -3,12 +3,14 @@ import { Injectable } from '@angular/core';
 import { userlog } from '../Model/userModel';
 import { Observable } from 'rxjs';
 import { Appointment, AuthResponse, Booking, BookingstausChange, EditAgent, UserDetails, UserOtp, getAllAgentBooking, userAppointment } from '../Model/agentModel';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AgentService {
-  api = 'http://localhost:4000';
+  private api:string=environment.api
+  
   constructor(private http:HttpClient) { }
 
   agentlogin(userdetails:userlog):Observable<any>{

@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AgentCategoryI, AgentsearchByRegexI, BookingCancelI, BookingI, EditedUserI, RegisterdUserI, Transaction, UserBookingOrderI, UserByIdI, VerifiedAgentsI, logsuccess, successresponsedata, userlog } from '../Model/userModel';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { AgentCategoryI, AgentsearchByRegexI, BookingCancelI, BookingI, EditedUs
 export class UserService {
 
   constructor(private http: HttpClient) {}
-  api = 'http://localhost:4000';
+  private api:string=environment.api
 
 
   registerUser(data: any):Observable<RegisterdUserI> {
