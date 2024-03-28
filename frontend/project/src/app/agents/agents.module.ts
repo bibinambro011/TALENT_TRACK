@@ -21,7 +21,7 @@ import { ButtonModule } from 'primeng/button';
 
 import { PaginatorModule } from 'primeng/paginator';
 import { AddSlotComponent } from './add-slot/add-slot.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarModule } from 'primeng/calendar';
 import { AgentProfilePageComponent } from './agent-profile-page/agent-profile-page.component';
 import { DialogModule } from 'primeng/dialog';
@@ -60,7 +60,7 @@ import { ChartModule } from 'primeng/chart';
   ],
   imports: [
     CommonModule,
-    BrowserAnimationsModule,
+    // BrowserAnimationsModule,
     AgentsRoutingModule,
     CalendarModule,
     ReactiveFormsModule,

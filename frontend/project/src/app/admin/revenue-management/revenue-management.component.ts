@@ -17,6 +17,10 @@ export class RevenueManagementComponent {
   usercount:number=90
   agentcount!:number
   appointmentcount!:number
+  Confirmed:number=0
+  Consulted:number=0
+  agent_cancelled:number=0
+  cancelled:number=0
  
   
 
@@ -52,7 +56,18 @@ async getAllagents(){
 async totalappointments(){
  await this.service.adminslots().toPromise().then((res)=>{
     this.allappointments=res
-    console.log("all appointments are", this.allappointments)
+    if(res instanceof Array)
+    res.forEach((info)=>{
+        if(info.status=='Confirmed'){
+            this.Confirmed+=1
+           }else if(info.status=='consulted'){
+            this.Consulted+=1
+           }else if(info.status=="agent cancelled"){
+            this.agent_cancelled+=1
+           }else if(info.status=="cancelled"){
+            this.cancelled+=1
+           }
+    })
    
   })
   this.appointmentcount=this.allappointments.length
@@ -62,12 +77,12 @@ callChart(){
   const textColor = documentStyle.getPropertyValue('--text-color');
 console.log("before")
   this.data = {
-      labels: ['total users', 'total agents', 'total appointments'],
+      labels: ['confirmed','consulted','user cancelled', 'agent cancelled'],
       datasets: [
-          {
-              data: [this.usercount, this.agentcount, this.appointmentcount],
-              backgroundColor: [documentStyle.getPropertyValue('--blue-500'), documentStyle.getPropertyValue('--yellow-500'), documentStyle.getPropertyValue('--green-500')],
-              hoverBackgroundColor: [documentStyle.getPropertyValue('--blue-400'), documentStyle.getPropertyValue('--yellow-400'), documentStyle.getPropertyValue('--green-400')]
+        {
+            data: [this.Confirmed, this.Consulted, this.cancelled,this.agent_cancelled],
+            backgroundColor: [documentStyle.getPropertyValue('--blue-500'), documentStyle.getPropertyValue('--yellow-500'), documentStyle.getPropertyValue('--green-500'),documentStyle.getPropertyValue('--red-500')],
+            hoverBackgroundColor: [documentStyle.getPropertyValue('--blue-400'), documentStyle.getPropertyValue('--yellow-400'), documentStyle.getPropertyValue('--green-400'),documentStyle.getPropertyValue('--red-400')]
           }
       ]
   };

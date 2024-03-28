@@ -9,6 +9,7 @@ import { userauthGuard } from './guards/userauth.guard';
 import { SearchAgentComponent } from './Components/search-agent/search-agent.component';
 import { AgentDetailsComponent } from './shared/agent-details/agent-details.component';
 import { ChatComponent } from './Components/chat/chat.component';
+import { ErrorpageComponent } from './Components/errorpage/errorpage.component';
 
 
 const routes: Routes = [
@@ -21,11 +22,17 @@ const routes: Routes = [
   {path:"agentsearch",component:SearchAgentComponent,canActivate:[userauthGuard]},
   {path:"mailverify",component:OtpenterComponent},
   {path:"chat/:id",component:ChatComponent},
-  {path:"agentprofile",component:AgentDetailsComponent}]},
+  {path:"agentprofile",component:AgentDetailsComponent},
+  {path:"errorpage",component:ErrorpageComponent}]},
   {
-    path: 'agents',
+    path: 'agent',
     loadChildren: () => import('./agents/agents.module').then(m => m.AgentsModule)
   },
+  {
+    path: 'admin',
+    loadChildren: () => import ("./admin/admin.module").then(m => m.AdminModule)
+  },
+  { path: '**', redirectTo: 'user/errorpage' }
 ];
 
 @NgModule({

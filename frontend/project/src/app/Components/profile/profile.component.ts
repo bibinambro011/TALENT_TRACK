@@ -240,14 +240,8 @@ defaulttransactionPaginate(){
   }
   ngOnInit() {
     this.initForm();
-    this.userInfoSubscription = this.store
-      .select(getUserInfo)
-      .subscribe((data) => {
-        if (data) {
-          this.id = data._id;
-        }
-      });
-
+   
+    this.id=localStorage.getItem('userId');
       // getting userdetails by passing user id, which is saved globally
 
     this.userservice.getUser(this.id).subscribe((res) => {

@@ -51,10 +51,7 @@ export class RevenueComponent {
         })
       } // Update appointment count
     });
-   console.log("consulted=>",this.Consulted)
-   console.log("confirmed==>",this.Confirmed)
-   console.log("agent cancelled==>",this.agent_cancelled)
-   console.log(" cancelled==>",this.cancelled)
+  
   }
 
   callChart() {
