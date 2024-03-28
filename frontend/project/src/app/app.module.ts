@@ -39,6 +39,7 @@ import { PaginationComponent } from './shared/pagination/pagination.component';
 import { ChatComponent } from './Components/chat/chat.component';
 import { SocketIoModule ,SocketIoConfig} from 'ngx-socket-io';
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
+import { InfiniteScrollModule } from "ngx-infinite-scroll";
 
 
 @NgModule({
@@ -63,6 +64,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
     DialogModule,
     PaginatorModule,
     NgxPaginationModule,
+    InfiniteScrollModule,
     CalendarModule,
     SidebarModule,
     ButtonModule,

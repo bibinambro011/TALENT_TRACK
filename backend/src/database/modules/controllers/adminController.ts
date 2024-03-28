@@ -37,7 +37,6 @@ export class adminController {
       const data = await adminservice.getuserdata();
       if (data) {
         res.status(200).json(data);
-        console.log("userdata is ==>", data)
       }
     } catch (error) {
       throw new Error("invalid");
@@ -53,7 +52,6 @@ export class adminController {
       if (data) {
         res.status(200).json(data);
 
-        console.log("agent data is==>", data)
       }
     } catch (error) {
       throw new Error("invalid");
@@ -66,7 +64,6 @@ export class adminController {
   async blokUser(req: Request, res: Response) {
     try {
       const data = req.body;
-      console.log("data is in controll", data);
       const userdata = await adminservice.blockuser(data.email);
       if (userdata) {
         res.status(200).json("success");
@@ -82,7 +79,6 @@ export class adminController {
   async blokagent(req: Request, res: Response) {
     try {
       const data = req.body;
-      console.log("data is in controll", data);
       const userdata = await adminservice.blockagent(data.email);
       if (userdata) {
         res.status(200).json("success");
@@ -98,12 +94,10 @@ export class adminController {
   async verifyagent(req: Request, res: Response) {
     try {
       const data = req.body;
-      console.log("data is in controll", data);
       const userdata = await adminservice.verifyagent(data.email);
       if (userdata) {
         res.status(200).json("success");
 
-        console.log("verified adta is ==>", userdata)
       }
     } catch (error) {
       throw new Error("invalid");
@@ -111,7 +105,6 @@ export class adminController {
   }
 
   async searchAgents(req:Request,res:Response){
-    console.log("serch controller==>", req.query.name)
     try{
       let name=req.query.name as string
       let agentdata=await adminservice.searchAgents(name)
@@ -143,7 +136,6 @@ export class adminController {
       if(slots){
         res.status(200).json(slots)
 
-        console.log("all slotrs are==>", slots)
       }
     }catch(error:any){
       throw new Error(error)

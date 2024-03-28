@@ -10,7 +10,7 @@
     margin-top: 60px;
     list-style-type: none;
     padding: 0;
-    height: 600px; /* adjust height as needed */
+    max-height: 600px; /* adjust height as needed */
     overflow-y: auto; /* enable vertical scrollbar */
 }
 

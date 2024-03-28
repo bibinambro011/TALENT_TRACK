@@ -304,7 +304,6 @@ async paymentSuccess(data:any,razorpay_payment_id:string){
 
 async walletpayment(data:any){
 const randomPaymentId=this.generateRandomLetters()
-  console.log("wallet data is==>", data)
   data.paymentId=randomPaymentId
   try{
     let userdata:any=await usersModel.findOne({_id:data.userId})

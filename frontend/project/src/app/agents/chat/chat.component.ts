@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnDestroy, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
@@ -21,9 +21,11 @@ export class ChatComponent implements OnDestroy {
   senderId:any
   roomId:string='';
   allmessages:any=[]
+  copymessages:any=[]
   
   currentPage = 1;
   pageSize = 10; 
+  pagenumber:number=1
   @ViewChild('messageContainer') private messageContainer!: ElementRef;
   // Subscriptions
   private agentAccessChatSubscription: Subscription | undefined;
@@ -56,11 +58,9 @@ this.messageSubscription()
         this.chats.push(res);
       }
       this.senderId=res?.sender?._id
+      this.messagetodisplay(this.pagenumber)
+      this.scrollToBottom()
     });
-  }
-
-  onScroll(event:any){
-    console.log("evenyt is ==>", event)
   }
   openChatRoom(chatId:string,userid:string){
     
@@ -75,6 +75,8 @@ this.messageSubscription()
         });
       }
       this.allmessages=[...this.chats].flat()
+      this.messagetodisplay(this.pagenumber)
+      this.scrollToBottom()
     });
 if(this.senderId==userid){
   
@@ -118,7 +120,7 @@ if(this.senderId==userid){
   }
 
   ngAfterViewChecked() {
-    this.scrollToBottom();
+    // this.scrollToBottom();
   }
 
   scrollToBottom(): void {
@@ -129,6 +131,30 @@ if(this.senderId==userid){
   enterRoom(){
     this.router.navigate([`agent/agentvideocall/${this.roomId}`])
   }
+  
+  @HostListener('scroll', ['$event'])
+  onScroll(event: Event) {
+  console.log("event called")
+    const element = this.messageContainer.nativeElement;
+    if (element.scrollTop === 0) {
+      this.onScrollBarTopReached();
+    }
+  }
+
+  onScrollBarTopReached() {
+    this.pagenumber+=1
+    this.messagetodisplay(this.pagenumber)
+  }
+  
+   messagetodisplay(pagenumber:number){
+  setTimeout(()=>{
+    this.copymessages=    this.chats.slice(-(this.pagenumber*15),this.chats.length)
+
+  },500)
+  
+  
+    
+   }
   
 
  

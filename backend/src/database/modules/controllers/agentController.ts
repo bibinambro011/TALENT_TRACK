@@ -84,7 +84,6 @@ export class agetController {
 
   async addpost(req: Request, res: Response, next: NextFunction) {
     try {
-      console.log(req.body);
       res.status(200).json(req.body);
     } catch (error) {
       next(error);
@@ -101,7 +100,6 @@ export class agetController {
         time: time,
         date: date,
       };
-      console.log(data);
       const slot = await agentservice.addslot(data);
       if (slot) {
         res.status(200).json(slot);
@@ -163,7 +161,6 @@ export class agetController {
   }
 
   async agentDetails(req: Request, res: Response, next: NextFunction) {
-    console.log("inside controller", req.query);
     try {
       let id: string = req.query.id as string;
       let data = await agentservice.agentDetails(id);
@@ -180,7 +177,6 @@ export class agetController {
   //fetching all the booked slots
   // method get
   async getAllSlots(req: Request, res: Response, next: NextFunction) {
-    console.log("inside controller", req.query);
     try {
       let id = req.query.id as string;
       let data = await agentservice.getAllSlots(id);
@@ -197,7 +193,6 @@ export class agetController {
 
   async slotDetailsByOption(req: Request, res: Response, next: NextFunction) {
     try {
-      console.log("controller ", req.query);
       let { id, data } = req.query as any;
       let datas = await agentservice.slotDetailsByOption(id, data);
       if (datas) {
@@ -232,7 +227,6 @@ export class agetController {
     next: NextFunction
   ) {
     try {
-      console.log(req.query);
       let { status, slotId, agentId } = req.query as any;
       let data: any = await agentservice.slotbookingchangeStatus(
         slotId,
@@ -240,6 +234,8 @@ export class agetController {
         agentId
       );
       if (data) {
+
+        console.log("slot is==>", data)
         res.status(200).json(data);
       }
     } catch (error) {
@@ -274,12 +270,12 @@ export class agetController {
   // collecting userbookin details of specific agent 
   //method get 
   async getAllSlotDetails(req:Request,res:Response,next: NextFunction){
-    console.log("agentId is==>",req.query.agentId)
     try {
       let { agentId } = req.query as any;
       let datas = await agentservice.getAllSlotDetails(agentId);
       if (datas) {
         res.status(200).json(datas);
+
       }
     } catch (error) {
       next(error);

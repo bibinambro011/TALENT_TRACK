@@ -85,7 +85,7 @@ async  bookingsStatus(data: string) {
   async cancelSlot(slotid: string) {
     await this.service.agentslotcancell(slotid, this.agentId)
     .toPromise().then((res)=>{
-      this.slots=[...res]
+      this.slots=res
       this.totalrecords=this.slots
       
     })
@@ -98,7 +98,7 @@ async  bookingsStatus(data: string) {
     toPromise().then((res)=>{
       this.slots=[]
       console.log("response data is -====>", res)
-      this.slots=[...res]
+      this.slots=res
       console.log("this. slotsis ==>", this.slots)
       this.totalrecords=[...this.slots]
       

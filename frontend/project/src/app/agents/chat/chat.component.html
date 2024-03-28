@@ -9,8 +9,8 @@
         </ul>
     </div>
     <div class="chat-window" >
-        <div class="messages" #messageContainer  >
-            <div class="message"  *ngFor="let message of chats" [ngClass]="{'sent': message.sender !== null}">
+        <div class="messages" #messageContainer  (scroll)="onScroll($event)">
+            <div class="message"  *ngFor="let message of copymessages" [ngClass]="{'sent': message.sender !== null}">
                 {{ message.content }}  <span style="font-size:x-small;">{{ message.createdAt | date: 'shortTime' }}</span>
             </div>
         </div>

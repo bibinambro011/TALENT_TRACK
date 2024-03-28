@@ -29,7 +29,6 @@ export class UserController {
     try {
       const userData: UserDto = req.body;
 
-      console.log("inside user controller", req.body);
 
       const userdetails = await userService.userdetails(userData.email);
 
@@ -42,14 +41,12 @@ export class UserController {
       const password = await bcrypt.hash(userData.password, 10);
       userData.password = password;
       if (req.file) {
-        console.log("cloudinary===>");
         const result = await cloudinary.uploader.upload(req.file.path, {
           public_id: `${folderName}/${req.file.originalname}`,
         });
         userData.image = result.secure_url;
       }
       const newUser = await userService.registerUser(userData);
-      console.log("user registerd user is==>",newUser)
       res.status(201).json(newUser);
     } catch (error) {
       next(error);
@@ -66,7 +63,6 @@ export class UserController {
       if (!userdata) {
         return res.status(401).json("invalid credentials");
       } else {
-        console.log("userlogin details are==>",userdata)
         res.status(200).json(userdata);
       }
     } catch (error) {
@@ -94,7 +90,6 @@ export class UserController {
   async getVerifiedagents(req: Request, res: Response, next: NextFunction) {
     try {
       const data = await userService.getVerifiedagents();
-      console.log("verified agents are==>",data)
       res.status(200).json(data);
     } catch (error) {
       next(error);
@@ -105,9 +100,7 @@ export class UserController {
   //getting slot details
   async agentAvailableSlots(req: Request, res: Response, next: NextFunction) {
     try {
-      console.log(req.params);
       let id = req.params.agentId;
-      console.log(id);
       let data = await userService.agentAvailableSlots(id);
       if (data.length > 0) {
         res.status(200).json(data);
@@ -139,10 +132,8 @@ export class UserController {
         amount: Number(bookingamount * 100),
         currency: "INR",
       };
-      console.log("options are===>", options);
       const order = await RazorpayInstance.orders.create(options);
       if (order) {
-        console.log("order is==>", order);
         res.status(200).json(order);
       }
     } catch (error) {
@@ -206,7 +197,6 @@ export class UserController {
       let category: string = req.query.category as string;
       let data = await userService.agentCategory(category);
       if (data) {
-        console.log("agentCategory", data)
         res.status(200).json(data);
       } else {
         res.status(401).json("error fetching data");
@@ -223,10 +213,8 @@ export class UserController {
     try {
       let name: string = req.query.name as string;
 
-      console.log(req.query);
       let data = await userService.getagentByName(name);
       if (data) {
-        console.log("by name==>", data)
         res.status(200).json(data);
       } else {
         res.status(401).json("error fetching data");
@@ -241,10 +229,8 @@ export class UserController {
   async getUserById(req: Request, res: Response, next: NextFunction) {
     try {
       let id = req.query.id;
-      console.log("id is =>", id);
       const data = await userService.getUserById(id);
       if (data) {
-        console.log("===>",data)
         res.status(200).json(data);
       } else {
         res.status(401).json("error sendinig data");
@@ -258,12 +244,10 @@ export class UserController {
 
   async userbookings(req: Request, res: Response, next: NextFunction) {
     try {
-      console.log(req.query);
       let status = req.query.status as string;
       let id = req.query.id as string;
       let data = await userService.userbookings(status, id);
       if (data) {
-        console.log("userbookings are==>",data)
         res.status(200).json(data);
       } else {
         res.status(401).json("error fetching data");
@@ -279,7 +263,6 @@ export class UserController {
       let data: userBookingDocument = req.body;
     let paymentdata:any= await userService.walletpayment(data)
       if (paymentdata) {
-        console.log("payment data==>",paymentdata)
         res.status(200).json(paymentdata);
       }
     } catch (error) {
@@ -296,11 +279,8 @@ export class UserController {
 
   async cancelbooking(req: Request, res: Response, next: NextFunction) {
     try {
-      console.log(req.body);
       const { id, userid, status,paymentId,slotId }: IcancelBooking = req.body;
-      console.log("cancel details are====> ",req.body)
       const cancelslot=await userService.findCancellingSlot(id);
-      console.log("cancelslot====>",cancelslot);
       const refundamount =Number(parseInt(cancelslot[0].bookingamount)/2)
       if(paymentId === cancelslot[0].paymentId){
         RazorpayInstance.payments.refund(paymentId, {
@@ -318,12 +298,10 @@ export class UserController {
 
             let data = await userService.cancelbooking(id, userid, status,amountrefund,slotId);
             if (data) {
-              console.log("cancerlbooking==>",data)
               res.status(200).json(data);
             } else {
               res.status(401).json("error fetching data");
             }
-            console.log('Refund successful:', response);
             // Handle refund success
           }
         });
@@ -342,16 +320,12 @@ export class UserController {
   async editUser(req: Request, res: Response, next: NextFunction) {
     try {
       const folderName = "Talent Track";
-      console.log("req.body is==>", req.body.firstName);
-      console.log("req.body is==>", req.body);
 
       if (req.file) {
-        console.log("file name is", req.file.path);
       }
 
       let data = req.body;
       if (req.file) {
-        console.log("cloudinary===>");
         const result = await cloudinary.uploader.upload(req.file.path, {
           public_id: `${folderName}/${req.file.originalname}`,
         });
@@ -360,10 +334,8 @@ export class UserController {
 
       let userdata = await userService.editUser(data);
       if (userdata) {
-        console.log("User data updated successfully",userdata);
         return res.status(200).json(userdata);
       } else {
-        console.log("Error updating data");
         return res.status(401).json("Error updating data");
       }
     } catch (error) {
@@ -377,7 +349,6 @@ export class UserController {
     try{
     let data:any=await  userService.refreshtoken(req.body)
     if(data){
-      console.log("refreshToken data is==>", data)
       return res.status(200).json(data)
     }
     }catch(error:any){
@@ -395,7 +366,6 @@ export class UserController {
       let data=await userService.userTransactionHistory(userId)
       if(data){
 
-        console.log("transaction history=>", data)
 
         res.status(200).json(data)
       }else{

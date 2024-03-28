@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { userlog } from '../Model/userModel';
 import { Observable } from 'rxjs';
-import { Appointment, Booking, EditAgent, UserOtp, userAppointment } from '../Model/agentModel';
+import { Appointment, AuthResponse, Booking, BookingstausChange, EditAgent, UserDetails, UserOtp, getAllAgentBooking, userAppointment } from '../Model/agentModel';
 
 @Injectable({
   providedIn: 'root'
@@ -17,12 +17,10 @@ export class AgentService {
   }
   
   verifyUser(data:UserOtp):Observable<string>{
-    console.log("otp details", data)
   
     return this.http.post<string>(`${this.api}/agents/agentverifyotp`,data)
   }
   addSlot(addedslots:Appointment):Observable<userAppointment>{
-    console.log("added slots are==>", addedslots)
     return this.http.post<userAppointment>(`${this.api}/agents/addslot`,addedslots)
   }
   deletingslot(id:string,agentId:string):Observable<userAppointment>{
@@ -45,26 +43,26 @@ export class AgentService {
   
     return this.http.get<Booking>(`${this.api}/agents/getAllSlots?id=${id}`)
   }
-  slotDetailsByOption(agentId:string,status:string):Observable<any>{
+  slotDetailsByOption(agentId:string,status:string):Observable<BookingstausChange>{
     
-    return this.http.get<any>(`${this.api}/agents/slotDetailsByOption?id=${agentId}&data=${status}`)
+    return this.http.get<BookingstausChange>(`${this.api}/agents/slotDetailsByOption?id=${agentId}&data=${status}`)
   }
-  agentslotcancell(slotId:string,agentId:string):Observable<any>{
+  agentslotcancell(slotId:string,agentId:string):Observable<BookingstausChange>{
   
-    return this.http.delete<any>(`${this.api}/agents/agentslotcancell?slotId=${slotId}&agentId=${agentId}`)
+    return this.http.delete<BookingstausChange>(`${this.api}/agents/agentslotcancell?slotId=${slotId}&agentId=${agentId}`)
   }
-  slotbookingchangeStatus(slotId:string,status:string,agentId:string):Observable<any>{
-    return this.http.get<any>(`${this.api}/agents/slotbookingchangeStatus?status=${status}&slotId=${slotId}&agentId=${agentId}`)
+  slotbookingchangeStatus(slotId:string,status:string,agentId:string):Observable<BookingstausChange>{
+    return this.http.get<BookingstausChange>(`${this.api}/agents/slotbookingchangeStatus?status=${status}&slotId=${slotId}&agentId=${agentId}`)
 }
 editAgent(agentdata:any):Observable<EditAgent>{
   
   return this.http.put<EditAgent>(`${this.api}/agents/editAgent`,agentdata)
 }
 
-getAllslotDetails(agentId:string):Observable<any>{
+getAllslotDetails(agentId:string):Observable<getAllAgentBooking>{
   console.log("agent service with userbookig get called",agentId)
   
-  return this.http.get<any>(`${this.api}/agents/getAllslotDetails?agentId=${agentId}`)
+  return this.http.get<getAllAgentBooking>(`${this.api}/agents/getAllslotDetails?agentId=${agentId}`)
 }
 
 }

@@ -33,19 +33,16 @@ export class agentRepository{
       async agentlogin(data: any): Promise<any> {
         try {
           let info: any = await agentModel.findOne({ email: data.email });
-          console.log("repository==>",info)
          if(!info){
           return null
          }
     
           let isValidPassword = await comparePass(data.password, info.password);
           if (!isValidPassword) {
-            console.log("password missmatch")
             return "password mismatch";
             
           }else{
             if(info.is_blocked){
-              console.log("you are blocked by the admin");
               return "you are blocked by the admin"
              
               
@@ -65,7 +62,6 @@ export class agentRepository{
               }
              
             }
-            console.log("accesseduser is==>",accesseduser)
             return accesseduser
           }
         } catch (error: any) {
@@ -102,7 +98,6 @@ async addpost(data:any){
 
 //slot add 
 async addslot(data:any){
-  console.log("slot data is==>", data)
   try{
     let slot=await addagentslot.find({agentId:data.agentId})
    
@@ -121,7 +116,6 @@ async addslot(data:any){
 async availableslots(id:string){
   try{
     let availableslots=await addagentslot.find({agentId:id,booked:false,date:{$gt:new Date()}}).populate("agentId")
-    console.log("available slots are==>", availableslots)
     return availableslots
 
   }catch{
@@ -141,7 +135,6 @@ async bookedslots(id:string){
       ]
   }).populate("agentId").populate("bookedUserId");
   
-    console.log("available slots are==>", confirmedSlots)
     return confirmedSlots
 
   }catch{
@@ -153,7 +146,6 @@ async bookedslots(id:string){
 // deleting a slot a  slot and sending back the remaining slot
 async deletingslot(slotid:string,id:string){
   try{
-    console.log("deleting iod is==>",slotid)
     await addagentslot.deleteOne({_id:slotid});
     let totalslot=await addagentslot.find({agentId:id,booked:false});
     return totalslot
@@ -176,9 +168,7 @@ async getAgentdetails(id:string){
 
 async getAllSlots(id:string){
   try{
-    console.log("inside repo===>",id)
     let data= await addagentslot.find({agentId:id}).populate('bookedUserId').exec()
-    console.log("data is==> ", data)
     return data
   }catch{
     throw new Error("error")
@@ -188,18 +178,15 @@ async getAllSlots(id:string){
 //fetching slot details by status type
 
 async slotDetailsByOption(id:string,status:string){
-  console.log("status is===>",status)
   try {
        
     if (status === 'All') {
         let dta= await addagentslot.find({ agentId: id }).populate('bookedUserId').exec();
-        console.log(" All filtered data is==>",dta);
       
         return dta
         
     } else {
         let data = await addagentslot.find({ agentId: id, status: status }).populate('bookedUserId').exec();
-        console.log("filtered data is==>",data);
         return data;
     }
 
@@ -239,11 +226,9 @@ try{
     await usersModel.updateOne({_id:userId},{$set:{wallet:updatedamount}})
     let data=await addagentslot.find({agentId:agentId,status:'Confirmed'}).populate("bookedUserId")
 
-    console.log("confirmed data are===>", data)
   return data
   }
   let amount=Number(bookingamount*2/100*10)
-  console.log("slot cancel datas are",datas)
   await userBookingModel.updateOne({slotId:slotId},{$set:{status:status}});
   await addagentslot.updateOne({_id:slotId},{$set:{status:status,adminpaidAmount:amount}})
   let data=await addagentslot.find({agentId:agentId,status:"consulted"}).populate("bookedUserId")
@@ -280,10 +265,8 @@ async editAgent(data:any){
 
 // get all slot details from userslotbooking 
 async getAllSlotDetails(id:string){
-  console.log("repoId is", id)
   try{
     let data=await userBookingModel.find({agentId:id}).populate('agentId')
-    console.log("total data are==>",data)
     return data
   }catch{
     throw new Error("error fetching data")

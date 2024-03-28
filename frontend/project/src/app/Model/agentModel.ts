@@ -96,3 +96,49 @@ export interface BookingstausChange {
   __v: number;
   paymentstatus: string;
 }
+
+
+export interface getAllAgentBooking {
+  _id: string;
+  slotId: string;
+  agentId: {
+    _id: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    otp: number;
+    is_verified: boolean;
+    role: string;
+    is_blocked: boolean;
+    image: string;
+    category: string;
+    __v: number;
+    clubConnections: string;
+    experience: string;
+  };
+  userId: string;
+  time?: string; // Optional property
+  date: Date;
+  status: string;
+  paymentId: string;
+  bookingamount: string;
+  refundamount?: string; // Optional property
+  __v: number;
+}
+
+
+ export interface UserDetails {
+  id: string;
+  name: string;
+  email: string;
+  image: string;
+  verified: boolean;
+  category: string;
+  role: string;
+}
+
+export interface AuthResponse {
+  agenttoken: string;
+  userdetails: UserDetails;
+}

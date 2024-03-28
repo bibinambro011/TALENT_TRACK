@@ -5,16 +5,17 @@
     <div class="row">
         <!-- Chat Column -->
         <div class="col-md-8">
-            <div class="messages-container" >
-                <ul id="listOfMessages" #messageContainer class="messages">
-                    <li class="singleMessage" *ngFor="let message of messages" [ngClass]="{'sent': message.sender !== null, 'received': message.sender === null}">
-                        <span>{{ message.content }}   {{ message.createdAt | date: 'shortTime' }}</span>
+            <div class="messages-container">
+                <ul id="listOfMessages" #messageContainer class="messages" (scroll)="onScroll($event)">
+                    <li class="singleMessage" *ngFor="let message of copymessages" [ngClass]="{'sent': message.sender !== null, 'received': message.sender === null}">
+                        <span >{{ message.content }}  </span>
+                        <span style="font-size:x-small;">{{ message.createdAt | date: 'shortTime' }}</span>
+                      
                     </li>
                 </ul>
                 <!-- Add a loading indicator -->
-
             </div>
-            <form (ngSubmit)="onSubmit()" action=""> 
+            <form (ngSubmit)="onSubmit()" action="">
                 <div class="input-group mb-3">
                     <input class="form-control input" type="text" autocomplete="off" required [(ngModel)]="message" name="message">
                     <button type="submit" class="btn btn-outline-secondary button-css">Send</button>
@@ -31,6 +32,7 @@
         </div>
     </div>
 </div>
+
 <br><br>
 
 <app-footer></app-footer>

@@ -82,7 +82,6 @@ transactionpaginate(event:any){
     let currenpage=event.page 
     let count=event.first 
     let currentPageData:any= this.totaltransactions.slice(count, (currenpage + 1) * 5);
-    console.log("paginate",currentPageData)
     currentPageData.forEach((data:any)=>{
       this.transactions.push(data)
     })
@@ -92,7 +91,6 @@ defaulttransactionPaginate(){
   let currenpage=1
   let count=0
   let currentPageData:any= this.totaltransactions.slice(0,5);
-  console.log("paginate",currentPageData)
    currentPageData.forEach((data:any)=>{
     this.transactions.push(data)
   })
@@ -111,14 +109,7 @@ defaulttransactionPaginate(){
       })
       this.totalrecords = this.userbookings.flat()
        this.recordCount = this.totalrecords.length;
-      // .subscribe((res) => {
-      //   if (res) {
-      //     this.userbookings=res;
-      //   }
-      //   this.totalrecords = this.userbookings.flat()
-      //   this.recordCount = this.totalrecords.length;
-
-      // });
+     
     this.defaultPaginate()
   }
 
@@ -133,7 +124,6 @@ defaulttransactionPaginate(){
 
   editprofile() {
     
-    console.log("edited clicked==>",this.user)
     this.visibilityhandle;
     this.editMode = true;
     this.showprofile = true;
@@ -157,7 +147,6 @@ defaulttransactionPaginate(){
  await  this.userservice
       .userbookings(data, this.id)
       .toPromise().then((res:any)=>{
-        console.log("inside promise response data is==>", res)
         this.userbookings = [...res]
 
       })
@@ -207,7 +196,6 @@ defaulttransactionPaginate(){
   }
 
   initForm(): void {
-    console.log("user profile=>", this.user)
     this.uploadForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -284,23 +272,17 @@ defaulttransactionPaginate(){
     let currenpage=event.page 
     let count=event.first 
     let currentPageData:any= this.totalrecords.slice(count, (currenpage + 1) * 5);
-    console.log("paginate",currentPageData)
      currentPageData.forEach((data:any)=>{
       this.userbookings.push(data)
     })
    
-    //event.first = Index of the first record
-    //event.rows = Number of rows to display in new page
-    //event.page = Index of the new page
-    //event.pageCount = Total number of pages
+   
 }
 defaultPaginate(){
   this.userbookings=[]
     let currenpage=1;
     let count=5
-    console.log("total records are==>", this.totalrecords.length)
     let currentPageData:any= this.totalrecords.slice(0,5);
-console.log("default paginate==>",currentPageData)
      currentPageData.forEach((data:any)=>{
       this.userbookings.push(data)
     })

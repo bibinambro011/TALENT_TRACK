@@ -29,7 +29,6 @@ export class adminRepository{
     async blockuser(email:any){
         try{
             const data:any=await usersModel.findOne({email:email})
-            console.log("user in repository===>",data)
             if(data.is_blocked){
                 data.is_blocked=false;
                 data.save();
@@ -46,7 +45,6 @@ export class adminRepository{
     async blockagent(email:any){
         try{
             const data:any=await agentModel.findOne({email:email})
-            console.log("user in repository===>",data)
             if(data.is_blocked){
                 data.is_blocked=false;
                 data.save();
@@ -63,7 +61,6 @@ export class adminRepository{
     async verifyagent(email:any){
         try{
             const data:any=await agentModel.findOne({email:email})
-            console.log("user in repository===>",data)
             if(data.is_verified){
                 data.is_verified=false;
                 data.save();
@@ -99,7 +96,6 @@ export class adminRepository{
     
             // Use the regular expression to find agents
             const agents = await usersModel.find({ firstName: nameRegex });
-            console.log("agents are==>", agents)
             
             return agents;
         } catch (error:any) {
@@ -110,7 +106,6 @@ export class adminRepository{
     async  AllSlots() {
         try {
             let data= await addagentslot.find().populate('bookedUserId').populate("agentId")
-            console.log(data)
             return data
         } catch (error: any) {
             throw new Error(error);
@@ -122,7 +117,6 @@ export class adminRepository{
     async  addDefaultSlots(data: any) {
         try {
             const { startdate, enddate, time, agentId } = data;
-            console.log("data is ==>", data);
             
             // Convert startdate and enddate to Date objects
             const startDate = new Date(startdate);
@@ -130,7 +124,6 @@ export class adminRepository{
     
             // Loop through each date within the provided range
             for (let currentDate = new Date(startDate); currentDate.getTime() <= endDate.getTime(); currentDate.setDate(currentDate.getDate() + 1)) {
-                console.log("inside loop");
     
                 // Construct data for the current date
                 const dataForCurrentDate = {
@@ -144,7 +137,6 @@ export class adminRepository{
     
                 // Create a document for the current date
                 let res = await addagentslot.create(dataForCurrentDate);
-                console.log("result is ==>", res);
             }
     
             return "successfully added";
@@ -158,7 +150,6 @@ export class adminRepository{
     async  confirmedslots() {
         try {
             let data= await addagentslot.find({booked:true}).populate('bookedUserId').populate("agentId")
-            console.log(data)
             return data
         } catch (error: any) {
             throw new Error(error);

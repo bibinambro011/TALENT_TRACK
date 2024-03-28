@@ -32,7 +32,7 @@ export class RevenueComponent {
 
   async totalappointments() {
     await this.service.getAllslotDetails(this.agentId).toPromise().then((res) => {
-      this.allappointments = [...res].flat()
+      this.allappointments = res
       this.appointmentcount = this.allappointments.length;
       if(this.allappointments instanceof Array){
      

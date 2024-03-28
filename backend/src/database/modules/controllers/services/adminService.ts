@@ -32,7 +32,6 @@ export class adminService{
     }
     async blockuser(email:any){
         try{
-            console.log("user id in service",email)
             return adminrepository.blockuser(email)
 
         }catch(error){
@@ -41,7 +40,6 @@ export class adminService{
     }
     async blockagent(email:any){
         try{
-            console.log("user id in service",email)
             return adminrepository.blockagent(email)
 
         }catch(error){
@@ -50,7 +48,6 @@ export class adminService{
     }
     async verifyagent(email:any){
         try{
-            console.log("user id in service",email)
             return adminrepository.verifyagent(email)
 
         }catch(error){

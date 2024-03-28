@@ -35,7 +35,6 @@ export class AgentProfilePageComponent implements OnDestroy {
       experience: [this.agentdetails.experience],
       clubConnections: [this.agentdetails.clubConnections,],
     });
-    console.log('agent details are===>', this.agentdetails);
   }
   onSubmit() {
     if (this.profileForm.valid) {
@@ -63,11 +62,9 @@ export class AgentProfilePageComponent implements OnDestroy {
       'clubConnections',
       this.profileForm.get('clubConnections')?.value.toLowerCase()
     );
-    console.log('form data is===>', formData);
     this.service.editAgent(formData).subscribe((result) => {
       if (result) {
-        console.log("edited details are===>", result)
-        this.agentdetails = [];
+      this.agentdetails = [];
         if(result instanceof Array) 
         result.forEach((data: any) => {
           (this.agentdetails.firstName = data.firstName),

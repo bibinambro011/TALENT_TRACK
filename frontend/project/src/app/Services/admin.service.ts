@@ -24,15 +24,16 @@ export class AdminService {
     return this.http.get<any>(`${this.api}/admin/getAllAgentsByCount?count=${count}&page=${page}`)
   }
 
-  userBlock(data:any):Observable<any>{
-    return this.http.post<any>(`${this.api}/admin/blokUser`,data)
+  userBlock(data:any):Observable<adminUser>{
+    return this.http.post<adminUser>(`${this.api}/admin/blokUser`,data)
   }
-  agentBlock(data:any):Observable<any>{
-    return this.http.post<any>(`${this.api}/admin/blokagent`,data)
+  agentBlock(data:any):Observable<adminAgent>{
+    return this.http.post<adminAgent>(`${this.api}/admin/blokagent`,data)
   }
-  agentVerify(data:any):Observable<adminAgent>{
-    return this.http.post<adminAgent>(`${this.api}/admin/agentVerify`,data)
+  confirmedslots():Observable<any>{
+    return this.http.get<any>(`${this.api}/admin/confirmedslots`)
   }
+  
   adddefaultslot(data:any):Observable<any>{
     return this.http.post<any>(`${this.api}/admin/adddefaultslot`,data)
   }
@@ -47,8 +48,8 @@ export class AdminService {
     return this.http.get<adminBooking>(`${this.api}/admin/AllSlots`)
   }
   
-  confirmedslots():Observable<any>{
-    return this.http.get<any>(`${this.api}/admin/confirmedslots`)
+  
+  agentVerify(data:any):Observable<adminAgent>{
+    return this.http.post<adminAgent>(`${this.api}/admin/agentVerify`,data)
   }
-
 }
