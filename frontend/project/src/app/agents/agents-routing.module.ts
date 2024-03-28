@@ -18,7 +18,7 @@ import { VideochatComponent } from './videochat/videochat.component';
 
 const routes: Routes = [
   {
-    path: 'agent',
+    path: '',
     children: [
       { path: '', component: AgentRegisterComponent },
       { path: 'agentregister', component: AgentRegisterComponent },
@@ -49,9 +49,11 @@ const routes: Routes = [
         canActivate: [agentauthGuard],
       },
       {path:'agentvideocall/:roomId', component:VideochatComponent},
-      {path:'agent-chat',component:ChatComponent}
+      {path:'agent-chat',component:ChatComponent},
+     
     ],
   },
+  
 ];
 
 @NgModule({
