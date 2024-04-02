@@ -20,13 +20,13 @@ const server = http.createServer(app);
 const io = new SocketIOServer(server, {
   pingTimeout:10000,
   cors: {
-    origin: "http://localhost:4200",
+    origin: "https://rihannasrave.online",
   },
 });
 
 // Middleware
 app.use(express.json());
-app.use(cors({ origin: 'http://localhost:4200' }));
+app.use(cors({ origin: 'https://rihannasrave.online' }));
 app.use('/image', express.static(path.join(__dirname, 'image')));
 app.use(errorHandlingMiddleware);
 
