@@ -1,15 +1,15 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
-interface slotaddinterface extends Document {
-  agentId: mongoose.Types.ObjectId;
-  date: Date;
-  time: string;
-  booked:boolean;
-  bookedUserId:mongoose.Types.ObjectId;
-  adminpaidAmount:string
+// interface slotaddinterface extends Document {
+//   agentId: mongoose.Types.ObjectId;
+//   date: Date;
+//   time: string;
+//   booked:boolean;
+//   bookedUserId:mongoose.Types.ObjectId;
+//   adminpaidAmount:string
 
 
-}
+// }
 
 const agentslotadd: Schema = new Schema({
   agentId: {
@@ -51,6 +51,6 @@ const agentslotadd: Schema = new Schema({
 
 });
 
-const addagentslot = mongoose.model<slotaddinterface>('agentslotadd', agentslotadd);
+const addagentslot = mongoose.model<any>('agentslotadd', agentslotadd);
 
 export default addagentslot;
