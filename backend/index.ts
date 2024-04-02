@@ -20,13 +20,13 @@ const server = http.createServer(app);
 const io = new SocketIOServer(server, {
   pingTimeout:10000,
   cors: {
-    origin: "https://talent-track-frontend-one.vercel.app/",
+    origin: "https://talent-track-frontend-one.vercel.app",
   },
 });
 
 // Middleware
 app.use(express.json());
-app.use(cors({ origin: 'https://talent-track-frontend-one.vercel.app/' }));
+app.use(cors({ origin: 'https://talent-track-frontend-one.vercel.app' }));
 app.use('/image', express.static(path.join(__dirname, 'image')));
 app.use(errorHandlingMiddleware);
 
