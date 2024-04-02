@@ -8,6 +8,9 @@ import { UserService } from 'src/app/Services/user.service';
 import Swal from 'sweetalert2';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import * as XLSX from "xlsx"
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 
 @Component({
@@ -281,5 +284,26 @@ defaultPaginate(){
       this.userbookings.push(data)
     })
    
+}
+filename:string="excelsheet.xlsx"
+downloadexcel(){
+  console.log("excel file clicked")
+let data=document.getElementById("table-data")
+const ws:XLSX.WorkSheet=XLSX.utils.table_to_sheet(data)
+const wb:XLSX.WorkBook=XLSX.utils.book_new()
+XLSX.utils.book_append_sheet(wb,ws,"shhet1")
+XLSX.writeFile(wb,this.filename)
+}
+public openPDF(): void {
+  let DATA: any = document.getElementById('table-data');
+  html2canvas(DATA).then((canvas:any) => {
+    let fileWidth = 208;
+    let fileHeight = (canvas.height * fileWidth) / canvas.width;
+    const FILEURI = canvas.toDataURL('image/png');
+    let PDF = new jsPDF('p', 'mm', 'a4');
+    let position = 0;
+    PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
+    PDF.save('angular-demo.pdf');
+  });
 }
 }

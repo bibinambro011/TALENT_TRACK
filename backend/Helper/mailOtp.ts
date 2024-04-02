@@ -6,6 +6,7 @@ const generateOtp = () => {
 
 const generateMail = async (email:string) => {
     const otp = generateOtp();
+    console.log("otp is =>",otp)
     const transporter = nodemailer.createTransport({
         service: 'Gmail',
         auth: {

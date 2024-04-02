@@ -13,12 +13,12 @@ const adminservice = new adminService();
 // creating adminController
 export class adminController {
   async adminlogin(req: Request, res: Response) {
-    let data: userlog = req.body;
-    const result = await adminservice.adminlogin(data);
+    let userlogdata: userlog = req.body;
+    const loginresult = await adminservice.adminlogin(userlogdata);
     try {
-      if (result[0]) {
-        if (result[0].password == data.password) {
-         let admintoken=jwt.sign(data.email,secret)
+      if (loginresult[0]) {
+        if (loginresult[0].password == userlogdata.password) {
+         let admintoken=jwt.sign(userlogdata.email,secret)
           res.status(200).json(admintoken);
         } else {
           res.status(401).json("invalid credentials");
@@ -34,9 +34,9 @@ export class adminController {
 
   async getuserdata(req: Request, res: Response) {
     try {
-      const data = await adminservice.getuserdata();
-      if (data) {
-        res.status(200).json(data);
+      const userdatadata = await adminservice.getuserdata();
+      if (userdatadata) {
+        res.status(200).json(userdatadata);
       }
     } catch (error) {
       throw new Error("invalid");

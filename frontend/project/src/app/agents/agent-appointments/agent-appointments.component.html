@@ -1,4 +1,6 @@
-<div class="container">
+<div class="container"><br><br>
+  <button class="btn btn-secondary" (click)="downloadexcel()">downloadreport </button>
+
   <h2 class="header">Appointment Details</h2>
 
   <div class="search-input">
@@ -13,7 +15,7 @@
   </div>
 
   <div class="table-container">
-    <table class="table table-striped table-dark appointment-table">
+    <table class="table table-striped table-dark appointment-table" id="table-data">
       <!-- Table headers -->
       <thead>
         <tr>
