@@ -40,16 +40,16 @@ const routes: Routes = [
         canActivate: [agentauthGuard],
       },
 
-      { path: 'agent-appointments', component: AgentAppointmentsComponent },
-      { path: 'agent-defaultslotadd', component: DefaultsloatComponent },
-      { path: 'agent-dashboard', component: AgentDashboardComponent },
+      { path: 'agent-appointments', component: AgentAppointmentsComponent,canActivate: [agentauthGuard] },
+      { path: 'agent-defaultslotadd', component: DefaultsloatComponent,canActivate: [agentauthGuard] },
+      { path: 'agent-dashboard', component: AgentDashboardComponent,canActivate: [agentauthGuard] },
       {
         path: 'agent-profile-page',
         component: AgentProfilePageComponent,
         canActivate: [agentauthGuard],
       },
-      {path:'agentvideocall/:roomId', component:VideochatComponent},
-      {path:'agent-chat',component:ChatComponent},
+      {path:'agentvideocall/:roomId', component:VideochatComponent,canActivate: [agentauthGuard]},
+      {path:'agent-chat',component:ChatComponent,canActivate: [agentauthGuard]},
      
     ],
   },

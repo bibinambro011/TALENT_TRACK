@@ -155,6 +155,10 @@
 
 <!-- show Appointments -->
 <div class="container" *ngIf="showappointments">
+  <button class="btn btn-secondary" (click)="downloadexcel()">generate Excel</button> <br>
+  
+    <button class="btn btn-success btn-block" (click)="openPDF()">Download PDF</button>
+
   <h1 class="header">Appointments</h1>
 
   <div class="flex items-center mb-4">
@@ -173,7 +177,7 @@
   </div>
 
   <div class="user-table">
-    <table class="table table-striped table-dark">
+    <table class="table table-striped table-dark" id="table-data">
       <thead>
         <tr>
           <th scope="col">Date</th>

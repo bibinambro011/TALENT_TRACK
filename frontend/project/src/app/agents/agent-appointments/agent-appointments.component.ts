@@ -3,6 +3,8 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { AgentService } from 'src/app/Services/agent.service';
 import { getAgentInfo } from 'src/app/store/userStore/agentStore/agectSelector';
+import * as XLSX from "xlsx"
+
 
 @Component({
   selector: 'app-agent-appointments',
@@ -129,4 +131,13 @@ async  bookingsStatus(data: string) {
       this.slots.push(data)
     })
   }
+  filename:string="excelsheet.xlsx"
+downloadexcel(){
+  console.log("excel file clicked")
+let data=document.getElementById("table-data")
+const ws:XLSX.WorkSheet=XLSX.utils.table_to_sheet(data)
+const wb:XLSX.WorkBook=XLSX.utils.book_new()
+XLSX.utils.book_append_sheet(wb,ws,"shhet1")
+XLSX.writeFile(wb,this.filename)
+}
 }

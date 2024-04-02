@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { AdminService } from 'src/app/Services/admin.service';
+import * as XLSX from "xlsx"
+
 
 @Component({
   selector: 'app-admin-appointments',
@@ -47,5 +49,14 @@ constructor(private service:AdminService){
      currentPageData.forEach((data:any)=>{
       this.addedslots.push(data)
     })
+  }
+  filename:string="excelsheet.xlsx"
+  downloadexcel(){
+    console.log("excel file clicked")
+  let data=document.getElementById("table-data")
+  const ws:XLSX.WorkSheet=XLSX.utils.table_to_sheet(data)
+  const wb:XLSX.WorkBook=XLSX.utils.book_new()
+  XLSX.utils.book_append_sheet(wb,ws,"shhet1")
+  XLSX.writeFile(wb,this.filename)
   }
 }

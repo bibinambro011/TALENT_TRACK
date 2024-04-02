@@ -121,7 +121,9 @@ export class AgentProfilePageComponent implements OnDestroy {
         }
       });
     this.initeditprofile();
+    
   }
+ 
   editfunction(){
     this.initeditprofile()
   }
