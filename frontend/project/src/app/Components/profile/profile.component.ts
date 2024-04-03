@@ -76,6 +76,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       id:this.id
     }
     console.log("dateobj is==>", dateobj)
+    console.log(typeof(this.date))
    await this.userservice.appontmentfilterbydate(this.date,this.endDate,this.bookingstatus,this.id).toPromise().then((res:any)=>{
     this.userbookings = [...res]
 
@@ -171,6 +172,7 @@ defaulttransactionPaginate(){
     this.footervisible=true
   }
  async bookings(data: string) {
+  this.bookingstatus=data
     this.visibilityhandle();
     this.showappointments = true;
     this.userbookings = [];
