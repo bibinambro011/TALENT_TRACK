@@ -375,5 +375,22 @@ export class UserController {
       throw new Error(error)
     }
   }
+  async filterappointmentbydate(req:Request, res:Response){
+    let startdate=req.query.startdate as string
+    let enddate=req.query.enddate as string
+    let id=req.query.id as string
+    let status=req.query.status as string
+    try{
+      let data=await userService.filterappointmentbydate(startdate,enddate,id,status)
+      if(data){
 
+
+        res.status(200).json(data)
+      }else{
+        res.status(400).json("error fetching transactions")
+      }
+    }catch(error:any){
+      throw new Error(error)
+    }
+  }
 }

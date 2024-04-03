@@ -171,4 +171,12 @@ export class UserService {
       throw new Error(error)
     }
   }
+
+  async filterappointmentbydate(startdate:string, enddate:string,id:any,status:any){
+    try{
+      return await userRepository.filterappointmentbydate(startdate,enddate,id,status)
+    }catch(error:any){
+      throw new Error(error)
+    }
+  }
 }
