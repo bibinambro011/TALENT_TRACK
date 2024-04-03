@@ -363,7 +363,18 @@ async userTransactionHistory(userId:string){
 }
 
 async filterappointmentbydate(startdate:any,endDate:any,id:any,status:any){
+  console.log(startdate, endDate, id, status)
+ 
   try{
+    if(status=="All"){
+      let result= await userBookingModel.find({
+        userId: id,
+        
+          date: { $gt: startdate, $lt: endDate }
+        });
+      
+        return result
+    }
    let result= await userBookingModel.find({
     userId: id,
       status: status,
