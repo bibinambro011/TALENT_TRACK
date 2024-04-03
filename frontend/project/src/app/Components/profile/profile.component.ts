@@ -39,6 +39,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   transactionCount!:number;
   totaltransactions:any;
+  bookingstatus:string="All"
+  date: Date | undefined = new Date();
+  
+  mindate = new Date();
+
+  endDate:Date |undefined=new Date()
+
 
 
   transactions:any=[]
@@ -59,6 +66,26 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.eventdata.emit('data send from profile component');
     localStorage.removeItem('token');
     this.router.navigate(['/user/login']);
+  }
+  async filterdates(){
+    console.log('filterdates==>', this.date, this.endDate,this.id, this.bookingstatus)
+    let dateobj={
+      startdate:this.date,
+      endDate:this.endDate,
+      status:this.bookingstatus,
+      id:this.id
+    }
+    console.log("dateobj is==>", dateobj)
+   await this.userservice.appontmentfilterbydate(this.date,this.endDate,this.bookingstatus,this.id).toPromise().then((res:any)=>{
+    this.userbookings = [...res]
+
+  })
+  this.totalrecords = this.userbookings
+ this.recordCount=this.totalrecords.length
+  this.defaultPaginate()
+
+  
+    // this.userbookings = [...data];
   }
 
  async dashboard() {

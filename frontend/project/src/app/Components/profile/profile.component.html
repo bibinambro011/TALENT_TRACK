@@ -158,6 +158,38 @@
   <button class="btn btn-secondary" (click)="downloadexcel()">generate Excel</button> <br>
   
     <button class="btn btn-success btn-block" (click)="openPDF()">Download PDF</button>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div class="max-w-md flex flex-col">
+        <label for="start-date" class="block text-lg font-medium text-gray-700 mb-4">Select the start date</label>
+        <div class="flex items-center mb-6 ml-6">
+          <p-calendar
+            [(ngModel)]="date"
+            #selecteddate
+            [minDate]="mindate"
+            dateFormat="dd/mm/yy"
+            [readonlyInput]="true"
+            dataType="string"
+            class="w-full bg-gray-100 rounded-md p-2"
+          ></p-calendar>
+        </div>
+      </div>
+      <div class="max-w-md flex flex-col">
+        <label for="end-date" class="block text-lg font-medium text-gray-700 mb-4">Select the ending date</label>
+        <div class="flex items-center mb-6">
+          <p-calendar
+            [(ngModel)]="endDate"
+            #enddate
+            [minDate]="mindate"
+            dateFormat="dd/mm/yy"
+            [readonlyInput]="true"
+            dataType="string"
+            class="w-full bg-gray-100 rounded-md p-2"
+          ></p-calendar>
+        </div>
+      </div>
+    </div>
+    
+    <button class="btn btn-primary mt-4 md:mt-0" (click)="filterdates()">Submit</button>
 
   <h1 class="header">Appointments</h1>
 
